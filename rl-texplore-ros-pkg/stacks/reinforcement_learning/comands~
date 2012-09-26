@@ -1,0 +1,13 @@
+roscore
+
+roscd rl_env
+rosmake rl_env
+rosrun rl_agent agent --agent texplore --planner parallel-uct --actrate 3
+
+roscd rl_env
+rosrun rl_env env --env arcade
+
+todo:
+	no GUI
+	github repo
+	incorporate emailed code to improve memory perf
