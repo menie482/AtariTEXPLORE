@@ -645,12 +645,14 @@ void ParallelETUCT::resetAndUpdateStateActions(){
       if (info->needsUpdate || info->historyModel[j].size() > CLEAR_SIZE){
         updateStateActionFromModel(s, j, info);
       }
+      /*
       else {
         // remove it as unnecessary
         deleteInfo(info);
         statespace.erase(i++);
         statedata.erase(s);
       }
+      */
     }
     info->needsUpdate = false;
     pthread_mutex_unlock(&info->stateinfo_mutex);

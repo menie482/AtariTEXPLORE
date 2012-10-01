@@ -1,13 +1,11 @@
-/** \file FuelRooms.hh
-    Defines the Fuel World domain, with possible noise.
-    From the paper:
-    Hester and Stone, "Real Time Targeted Exploration in Large Domains", ICDL 2010.
-    \author Todd Hester
+/** \file Arcade.hh
+    Defines the Arcade Learning Environment domain
+    \author Chris Donahue
 */
 
-#include <set>
 #include <rl_common/core.hh>
-#include "../ale/src/ale_interface.hpp"
+//#include "../ale/src/ale_interface.hpp"
+#include "ale_interface.hpp"
 #include <stdio.h>
 
 /** This class defines the Atari Arcade domain */

@@ -27,7 +27,7 @@ Arcade::Arcade(string _rom_file) :
 
   // init state
 	state.clear();
-  for(int i = 0; i<RAM_LENGTH; i++) {
+  for(int i = 0; i<RAM_LENGTH/8; i++) {
   	state.push_back((float) ale.ram_content.at(i));
   }
 }
@@ -39,7 +39,8 @@ const std::vector<float> &Arcade::sensation() const {
 	return state;
 }
 
-float Arcade::apply(int action) {	
+float Arcade::apply(int action) {
+	int framesPerAction = 10;
 	Action a;
 
 	if (action == 0) {
@@ -97,8 +98,8 @@ float Arcade::apply(int action) {
 		a = PLAYER_A_DOWNLEFTFIRE;
 	}
 	
-	float reward;
-	for (int i = 0; i < 20; i++) {
+	float reward = 0;
+	for (int i = 0; i < framesPerAction; i++) {
 		reward += ale.act(a);
 		game_over = ale.game_over();
 		if (game_over) {
@@ -106,8 +107,11 @@ float Arcade::apply(int action) {
 		}
 	}
 
+	if (reward != 0)
+			printf("reward: %f\n", reward);
+
 	state.clear();
-  for(int i = 0; i<RAM_LENGTH; i++) {
+  for(int i = 0; i<RAM_LENGTH/8; i++) {
   	state.push_back((float) ale.ram_content.at(i));
   }
 
@@ -138,8 +142,8 @@ std::vector<experience> Arcade::getSeedings() {
 
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
-  minFeat->resize(RAM_LENGTH, 0.0);
-  maxFeat->resize(RAM_LENGTH, 255.0);
+  minFeat->resize(RAM_LENGTH/8, 0.0);
+  maxFeat->resize(RAM_LENGTH/8, 255.0);
 }
 
 void Arcade::getMinMaxReward(float *minR,
