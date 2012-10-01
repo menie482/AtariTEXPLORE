@@ -19,7 +19,7 @@ Arcade::Arcade(string _rom_file) :
   }
 
   // Initialize Atari Stuff
-  if (!ale.loadROM(rom_file.c_str(), display_active, false)) {
+  if (!ale.loadROM(rom_file.c_str(), display_active, true)) {
       cerr << "Ale had problem loading rom..." << endl;
       exit(-1);
   }
