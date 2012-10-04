@@ -284,6 +284,22 @@ public:
         assert(process_screen && visProc);
         return visProc->get_self_centroid();
     };
+    
+    // Returns a vector of (x,y) pixel locations of the centroids of any
+    // identified objects that aren't the self
+    vector<point> getNonSelfObjLocations() const {
+    	vector<point> v;
+    	point my_centroid = visProc->get_self_centroid();
+    	
+			for (map<long,CompositeObject>::iterator it=visProc->composite_objs.begin(); it!=visProc->composite_objs.end(); it++) {
+				CompositeObject& o = it->second;
+    		point obj_centroid = o.get_centroid();
+     		if (!(my_centroid.x == obj_centroid.x && my_centroid.y == obj_centroid.y))
+    			v.push_back(obj_centroid);
+    	}
+
+    	return v;
+    }
 
     // Returns a pointer to the vector of object classes. Each object
     // class may or may not contain objects on screen. See Prototype

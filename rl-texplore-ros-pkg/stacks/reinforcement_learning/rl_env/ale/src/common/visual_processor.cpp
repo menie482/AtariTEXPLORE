@@ -521,13 +521,13 @@ void VisualProcessor::process_image(const IntMatrix* screen_matrix, Action actio
         merge_objects(.96);
 
         // Identify which object we are
-        // identify_self();
-        //manual_self.find_matching_objects(.99, composite_objs);
+        //identify_self();
+        manual_self.find_matching_objects(.99, composite_objs);
 
         // Assign objects to the saved obj class files
         //for (int i=0; i<manual_obj_classes.size(); ++i)
         //    manual_obj_classes[i].find_matching_objects(.99, composite_objs);
-        printf("Found %d objects, %d blobs!\n", obj_classes.size(), curr_blobs.size());
+        //printf("Found %d objects, %d blobs!\n", obj_classes.size(), curr_blobs.size());
     }
 
     // Save State and action history

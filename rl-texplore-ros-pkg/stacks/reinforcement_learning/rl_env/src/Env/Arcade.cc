@@ -8,7 +8,7 @@
 #include <rl_env/Arcade.hh>
 
 Arcade::Arcade(string _rom_file) :
-	rom_file(""), numActions(0), display_active(true), game_over(false), state(RAM_LENGTH)
+	rom_file(""), numActions(0), display_active(true), game_over(false), stateSpaceLength(4), state(stateSpaceLength)
 {
 	rom_file = _rom_file;
   // Check that rom exists and is readable
@@ -27,8 +27,8 @@ Arcade::Arcade(string _rom_file) :
 
   // init state
 	state.clear();
-  for(int i = 0; i<RAM_LENGTH/8; i++) {
-  	state.push_back((float) ale.ram_content.at(i));
+  for(int i = 0; i<stateSpaceLength; i++) {
+  	state.push_back(-1);
   }
 }
 
@@ -40,7 +40,7 @@ const std::vector<float> &Arcade::sensation() const {
 }
 
 float Arcade::apply(int action) {
-	int framesPerAction = 10;
+	int framesPerAction = 3;
 	Action a;
 
 	if (action == 0) {
@@ -110,10 +110,32 @@ float Arcade::apply(int action) {
 	if (reward != 0)
 			printf("reward: %f\n", reward);
 
+	// do self state
 	state.clear();
-  for(int i = 0; i<RAM_LENGTH/8; i++) {
-  	state.push_back((float) ale.ram_content.at(i));
-  }
+	point selfLoc = ale.getSelfLocation();
+	state.push_back(selfLoc.x);
+	state.push_back(selfLoc.y);
+
+	// do radar state
+	state.push_back(0);
+	state.push_back(0);
+	vector<point> objLocations = ale.getNonSelfObjLocations();
+	for (int i = 0; i < objLocations.size(); i++) {
+		point objLoc = objLocations[i];
+		int xdist = abs(objLoc.x - selfLoc.x);
+		int ydist = abs(objLoc.y - selfLoc.y);
+		
+		if (xdist < 10)
+			state[2] = 1;
+		if (ydist < 10)
+			state[3] = 1;
+	}
+	if (objLocations.size() == 0) {
+		state[2] = -1;
+		state[3] = -1;
+	}
+	
+	printf("STATE: %f, %f, %f, %f\n", state[0], state[1], state[2], state[3]);
 
 	if (game_over)
 		return 0.0;
@@ -130,7 +152,7 @@ void Arcade::reset() {
 	ale.reset_game();
 }
 
-int Arcade::getNumActions(){
+int Arcade::getNumActions() {
   return numActions;
 }
 
@@ -142,8 +164,8 @@ std::vector<experience> Arcade::getSeedings() {
 
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
-  minFeat->resize(RAM_LENGTH/8, 0.0);
-  maxFeat->resize(RAM_LENGTH/8, 255.0);
+  minFeat->resize(stateSpaceLength, -1);
+  maxFeat->resize(stateSpaceLength, 192);
 }
 
 void Arcade::getMinMaxReward(float *minR,

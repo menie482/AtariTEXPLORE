@@ -7,6 +7,7 @@
 //#include "../ale/src/ale_interface.hpp"
 #include "ale_interface.hpp"
 #include <stdio.h>
+#include <cmath>
 
 /** This class defines the Atari Arcade domain */
 class Arcade: public Environment {
@@ -38,6 +39,7 @@ protected:
 	int numActions;
 	bool display_active;
 	bool game_over;
+  const int stateSpaceLength;
 	
 	int numEpisodes;
 	
