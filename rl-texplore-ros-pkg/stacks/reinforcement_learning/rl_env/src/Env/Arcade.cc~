@@ -8,7 +8,7 @@
 #include <rl_env/Arcade.hh>
 
 Arcade::Arcade(string _rom_file) :
-	rom_file(""), numActions(0), display_active(true), game_over(false), state(RAM_LENGTH)
+	rom_file(""), numActions(0), totalScore(0), display_active(true), game_over(false), stateSpaceLength(6), state(stateSpaceLength)
 {
 	rom_file = _rom_file;
   // Check that rom exists and is readable
@@ -19,7 +19,7 @@ Arcade::Arcade(string _rom_file) :
   }
 
   // Initialize Atari Stuff
-  if (!ale.loadROM(rom_file.c_str(), display_active, false)) {
+  if (!ale.loadROM(rom_file.c_str(), display_active, true)) {
       cerr << "Ale had problem loading rom..." << endl;
       exit(-1);
   }
@@ -27,8 +27,8 @@ Arcade::Arcade(string _rom_file) :
 
   // init state
 	state.clear();
-  for(int i = 0; i<RAM_LENGTH; i++) {
-  	state.push_back((float) ale.ram_content.at(i));
+  for(int i = 0; i<stateSpaceLength; i++) {
+  	state.push_back(-1);
   }
 }
 
@@ -39,7 +39,8 @@ const std::vector<float> &Arcade::sensation() const {
 	return state;
 }
 
-float Arcade::apply(int action) {	
+float Arcade::apply(int action) {
+	int framesPerAction = 3;
 	Action a;
 
 	if (action == 0) {
@@ -97,19 +98,68 @@ float Arcade::apply(int action) {
 		a = PLAYER_A_DOWNLEFTFIRE;
 	}
 	
-	float reward;
-	for (int i = 0; i < 20; i++) {
+	float reward = 0;
+	for (int i = 0; i < framesPerAction; i++) {
 		reward += ale.act(a);
 		game_over = ale.game_over();
 		if (game_over) {
 			break;
 		}
 	}
+	totalScore += reward;
+	if (game_over)
+		printf("Game over! Total score was %d.\n", totalScore);
 
+	if (reward != 0)
+		printf("reward: %f\n", reward);
+
+	// do self state
 	state.clear();
-  for(int i = 0; i<RAM_LENGTH; i++) {
-  	state.push_back((float) ale.ram_content.at(i));
-  }
+	point selfLoc = ale.getSelfLocation();
+	state.push_back(selfLoc.x);
+	state.push_back(selfLoc.y);
+
+	// do radar state
+	state.push_back(0); // sense in front
+	state.push_back(0); // sense behind
+	state.push_back(0); // sense to the left
+	state.push_back(0); // sense to the right
+	
+	// negative reward for lack of info
+	if (state[0] == -1)
+		reward = -1;
+	
+	vector<point> objLocations = ale.getNonSelfObjLocations();
+	for (int i = 0; i < objLocations.size(); i++) {
+		point objLoc = objLocations[i];
+		int xdist = selfLoc.x - objLoc.x;
+		int ydist = selfLoc.y - objLoc.y;
+		
+		if (abs(xdist) <= 10) {
+			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == 0)) {
+				state[2] = abs(ydist);
+			}
+			else if (ydist < 0 && (abs(ydist) < state[3] || state[3] == 0)) {
+				state[3] = abs(ydist);
+			}
+		}
+		if (abs(ydist) <= 10) {
+			if (xdist >= 0 && (abs(xdist) < state[4] || state[4] == 0)) {
+				state[4] = abs(xdist);
+			}
+			else if (xdist < 0 && (abs(xdist) < state[5] || state[5] == 0)) {
+				state[5] = abs(xdist);
+			}
+		}
+	}
+	if (objLocations.size() == 0) {
+		state[2] = -1;
+		state[3] = -1;
+		state[4] = -1;
+		state[5] = -1;
+	}
+	
+	printf("STATE: %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5]);
 
 	if (game_over)
 		return 0.0;
@@ -126,7 +176,7 @@ void Arcade::reset() {
 	ale.reset_game();
 }
 
-int Arcade::getNumActions(){
+int Arcade::getNumActions() {
   return numActions;
 }
 
@@ -138,8 +188,8 @@ std::vector<experience> Arcade::getSeedings() {
 
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
-  minFeat->resize(RAM_LENGTH, 0.0);
-  maxFeat->resize(RAM_LENGTH, 255.0);
+  minFeat->resize(stateSpaceLength, -1);
+  maxFeat->resize(stateSpaceLength, 192);
 }
 
 void Arcade::getMinMaxReward(float *minR,

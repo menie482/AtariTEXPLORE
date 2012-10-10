@@ -113,9 +113,14 @@ void initEnvironment(){
     e = new CartPole(rng, stochastic);
   }
   
-  else if (strcmp(envType, "arcade") == 0){
+  else if (strcmp(envType, "arcadeCentipede") == 0){
     desc.title = "Environment: Arcade\n";
     e = new Arcade("/home/cdonahue/research/svn/rl-texplore-ros-pkg/stacks/reinforcement_learning/rl_env/ale/ROMs/centipede.bin");
+  }
+  
+  else if (strcmp(envType, "arcadeFreeway") == 0){
+    desc.title = "Environment: Arcade\n";
+    e = new Arcade("/home/cdonahue/research/svn/rl-texplore-ros-pkg/stacks/reinforcement_learning/rl_env/ale/ROMs/freeway.bin");
   }
 
   else if (strcmp(envType, "mcar") == 0){

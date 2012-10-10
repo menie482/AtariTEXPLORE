@@ -37,12 +37,12 @@ protected:
 
 	string rom_file;
 	int numActions;
+	long totalScore;
 	bool display_active;
 	bool game_over;
   const int stateSpaceLength;
 	
 	int numEpisodes;
-	
 
 private:
   std::vector<float> state;

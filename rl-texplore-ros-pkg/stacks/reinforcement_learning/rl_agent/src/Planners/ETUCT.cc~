@@ -406,12 +406,14 @@ void ETUCT::planOnNewModel(){
         }
         info->needsUpdate = false;
       }
+      /*
       else {
         // remove it as unnecessary
         deleteInfo(info);
         statespace.erase(i++);
         statedata.erase(s);
       }
+      */
     }
     lastUpdate = nactions;
   }

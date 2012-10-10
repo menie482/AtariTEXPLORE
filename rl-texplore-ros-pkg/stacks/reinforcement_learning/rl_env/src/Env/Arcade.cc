@@ -8,7 +8,7 @@
 #include <rl_env/Arcade.hh>
 
 Arcade::Arcade(string _rom_file) :
-	rom_file(""), numActions(0), display_active(true), game_over(false), stateSpaceLength(4), state(stateSpaceLength)
+	rom_file(""), numActions(0), totalScore(0), display_active(true), game_over(false), stateSpaceLength(6), state(stateSpaceLength)
 {
 	rom_file = _rom_file;
   // Check that rom exists and is readable
@@ -106,9 +106,12 @@ float Arcade::apply(int action) {
 			break;
 		}
 	}
+	totalScore += reward;
+	if (game_over)
+		printf("Game over! Total score was %d.\n", totalScore);
 
 	if (reward != 0)
-			printf("reward: %f\n", reward);
+		printf("reward: %f\n", reward);
 
 	// do self state
 	state.clear();
@@ -117,25 +120,46 @@ float Arcade::apply(int action) {
 	state.push_back(selfLoc.y);
 
 	// do radar state
-	state.push_back(0);
-	state.push_back(0);
+	state.push_back(0); // sense in front
+	state.push_back(0); // sense behind
+	state.push_back(0); // sense to the left
+	state.push_back(0); // sense to the right
+	
+	// negative reward for lack of info
+	if (state[0] == -1)
+		reward = -1;
+	
 	vector<point> objLocations = ale.getNonSelfObjLocations();
 	for (int i = 0; i < objLocations.size(); i++) {
 		point objLoc = objLocations[i];
-		int xdist = abs(objLoc.x - selfLoc.x);
-		int ydist = abs(objLoc.y - selfLoc.y);
+		int xdist = selfLoc.x - objLoc.x;
+		int ydist = selfLoc.y - objLoc.y;
 		
-		if (xdist < 10)
-			state[2] = 1;
-		if (ydist < 10)
-			state[3] = 1;
+		if (abs(xdist) <= 10) {
+			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == 0)) {
+				state[2] = abs(ydist);
+			}
+			else if (ydist < 0 && (abs(ydist) < state[3] || state[3] == 0)) {
+				state[3] = abs(ydist);
+			}
+		}
+		if (abs(ydist) <= 10) {
+			if (xdist >= 0 && (abs(xdist) < state[4] || state[4] == 0)) {
+				state[4] = abs(xdist);
+			}
+			else if (xdist < 0 && (abs(xdist) < state[5] || state[5] == 0)) {
+				state[5] = abs(xdist);
+			}
+		}
 	}
 	if (objLocations.size() == 0) {
 		state[2] = -1;
 		state[3] = -1;
+		state[4] = -1;
+		state[5] = -1;
 	}
 	
-	printf("STATE: %f, %f, %f, %f\n", state[0], state[1], state[2], state[3]);
+	printf("STATE: %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5]);
 
 	if (game_over)
 		return 0.0;

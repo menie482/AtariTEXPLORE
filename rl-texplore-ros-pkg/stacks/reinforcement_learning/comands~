@@ -9,5 +9,11 @@ rosrun rl_env env --env arcade
 
 todo:
 	no GUI
-	github repo
-	incorporate emailed code to improve memory perf
+	Discretize state space by visual processing
+	Add a frames since start feature
+	read book chapter on decision trees
+	modify native TEXPLORE to:
+		operate on absolute states, not relative changes
+		not update model for particular states
+		incorporate sensor delay stuff
+	meet with Stone
