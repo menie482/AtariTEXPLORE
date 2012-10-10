@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 2.4.6)
+
+
+include_directories(
+rl_common/include
+rl_env/include
+rl_agent/include
+ale/src
+)
+
+link_directories(
+#	/home/cdonahue/research/svn/ale
+	ale
+)
+
+add_subdirectory(rl_common)
+add_subdirectory(rl_agent)
+add_subdirectory(rl_env)
+#add_subdirectory(rl_experiment)
+
+add_executable(experiment
+  src/rl.cc
+)
+
+target_link_libraries(experiment
+	commonlib
+	agentlib
+	envlib
+	ale
+	SDL
+	SDL_image
+	SDL_gfx
+	boost_system
+	boost_thread
+	boost_filesystem
+)

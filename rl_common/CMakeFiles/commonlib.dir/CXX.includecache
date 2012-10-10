@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cdonahue/research/svn/rl_common/include/rl_common/Random.cc
+Random.h
+/home/cdonahue/research/svn/rl_common/include/rl_common/Random.h
+
+/home/cdonahue/research/svn/rl_common/include/rl_common/Random.h
+iostream
+-
+fstream
+-
+vector
+-
+list
+-
+algorithm
+-
+functional
+-
+cassert
+-
+climits
+-
+cmath
+-
+cfloat
+-
+unistd.h
+-
+
