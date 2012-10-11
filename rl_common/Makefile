@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cdonahue/research/svn
+CMAKE_SOURCE_DIR = /home/cdonahue/atariggp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cdonahue/research/svn
+CMAKE_BINARY_DIR = /home/cdonahue/atariggp
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -66,14 +66,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/cdonahue/research/svn && $(CMAKE_COMMAND) -E cmake_progress_start /home/cdonahue/research/svn/CMakeFiles /home/cdonahue/research/svn/rl_common/CMakeFiles/progress.marks
-	cd /home/cdonahue/research/svn && $(MAKE) -f CMakeFiles/Makefile2 rl_common/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cdonahue/research/svn/CMakeFiles 0
+	cd /home/cdonahue/atariggp && $(CMAKE_COMMAND) -E cmake_progress_start /home/cdonahue/atariggp/CMakeFiles /home/cdonahue/atariggp/rl_common/CMakeFiles/progress.marks
+	cd /home/cdonahue/atariggp && $(MAKE) -f CMakeFiles/Makefile2 rl_common/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cdonahue/atariggp/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/cdonahue/research/svn && $(MAKE) -f CMakeFiles/Makefile2 rl_common/clean
+	cd /home/cdonahue/atariggp && $(MAKE) -f CMakeFiles/Makefile2 rl_common/clean
 .PHONY : clean
 
 # The main clean target
@@ -82,22 +82,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/cdonahue/research/svn && $(MAKE) -f CMakeFiles/Makefile2 rl_common/preinstall
+	cd /home/cdonahue/atariggp && $(MAKE) -f CMakeFiles/Makefile2 rl_common/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/cdonahue/research/svn && $(MAKE) -f CMakeFiles/Makefile2 rl_common/preinstall
+	cd /home/cdonahue/atariggp && $(MAKE) -f CMakeFiles/Makefile2 rl_common/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/cdonahue/research/svn && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/cdonahue/atariggp && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 rl_common/CMakeFiles/commonlib.dir/rule:
-	cd /home/cdonahue/research/svn && $(MAKE) -f CMakeFiles/Makefile2 rl_common/CMakeFiles/commonlib.dir/rule
+	cd /home/cdonahue/atariggp && $(MAKE) -f CMakeFiles/Makefile2 rl_common/CMakeFiles/commonlib.dir/rule
 .PHONY : rl_common/CMakeFiles/commonlib.dir/rule
 
 # Convenience name for target.
@@ -106,22 +106,22 @@ commonlib: rl_common/CMakeFiles/commonlib.dir/rule
 
 # fast build rule for target.
 commonlib/fast:
-	cd /home/cdonahue/research/svn && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/build
+	cd /home/cdonahue/atariggp && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/build
 .PHONY : commonlib/fast
 
 # target to build an object file
 include/rl_common/Random.o:
-	cd /home/cdonahue/research/svn && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/include/rl_common/Random.o
+	cd /home/cdonahue/atariggp && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/include/rl_common/Random.o
 .PHONY : include/rl_common/Random.o
 
 # target to preprocess a source file
 include/rl_common/Random.i:
-	cd /home/cdonahue/research/svn && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/include/rl_common/Random.i
+	cd /home/cdonahue/atariggp && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/include/rl_common/Random.i
 .PHONY : include/rl_common/Random.i
 
 # target to generate assembly for a file
 include/rl_common/Random.s:
-	cd /home/cdonahue/research/svn && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/include/rl_common/Random.s
+	cd /home/cdonahue/atariggp && $(MAKE) -f rl_common/CMakeFiles/commonlib.dir/build.make rl_common/CMakeFiles/commonlib.dir/include/rl_common/Random.s
 .PHONY : include/rl_common/Random.s
 
 # Help Target
@@ -147,6 +147,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/cdonahue/research/svn && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/cdonahue/atariggp && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

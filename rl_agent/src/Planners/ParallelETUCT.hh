@@ -18,7 +18,6 @@
 #include "../Models/FactoredModel.hh"
 #include "../Models/C45Tree.hh"
 
-#include <ext/hash_map>
 #include <set>
 #include <vector>
 #include <map>
@@ -195,11 +194,6 @@ protected:
 
   /** State info struct. Maintains visit counts, models, and q-values for state-actions. */
   struct state_info {
-    int id;
-
-    // experience data
-    std::vector<int> visits;
-    int totalVisits;
 
     // data filled in from models
     std::map< std::deque<float>, StateActionInfo>* historyModel;
@@ -210,7 +204,8 @@ protected:
     // uct experience data
     int uctVisits;
     std::vector<int> uctActions;
-    int visited;
+    short unsigned int visited;
+    short unsigned int id;
 
     // needs update
     bool needsUpdate;

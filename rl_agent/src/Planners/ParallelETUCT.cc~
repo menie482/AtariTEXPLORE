@@ -1130,12 +1130,12 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
   }
   
 
-
+  /*
   if (actualState[1] > 0){
 	  *reward = -actualState[1];
 	} else
 	  *reward = -250;
-	  
+  */	  
 
   // return new actual state
   return nextstate;
