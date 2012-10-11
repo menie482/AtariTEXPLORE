@@ -953,6 +953,15 @@ int main(int argc, char **argv) {
 
           // perform an action
           es = e->sensation();
+          
+          // don't update learning while self unknown
+		      while (es[0] == -1)
+		      {
+		      	a = agent->first_action(es);
+		      	r = e->apply(a);
+		      	es = e->sensation();
+		      }
+		      
           a = agent->next_action(r, es);
           r = e->apply(a);
 

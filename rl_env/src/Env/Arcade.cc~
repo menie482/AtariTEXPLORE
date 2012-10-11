@@ -119,14 +119,10 @@ float Arcade::apply(int action) {
 	state.push_back(selfLoc.y);
 
 	// do radar state
-	state.push_back(0); // sense in front
-	state.push_back(0); // sense behind
-	state.push_back(0); // sense to the left
-	state.push_back(0); // sense to the right
-	
-	// negative reward for lack of info
-	if (state[0] == -1)
-		reward = -1;
+	state.push_back(-1); // sense in front
+	state.push_back(-1); // sense behind
+	state.push_back(-1); // sense to the left
+	state.push_back(-1); // sense to the right
 	
 	vector<point> objLocations = ale.getNonSelfObjLocations();
 	for (int i = 0; i < objLocations.size(); i++) {
@@ -135,27 +131,21 @@ float Arcade::apply(int action) {
 		int ydist = selfLoc.y - objLoc.y;
 		
 		if (abs(xdist) <= 10) {
-			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == 0)) {
+			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == -1)) {
 				state[2] = abs(ydist);
 			}
-			else if (ydist < 0 && (abs(ydist) < state[3] || state[3] == 0)) {
+			else if (ydist < 0 && (abs(ydist) < state[3] || state[3] == -1)) {
 				state[3] = abs(ydist);
 			}
 		}
 		if (abs(ydist) <= 10) {
-			if (xdist >= 0 && (abs(xdist) < state[4] || state[4] == 0)) {
+			if (xdist >= 0 && (abs(xdist) < state[4] || state[4] == -1)) {
 				state[4] = abs(xdist);
 			}
-			else if (xdist < 0 && (abs(xdist) < state[5] || state[5] == 0)) {
+			else if (xdist < 0 && (abs(xdist) < state[5] || state[5] == -1)) {
 				state[5] = abs(xdist);
 			}
 		}
-	}
-	if (objLocations.size() == 0) {
-		state[2] = -1;
-		state[3] = -1;
-		state[4] = -1;
-		state[5] = -1;
 	}
 	
 	printf("STATE: %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5]);
@@ -194,6 +184,6 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
 void Arcade::getMinMaxReward(float *minR,
                                float *maxR){
   
-  *minR = -1000.0;
-  *maxR = 1000.0;
+  *minR = 0.0;
+  *maxR = 100.0;
 }
