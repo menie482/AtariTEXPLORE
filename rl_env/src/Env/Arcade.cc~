@@ -8,7 +8,7 @@
 #include <rl_env/Arcade.hh>
 
 Arcade::Arcade(char* romPath) :
-	numActions(0), totalScore(0), display_active(true), game_over(false), stateSpaceLength(6), state(stateSpaceLength)
+	numActions(0), totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength)
 {
   // Check that rom exists and is readable
   ifstream file(romPath);
@@ -22,10 +22,10 @@ Arcade::Arcade(char* romPath) :
       cerr << "Ale had problem loading rom..." << endl;
       exit(-1);
   }
-  numActions = ale.allowed_actions.size();
+  numActions = ale.allowed_actions.size() + 1;
 
   // init state
-	state.clear();
+  state.clear();
   for(int i = 0; i<stateSpaceLength; i++) {
   	state.push_back(-1);
   }
@@ -107,7 +107,7 @@ float Arcade::apply(int action) {
 	}
 	totalScore += reward;
 	if (game_over)
-		printf("Game over! Total score was %d.\n", totalScore);
+		printf("Game over! Total score was %ld.\n", totalScore);
 
 	if (reward != 0)
 		printf("reward: %f\n", reward);
@@ -123,32 +123,43 @@ float Arcade::apply(int action) {
 	state.push_back(-1); // sense behind
 	state.push_back(-1); // sense to the left
 	state.push_back(-1); // sense to the right
+	state.push_back(-1); // type in front
+	state.push_back(-1); // type behind
+	state.push_back(-1); // type to the left
+	state.push_back(-1); // type to the right	
 	
-	vector<point> objLocations = ale.getNonSelfObjLocations();
-	for (int i = 0; i < objLocations.size(); i++) {
-		point objLoc = objLocations[i];
+	//vector<point> objLocations = ale.getNonSelfObjLocations();
+	vector<CompositeObject> objs = ale.getNonSelfObjs();
+	for (int i = 0; i < objs.size(); i++) {
+		CompositeObject obj = objs[i];
+		int objSize = objs[i].mask.pixel_mask.size();
+		point objLoc = obj.get_centroid();
 		int xdist = selfLoc.x - objLoc.x;
 		int ydist = selfLoc.y - objLoc.y;
 		
 		if (abs(xdist) <= 10) {
 			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == -1)) {
 				state[2] = abs(ydist);
+				state[6] = objSize;
 			}
 			else if (ydist < 0 && (abs(ydist) < state[3] || state[3] == -1)) {
 				state[3] = abs(ydist);
+				state[7] = objSize;
 			}
 		}
 		if (abs(ydist) <= 10) {
 			if (xdist >= 0 && (abs(xdist) < state[4] || state[4] == -1)) {
 				state[4] = abs(xdist);
+				state[8] = objSize;
 			}
 			else if (xdist < 0 && (abs(xdist) < state[5] || state[5] == -1)) {
 				state[5] = abs(xdist);
+				state[9] = objSize;
 			}
 		}
 	}
 	
-	printf("STATE: %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5]);
+	printf("STATE: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5], state[6], state[7], state[8], state[9]);
 
 	if (game_over)
 		return 0.0;
