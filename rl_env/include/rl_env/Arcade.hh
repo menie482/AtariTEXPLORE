@@ -27,6 +27,7 @@ public:
   virtual int getNumActions();
   virtual void getMinMaxFeatures(std::vector<float> *minFeat, std::vector<float> *maxFeat);
   virtual void getMinMaxReward(float* minR, float* maxR);
+  virtual bool isEpisodic();
 
   virtual std::vector<experience> getSeedings();
 
@@ -35,14 +36,12 @@ protected:
 	IntMatrix screen_matrix;
 	IntVect ram_content;
 
-	int numActions;
+    char* romPath;
 	long totalScore;
 	bool display_active;
 	bool game_over;
   const int stateSpaceLength;
 	
-	int numEpisodes;
-
 private:
   std::vector<float> state;
 };

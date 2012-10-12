@@ -12,7 +12,7 @@
 #include "Asterix.hpp"
 
 #include "../RomUtils.hpp"
-
+#include <cstdio>
 
 AsterixSettings::AsterixSettings() {
 
@@ -40,11 +40,12 @@ void AsterixSettings::step(const System& system) {
     // update terminal status
     int lives = readRam(&system, 0xD3) & 0xF;
     int death_counter = readRam(&system, 0xC7);
-    
+
     // we cannot wait for lives to be set to 0, because the agent has the
     // option of the restarting the game on the very last frame (when lives==1
     // and death_counter == 0x01) by holding 'fire'
-    m_terminal = (death_counter == 0x01 && lives == 1);
+    //m_terminal = (death_counter == 0x01 && lives == 1);
+    m_terminal = (lives == 2);
 }
 
 

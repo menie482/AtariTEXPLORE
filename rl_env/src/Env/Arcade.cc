@@ -7,9 +7,12 @@
 
 #include <rl_env/Arcade.hh>
 
-Arcade::Arcade(char* romPath) :
-	numActions(0), totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength)
+Arcade::Arcade(char* rom_path) :
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength)
 {
+  // save the path
+  romPath = rom_path;
+
   // Check that rom exists and is readable
   ifstream file(romPath);
   if (!file.good()) {
@@ -17,18 +20,7 @@ Arcade::Arcade(char* romPath) :
       exit(-1);
   }
 
-  // Initialize Atari Stuff
-  if (!ale.loadROM(romPath, display_active, true)) {
-      cerr << "Ale had problem loading rom..." << endl;
-      exit(-1);
-  }
-  numActions = ale.allowed_actions.size() + 1;
-
-  // init state
-  state.clear();
-  for(int i = 0; i<stateSpaceLength; i++) {
-  	state.push_back(-1);
-  }
+  reset();
 }
 
 Arcade::~Arcade() {
@@ -39,9 +31,8 @@ const std::vector<float> &Arcade::sensation() const {
 }
 
 float Arcade::apply(int action) {
-	int framesPerAction = 3;
-	Action a;
-
+	Action a = ale.allowed_actions[action];
+/*
 	if (action == 0) {
 		a = PLAYER_A_NOOP;
 	}
@@ -95,8 +86,14 @@ float Arcade::apply(int action) {
 	}
 	else if (action == 17) {
 		a = PLAYER_A_DOWNLEFTFIRE;
-	}
-	
+	}*/
+
+    // init state
+    for(int i = 0; i<stateSpaceLength; i++) {
+  	    state[i] = -1;
+    }
+
+	int framesPerAction = 3;
 	float reward = 0;
 	for (int i = 0; i < framesPerAction; i++) {
 		reward += ale.act(a);
@@ -106,29 +103,20 @@ float Arcade::apply(int action) {
 		}
 	}
 	totalScore += reward;
-	if (game_over)
-		printf("Game over! Total score was %ld.\n", totalScore);
+	if (game_over) {
+	//	printf("Game over! Total score was %ld.\n", totalScore);
+        return 0.0;
+    }
 
 	if (reward != 0)
-		printf("reward: %f\n", reward);
-
-	// do self state
-	state.clear();
-	point selfLoc = ale.getSelfLocation();
-	state.push_back(selfLoc.x);
-	state.push_back(selfLoc.y);
+        printf("reward: %f\n", reward);
+	
+    // do self state
+    point selfLoc = ale.getSelfLocation();
+	state[0] = selfLoc.x;
+	state[1] = selfLoc.y;
 
 	// do radar state
-	state.push_back(-1); // sense in front
-	state.push_back(-1); // sense behind
-	state.push_back(-1); // sense to the left
-	state.push_back(-1); // sense to the right
-	state.push_back(-1); // type in front
-	state.push_back(-1); // type behind
-	state.push_back(-1); // type to the left
-	state.push_back(-1); // type to the right	
-	
-	//vector<point> objLocations = ale.getNonSelfObjLocations();
 	vector<CompositeObject> objs = ale.getNonSelfObjs();
 	for (int i = 0; i < objs.size(); i++) {
 		CompositeObject obj = objs[i];
@@ -161,9 +149,6 @@ float Arcade::apply(int action) {
 	
 	printf("STATE: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5], state[6], state[7], state[8], state[9]);
 
-	if (game_over)
-		return 0.0;
-	
 	return reward;
 }
 
@@ -171,13 +156,30 @@ bool Arcade::terminal() const {
 	return game_over;
 }
 
-
 void Arcade::reset() {
-	ale.reset_game();
+  printf("---------------RESET WAS CALLED!!!!----------------\n");
+  game_over = false;
+  // Initialize Atari Stuff
+  if (!ale.loadROM(romPath, display_active, true)) {
+      cerr << "Ale had problem loading rom..." << endl;
+      exit(-1);
+  }
+  point selfLoc = ale.getSelfLocation();
+  while (selfLoc.x == -1) {
+    ale.act((Action) 1);
+    ale.act((Action) 2);
+    selfLoc = ale.getSelfLocation();
+  }
+
+  //init state
+  state.clear();
+  for(int i = 0; i<stateSpaceLength; i++) {
+  	state.push_back(-1);
+  }
 }
 
 int Arcade::getNumActions() {
-  return numActions;
+  return ale.allowed_actions.size();
 }
 
 std::vector<experience> Arcade::getSeedings() {
@@ -196,5 +198,10 @@ void Arcade::getMinMaxReward(float *minR,
                                float *maxR){
   
   *minR = 0.0;
-  *maxR = 100.0;
+  *maxR = 50.0;
 }
+
+bool Arcade::isEpisodic() {
+    return true;
+}
+
