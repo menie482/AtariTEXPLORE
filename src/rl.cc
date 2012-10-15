@@ -955,13 +955,18 @@ int main(int argc, char **argv) {
           es = e->sensation();
           
           // don't update learning while self unknown
-		  while (es[0] == -1)
+		  while (es[0] == -1 && !e->terminal())
 		  {
 		      a = agent->first_action(es);
 		      r = e->apply((Action) 1);
               r = e->apply((Action) 2);
+              r = e->apply((Action) 3);
+              r = e->apply((Action) 4);
 		      es = e->sensation();
 		  }
+
+          if (e->terminal())
+              break;
 		      
           a = agent->next_action(r, es);
           r = e->apply(a);

@@ -104,8 +104,8 @@ float Arcade::apply(int action) {
 	}
 	totalScore += reward;
 	if (game_over) {
-	//	printf("Game over! Total score was %ld.\n", totalScore);
-        return 0.0;
+		printf("Game over! Total score was %ld.\n", totalScore);
+        return -50.0;
     }
 
 	if (reward != 0)
@@ -197,7 +197,7 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
 void Arcade::getMinMaxReward(float *minR,
                                float *maxR){
   
-  *minR = 0.0;
+  *minR = -50.0;
   *maxR = 50.0;
 }
 
