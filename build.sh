@@ -10,7 +10,7 @@ cd ale
 make
 cd ..
 
-cmake -i -Wno-dev
+echo -ne '\n' | cmake -i -Wno-dev
 make
 
 set +e

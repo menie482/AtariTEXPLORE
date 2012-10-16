@@ -28,6 +28,7 @@ public:
   virtual void getMinMaxFeatures(std::vector<float> *minFeat, std::vector<float> *maxFeat);
   virtual void getMinMaxReward(float* minR, float* maxR);
   virtual bool isEpisodic();
+  const std::vector<std::vector<int> >& getDependencyStructure();
 
   virtual std::vector<experience> getSeedings();
 
@@ -44,4 +45,5 @@ protected:
 	
 private:
   std::vector<float> state;
+  std::vector<std::vector<int> > dependencies;
 };

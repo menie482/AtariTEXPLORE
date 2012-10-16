@@ -9,6 +9,7 @@
 
 FactoredModel::FactoredModel(int id, int numactions, int M, int modelType,
                  int predType, int nModels, float treeThreshold,
+ 		 std::vector<std::vector<int> > &dependencies,
                  const std::vector<float> &featRange, float rRange,
                  bool needConf, bool dep, bool relTrans, float featPct, 
 		 bool stoch, bool episodic, Random rng):
@@ -16,7 +17,7 @@ FactoredModel::FactoredModel(int id, int numactions, int M, int modelType,
   id(id), nact(numactions), M(M), modelType(modelType),
   predType(predType), nModels(nModels),
   treeBuildType(BUILD_ON_ERROR), // build tree after prediction error
-  treeThresh(treeThreshold), featRange(featRange), rRange(rRange),
+  treeThresh(treeThreshold), dependencies(dependencies), featRange(featRange), rRange(rRange),
   needConf(needConf), dep(dep), relTrans(relTrans), FEAT_PCT(featPct), 
   stoch(stoch), episodic(episodic), rng(rng)
 {
@@ -41,7 +42,7 @@ FactoredModel::FactoredModel(const FactoredModel & m):
   id(m.id), nact(m.nact), M(m.M), modelType(m.modelType),
   predType(m.predType), nModels(m.nModels),
   treeBuildType(m.treeBuildType),
-  treeThresh(m.treeThresh), featRange(m.featRange), rRange(m.rRange),
+  treeThresh(m.treeThresh), dependencies(m.dependencies), featRange(m.featRange), rRange(m.rRange),
   needConf(m.needConf), dep(m.dep), relTrans(m.relTrans), FEAT_PCT(m.FEAT_PCT),
   stoch(m.stoch), episodic(m.episodic), rng(m.rng)
 {
@@ -82,6 +83,7 @@ FactoredModel::~FactoredModel() {
     delete outputModels[i];
   }
   outputModels.clear();
+  dependencies.clear();
 }
 
 
@@ -327,6 +329,7 @@ bool FactoredModel::updateWithExperience(experience &e){
     exit(-1);
   }
 
+
   std::vector<float> inputs(e.s.size() + nact);
   for (unsigned i = 0; i < e.s.size(); i++){
     inputs[i] = e.s[i];
@@ -363,7 +366,13 @@ bool FactoredModel::updateWithExperience(experience &e){
   // if not a terminal transition
   if (!e.terminal){
     for (unsigned i = 0; i < e.next.size(); i++){
-      cp.in = inputs;
+      // CHRIS-ADDED CODE
+      // only gives specified dependencies to feature models
+      std::vector<float> featuredInputs(dependencies[i].size());
+      for (unsigned j = 0; j < featuredInputs.size(); j++){
+        featuredInputs[j] = inputs[dependencies[i][j]];
+      }
+      cp.in = featuredInputs;
       cp.out = e.next[i];
 
       bool singleChange = outputModels[i]->trainInstance(cp);

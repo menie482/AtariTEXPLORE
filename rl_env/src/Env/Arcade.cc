@@ -8,7 +8,7 @@
 #include <rl_env/Arcade.hh>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength)
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength), dependencies(stateSpaceLength)
 {
   // save the path
   romPath = rom_path;
@@ -19,6 +19,51 @@ Arcade::Arcade(char* rom_path) :
       cerr << "Unable to find or open rom file: \"" << romPath << "\"" << endl;
       exit(-1);
   }
+
+	// 0 = selfLoc x
+	// 1 = selfLoc y
+	// 2 = radar in front
+	// 3 = radar behind
+	// 4 = radar right
+	// 5 = radar left
+	// 6 = size in front
+	// 7 = size behind
+	// 8 = size right
+	// 9 = size left
+	// 10 = action
+
+  // store dependency structure
+  dependencies[0].push_back(0);
+  dependencies[0].push_back(1);
+  dependencies[0].push_back(10);
+
+  dependencies[1].push_back(1);
+  dependencies[1].push_back(0);
+  dependencies[1].push_back(10);
+
+  dependencies[2].push_back(2);
+  dependencies[2].push_back(10);
+
+  dependencies[3].push_back(3);
+  dependencies[3].push_back(10);
+
+  dependencies[4].push_back(4);
+  dependencies[4].push_back(10);
+
+  dependencies[5].push_back(5);
+  dependencies[5].push_back(10);
+
+  dependencies[6].push_back(6);
+  dependencies[6].push_back(10);
+
+  dependencies[7].push_back(7);
+  dependencies[7].push_back(10);
+
+  dependencies[8].push_back(8);
+  dependencies[8].push_back(10);
+
+  dependencies[9].push_back(9);
+  dependencies[9].push_back(10);
 
   reset();
 }
@@ -110,7 +155,7 @@ float Arcade::apply(int action) {
 
 	if (reward != 0)
         printf("reward: %f\n", reward);
-	
+
     // do self state
     point selfLoc = ale.getSelfLocation();
 	state[0] = selfLoc.x;
@@ -205,3 +250,6 @@ bool Arcade::isEpisodic() {
     return true;
 }
 
+const std::vector<std::vector<int> >& Arcade::getDependencyStructure() {
+    return dependencies;
+}

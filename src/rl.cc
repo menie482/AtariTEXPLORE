@@ -13,15 +13,6 @@
 // Environments //
 //////////////////
 #include <rl_env/Arcade.hh>
-#include <rl_env/fourrooms.hh>
-#include <rl_env/tworooms.hh>
-#include <rl_env/taxi.hh>
-#include <rl_env/FuelRooms.hh>
-#include <rl_env/stocks.hh>
-#include <rl_env/energyrooms.hh>
-#include <rl_env/MountainCar.hh>
-#include <rl_env/CartPole.hh>
-#include <rl_env/LightWorld.hh>
 
 ////////////
 // Agents //
@@ -167,6 +158,7 @@ int main(int argc, char **argv) {
   }
 
   // parse env type
+  /*
   bool gotEnv = false;
   for (int i = 1; i < argc-1; i++){
     if (strcmp(argv[i], "--env") == 0){
@@ -178,7 +170,8 @@ int main(int argc, char **argv) {
     cout << "--env type  option is required" << endl;
     displayHelp();
   }
-  
+  */
+
   // parse ROM path
   bool gotRom = false;
   for (int i = 1; i < argc-1; i++){
@@ -187,7 +180,7 @@ int main(int argc, char **argv) {
       romPath = argv[i+1];
     }
   }
-  if (!gotRom && strcmp(envType, "arcade") == 0) {
+  if (!gotRom) {
     cout << "--rom PATH required when env is arcade" << endl;
     displayHelp();
   }
@@ -684,8 +677,9 @@ int main(int argc, char **argv) {
   std::vector<int> statesPerDim;
 
   // Construct environment here.
-  Environment* e;
-
+  Arcade* e;
+  e = new Arcade(romPath);
+/*
 	if (strcmp(envType, "arcade") == 0) {
 		if (PRINTS) cout << "Environment: Atari!\n";
 		e = new Arcade(romPath);
@@ -748,13 +742,14 @@ int main(int argc, char **argv) {
     std::cerr << "Invalid env type" << endl;
     exit(-1);
   }
-
+*/
   const int numactions = e->getNumActions(); // Most agents will need this?
 
   std::vector<float> minValues;
   std::vector<float> maxValues;
   e->getMinMaxFeatures(&minValues, &maxValues);
   bool episodic = e->isEpisodic();
+  std::vector<std::vector<int> > dependencies = e->getDependencyStructure();
 
   cout << "Environment is ";
   if (!episodic) cout << "NOT ";
@@ -842,7 +837,7 @@ int main(int argc, char **argv) {
                                   lambda,
                                   (1.0/actrate), //0.1, //0.1, //0.01, // max time
                                   M,
-                                  minValues, maxValues,
+                                  minValues, maxValues, dependencies,
                                   statesPerDim,//0,
                                   history, v, n,
                                   deptrans, reltrans, featPct, stochastic, episodic,

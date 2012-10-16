@@ -30,10 +30,12 @@ ModelBasedAgent::ModelBasedAgent(int numactions, float gamma,
                                  float epsilon, float lambda, float MAX_TIME,
                                  float m, const std::vector<float> &featmin,
                                  const std::vector<float> &featmax, 
-                                 std::vector<int> nstatesPerDim, int history, float v, float n,
+                                 std::vector<std::vector<int> > &dependencies,
+				 std::vector<int> nstatesPerDim, int history, float v, float n,
                                  bool depTrans, bool relTrans, float featPct, bool stoch, bool episodic,
                                  Random rng):
   featmin(featmin), featmax(featmax),
+  dependencies(dependencies),
   numactions(numactions), gamma(gamma), rmax(rmax), rrange(rrange),
   qmax(rmax/(1.0-gamma)), 
   modelType(modelType), exploreType(exploreType), 
@@ -61,10 +63,12 @@ ModelBasedAgent::ModelBasedAgent(int numactions, float gamma,
                                  float epsilon, float lambda, float MAX_TIME,
                                  float m, const std::vector<float> &featmin,
                                  const std::vector<float> &featmax, 
+				 std::vector<std::vector<int> > &dependencies,
                                  int nstatesPerDim, int history, float v, float n,
                                  bool depTrans, bool relTrans, float featPct,
 				 bool stoch, bool episodic, Random rng):
   featmin(featmin), featmax(featmax),
+  dependencies(dependencies),
   numactions(numactions), gamma(gamma), rmax(rmax), rrange(rrange),
   qmax(rmax/(1.0-gamma)), 
   modelType(modelType), exploreType(exploreType), 
@@ -261,7 +265,7 @@ void ModelBasedAgent::initModel(int nfactors){
            modelType == LSTMULTI || modelType == LSTSINGLE ||
            modelType == GPREGRESS || modelType == GPTREE){
 
-    model = new FactoredModel(0,numactions, M, modelType, predType, nModels, treeRangePct, featRange, rrange, needConf, depTrans, relTrans, featPct, stoch, episodic, rng);
+    model = new FactoredModel(0,numactions, M, modelType, predType, nModels, treeRangePct, dependencies, featRange, rrange, needConf, depTrans, relTrans, featPct, stoch, episodic, rng);
   }
   
   /*
