@@ -225,14 +225,19 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances){
   }
   int nonTermIndex = 0;
 
+  // chrisaddedcode only allocate one input vector
+  std::vector<float> inputs(instances[0].s.size() + 1);
+
   for (unsigned i = 0; i < instances.size(); i++){
     experience e = instances[i];
 
-    std::vector<float> inputs(e.s.size() + nact);
+    //std::vector<float> inputs(e.s.size() + 1);
 
     for (unsigned k = 0; k < e.s.size(); k++){
       inputs[k] = e.s[k];
     }
+    inputs[e.s.size()] = e.act;
+    /*
     // convert to binary vector of length nact
     for (int k = 0; k < nact; k++){
       if (e.act == k)
@@ -240,6 +245,7 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances){
       else
         inputs[e.s.size()+k] = 0;
     }
+    */
 
     // convert to rel
     if (relTrans)
@@ -258,7 +264,13 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances){
     if (!e.terminal){
       for (unsigned j = 0; j < outputModels.size(); j++){
         classPair cp;
-        cp.in = inputs;
+        // chrisaddedcode
+        // only gives specified dependencies to feature models
+        std::vector<float> featuredInputs(dependencies[j].size());
+        for (unsigned k = 0; k < featuredInputs.size(); k++) {
+            featuredInputs[k] = inputs[dependencies[j][k]];
+        }
+        cp.in = featuredInputs;
 
         // split the outcome and rewards up
         // into each vector
@@ -272,7 +284,6 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances){
       }
       nonTermIndex++;
     }
-
   }
 
   // build trees on all data
@@ -329,11 +340,13 @@ bool FactoredModel::updateWithExperience(experience &e){
     exit(-1);
   }
 
-
-  std::vector<float> inputs(e.s.size() + nact);
+  // changed decision trees to have only one input for the action
+  std::vector<float> inputs(e.s.size() + 1);
   for (unsigned i = 0; i < e.s.size(); i++){
     inputs[i] = e.s[i];
   }
+  inputs[e.s.size()] = e.act;
+  /*
   // convert to binary vector of length nact
   for (int k = 0; k < nact; k++){
     if (e.act == k)
@@ -341,6 +354,7 @@ bool FactoredModel::updateWithExperience(experience &e){
     else
       inputs[e.s.size()+k] = 0;
   }
+  */
 
   // convert to rel
   if (relTrans)
