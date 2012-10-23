@@ -24,12 +24,12 @@ Arcade::Arcade(char* rom_path) :
 	// 1 = selfLoc y
 	// 2 = radar in front
 	// 3 = radar behind
-	// 4 = radar right
-	// 5 = radar left
+	// 4 = radar left
+	// 5 = radar right
 	// 6 = size in front
 	// 7 = size behind
-	// 8 = size right
-	// 9 = size left
+	// 8 = size left
+	// 9 = size right
 	// 10 = action
 
   // store dependency structure
@@ -162,10 +162,13 @@ float Arcade::apply(int action) {
 	state[1] = selfLoc.y;
 
 	// do radar state
-	vector<CompositeObject> objs = ale.getNonSelfObjs();
-	for (int i = 0; i < objs.size(); i++) {
-		CompositeObject obj = objs[i];
-		int objSize = objs[i].mask.pixel_mask.size();
+	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
+	//for (int i = 0; i < objs.size(); i++) {
+	//	CompositeObject obj = objs[i];
+    for (vector<pair<CompositeObject,long> >::iterator it=objs.begin(); it != objs.end(); it++) {
+        pair<CompositeObject,long> pair = *it;
+        CompositeObject obj = pair.first;
+		long objID = pair.second;
 		point objLoc = obj.get_centroid();
 		int xdist = selfLoc.x - objLoc.x;
 		int ydist = selfLoc.y - objLoc.y;
@@ -173,21 +176,21 @@ float Arcade::apply(int action) {
 		if (abs(xdist) <= 10) {
 			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == -1)) {
 				state[2] = abs(ydist);
-				state[6] = objSize;
+				state[6] = objID;
 			}
 			else if (ydist < 0 && (abs(ydist) < state[3] || state[3] == -1)) {
 				state[3] = abs(ydist);
-				state[7] = objSize;
+				state[7] = objID;
 			}
 		}
 		if (abs(ydist) <= 10) {
 			if (xdist >= 0 && (abs(xdist) < state[4] || state[4] == -1)) {
 				state[4] = abs(xdist);
-				state[8] = objSize;
+				state[8] = objID;
 			}
 			else if (xdist < 0 && (abs(xdist) < state[5] || state[5] == -1)) {
 				state[5] = abs(xdist);
-				state[9] = objSize;
+				state[9] = objID;
 			}
 		}
 	}

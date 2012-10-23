@@ -300,7 +300,9 @@ public:
 
 		return v;
 	}
+    
 
+    /*
 	vector<CompositeObject> getNonSelfObjs() const {
 		vector<CompositeObject> v;
 		point my_centroid = visProc->get_self_centroid();
@@ -314,8 +316,23 @@ public:
 
 		return v;
 	}
+    */
+    vector<pair<CompositeObject,long> > getNonSelfObjs() const {
+        vector<pair<CompositeObject, long> > v;
+        point my_centroid = visProc->get_self_centroid();
 
+        for (vector<Prototype>::iterator it=visProc->obj_classes.begin(); it != visProc->obj_classes.end(); it++) {
+            Prototype p = *it;
+            for (set<long>::iterator it2=p.obj_ids.begin(); it2 != p.obj_ids.end(); it2++) {
+                CompositeObject o = visProc->composite_objs[*it2];
+                point obj_centroid = o.get_centroid();
+                if (!(my_centroid.x == obj_centroid.x && my_centroid.y == obj_centroid.y))
+                    v.push_back(std::make_pair(o, p.id));
+            }
+        }
 
+        return v;
+    }
 
 	// Returns a pointer to the vector of object classes. Each object
 	// class may or may not contain objects on screen. See Prototype

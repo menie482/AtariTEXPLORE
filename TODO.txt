@@ -1,19 +1,20 @@
-roscore
-
-roscd rl_env
-rosmake rl_env
-rosrun rl_agent agent --agent texplore --planner parallel-uct --actrate 3
-
-roscd rl_env
-rosrun rl_env env --env arcade
+./experiment --agent texplore --rom ./games/asterix.bin
 
 todo:
-	no GUI
-	Discretize state space by visual processing
-	Add a frames since start feature
-	read book chapter on decision trees
-	modify native TEXPLORE to:
-		operate on absolute states, not relative changes
-		not update model for particular states
-		incorporate sensor delay stuff
-	meet with Stone
+	Alter visual processing framework to do better self-tracking
+		don't remove self object if its not moving
+		maybe use a particle filter updated by current model?
+	Edit TEXPLORE:
+		Specify whether or not to do prediction on certain features or keep them steady
+		Print decision trees to see what's going on
+		figure out what first_action is doing and see if it's what we want to do on state space jumps
+		Improve fault tolerance and sensor delay, reject certain samples that aren't of some threshold of consistency
+		Don't recreate trees on missed prediction
+		Certain trees update on absolute states, some on relative changes
+	State space:
+		Add nearest n object radar (or other type if we think of that first)
+		Add map # feature
+		Frames since start
+		Discretize x,y coordinates?
+
+	no GUI on submit to condor
