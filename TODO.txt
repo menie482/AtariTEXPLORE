@@ -11,6 +11,7 @@ todo:
 		Improve fault tolerance and sensor delay, reject certain samples that aren't of some threshold of consistency
 		Don't recreate trees on missed prediction
 		Certain trees update on absolute states, some on relative changes
+		Suggest certain splits for decision tree (on variable values)
 	State space:
 		Add nearest n object radar (or other type if we think of that first)
 		Add map # feature
