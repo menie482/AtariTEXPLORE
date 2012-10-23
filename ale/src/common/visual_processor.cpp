@@ -67,6 +67,18 @@ PixelMask::PixelMask(const string& filename)
     load(filename);
 };
 
+// (cdonahue)
+PixelMask& PixelMask::rotate_mask_90_cw() {
+    PixelMask ret(height, width);
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            if (get_pixel(x, y))
+                ret.add_pixel(height-(y+1), x);
+        }
+    }
+    return ret;
+};
+
 void PixelMask::add_pixel(int x, int y) {
     int block = (width * y + x) / 8;
     int indx_in_block = (width * y + x) % 8;
@@ -397,7 +409,14 @@ Prototype::Prototype (CompositeObject& obj, long id) :
 {
     // Add this object and save its mask
     obj_ids.insert(obj.id);
-    masks.push_back(obj.mask);
+    PixelMask unrotated = obj.mask;
+    PixelMask rotated1 = obj.mask.rotate_mask_90_cw();
+    PixelMask rotated2 = obj.mask.rotate_mask_90_cw();
+    PixelMask rotated3 = obj.mask.rotate_mask_90_cw();
+    masks.push_back(unrotated);
+    masks.push_back(rotated1);
+    masks.push_back(rotated2);
+    masks.push_back(rotated3);
 };
 
 void Prototype::get_pixel_match(const CompositeObject& obj, float& overlap, int& mask_indx) {

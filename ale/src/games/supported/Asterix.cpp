@@ -44,8 +44,9 @@ void AsterixSettings::step(const System& system) {
     // we cannot wait for lives to be set to 0, because the agent has the
     // option of the restarting the game on the very last frame (when lives==1
     // and death_counter == 0x01) by holding 'fire'
-    //m_terminal = (death_counter == 0x01 && lives == 1);
-    m_terminal = (lives == 2);
+    // m_terminal = (death_counter == 0x01 && lives == 1);
+    // m_terminal = (lives == 2);
+    m_terminal = (death_counter == 126);
 }
 
 
