@@ -32,13 +32,14 @@ public:
 
   virtual std::vector<experience> getSeedings();
 
+  long totalScore;
+
 protected:
   ALEInterface ale;
 	IntMatrix screen_matrix;
 	IntVect ram_content;
 
     char* romPath;
-	long totalScore;
 	bool display_active;
 	bool game_over;
   const int stateSpaceLength;

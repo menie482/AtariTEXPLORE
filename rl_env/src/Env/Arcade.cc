@@ -138,7 +138,7 @@ float Arcade::apply(int action) {
   	    state[i] = -1;
     }
 
-	int framesPerAction = 3;
+	int framesPerAction = 1;
 	float reward = 0;
 	for (int i = 0; i < framesPerAction; i++) {
 		reward += ale.act(a);
@@ -206,6 +206,7 @@ bool Arcade::terminal() const {
 
 void Arcade::reset() {
   printf("---------------RESET WAS CALLED!!!!----------------\n");
+  totalScore = 0;
   game_over = false;
   // Initialize Atari Stuff
   if (!ale.loadROM(romPath, display_active, true)) {
@@ -252,6 +253,8 @@ void Arcade::getMinMaxReward(float *minR,
 bool Arcade::isEpisodic() {
     return true;
 }
+
+
 
 const std::vector<std::vector<int> >& Arcade::getDependencyStructure() {
     return dependencies;

@@ -69,14 +69,14 @@ PixelMask::PixelMask(const string& filename)
 
 // (cdonahue)
 PixelMask& PixelMask::rotate_mask_90_cw() {
-    PixelMask ret(height, width);
+    PixelMask *ret = new PixelMask(height, width);
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
             if (get_pixel(x, y))
-                ret.add_pixel(height-(y+1), x);
+                ret->add_pixel(height-(y+1), x);
         }
     }
-    return ret;
+    return *ret;
 };
 
 void PixelMask::add_pixel(int x, int y) {
@@ -409,11 +409,10 @@ Prototype::Prototype (CompositeObject& obj, long id) :
 {
     // Add this object and save its mask
     obj_ids.insert(obj.id);
-    PixelMask unrotated = obj.mask;
     PixelMask rotated1 = obj.mask.rotate_mask_90_cw();
-    PixelMask rotated2 = obj.mask.rotate_mask_90_cw();
-    PixelMask rotated3 = obj.mask.rotate_mask_90_cw();
-    masks.push_back(unrotated);
+    PixelMask rotated2 = rotated1.rotate_mask_90_cw();
+    PixelMask rotated3 = rotated2.rotate_mask_90_cw();
+    masks.push_back(obj.mask);
     masks.push_back(rotated1);
     masks.push_back(rotated2);
     masks.push_back(rotated3);

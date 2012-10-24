@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
+#include <iostream>
+#include <fstream>
 
 //////////////////
 // Environments //
@@ -975,6 +977,11 @@ int main(int argc, char **argv) {
         // terminal/last state
         if (e->terminal()){
           agent->last_action(r);
+          long totalScore = e->totalScore;
+          ofstream scoreFile;
+          scoreFile.open("scores.txt", ios::app);
+          scoreFile << totalScore << endl;
+          scoreFile.close();
         }else{
           agent->next_action(r, e->sensation());
         }

@@ -5,6 +5,8 @@ todo:
 		don't remove self object if its not moving
 		maybe use a particle filter updated by current model?
 	Edit TEXPLORE:
+        Think of a way to pass dependency structure (Type of model, Feature Dependencies, Which features kept steady for
+        prediction, which features to have absolute vs relative splits, suggested values for those splits...)
 		Specify whether or not to do prediction on certain features or keep them steady
 		Print decision trees to see what's going on
 		figure out what first_action is doing and see if it's what we want to do on state space jumps
