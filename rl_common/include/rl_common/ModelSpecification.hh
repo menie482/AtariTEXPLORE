@@ -5,7 +5,7 @@
 /** Specification for models */
 class ModelSpecification {
 public:
-    ModelSpecification(int modelType);
+    ModelSpecification();
     ~ModelSpecification();
 
     int modelType;
