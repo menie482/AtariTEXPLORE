@@ -5,6 +5,7 @@
 
 #include <rl_agent/ModelBasedAgent.hh>
 #include <algorithm>
+#include <rl_common/ModelSpecification.hh>
 
 #include <sys/time.h>
 

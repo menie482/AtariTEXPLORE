@@ -4,6 +4,7 @@
 
 #include <rl_common/Random.h>
 #include <rl_common/core.hh>
+#include <rl_common/ModelSpecification.hh>
 
 #include <stdio.h>
 #include <string.h>
@@ -751,7 +752,7 @@ int main(int argc, char **argv) {
   std::vector<float> maxValues;
   e->getMinMaxFeatures(&minValues, &maxValues);
   bool episodic = e->isEpisodic();
-  std::vector<std::vector<int> > dependencies = e->getDependencyStructure();
+  std::vector<ModelSpecification> modelSpecs = e->getModelSpecs();
 
   cout << "Environment is ";
   if (!episodic) cout << "NOT ";
@@ -839,7 +840,7 @@ int main(int argc, char **argv) {
                                   lambda,
                                   (1.0/actrate), //0.1, //0.1, //0.01, // max time
                                   M,
-                                  minValues, maxValues, dependencies,
+                                  minValues, maxValues, modelSpecs,
                                   statesPerDim,//0,
                                   history, v, n,
                                   deptrans, reltrans, featPct, stochastic, episodic,

@@ -4,7 +4,6 @@
 */
 
 #include <rl_common/core.hh>
-//#include "../ale/src/ale_interface.hpp"
 #include "ale_interface.hpp"
 #include <stdio.h>
 #include <cmath>
@@ -28,7 +27,7 @@ public:
   virtual void getMinMaxFeatures(std::vector<float> *minFeat, std::vector<float> *maxFeat);
   virtual void getMinMaxReward(float* minR, float* maxR);
   virtual bool isEpisodic();
-  const std::vector<std::vector<int> >& getDependencyStructure();
+  const std::vector<ModelSpecification>& getModelSpecs();
 
   virtual std::vector<experience> getSeedings();
 
@@ -46,5 +45,5 @@ protected:
 	
 private:
   std::vector<float> state;
-  std::vector<std::vector<int> > dependencies;
+  std::vector<ModelSpecification> modelSpecs;
 };

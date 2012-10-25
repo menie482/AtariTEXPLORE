@@ -6,9 +6,10 @@
 */
 
 #include <rl_env/Arcade.hh>
+#include <rl_common/ModelSpecification.hh>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength), dependencies(stateSpaceLength)
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength), modelSpecs(stateSpaceLength)
 {
   // save the path
   romPath = rom_path;
@@ -31,39 +32,52 @@ Arcade::Arcade(char* rom_path) :
 	// 8 = size left
 	// 9 = size right
 	// 10 = action
+    // 11 = reward tree
+    // 12 = terminal tree
 
-  // store dependency structure
-  dependencies[0].push_back(0);
-  dependencies[0].push_back(1);
-  dependencies[0].push_back(10);
+  // establish dependency structure
+  modelSpecs[0].dependencies.push_back(0);
+  modelSpecs[0].dependencies.push_back(1);
+  modelSpecs[0].dependencies.push_back(10);
 
-  dependencies[1].push_back(1);
-  dependencies[1].push_back(0);
-  dependencies[1].push_back(10);
+  modelSpecs[1].dependencies.push_back(1);
+  modelSpecs[1].dependencies.push_back(0);
+  modelSpecs[1].dependencies.push_back(10);
 
-  dependencies[2].push_back(2);
-  dependencies[2].push_back(10);
+  modelSpecs[2].dependencies.push_back(2);
+  modelSpecs[2].dependencies.push_back(10);
 
-  dependencies[3].push_back(3);
-  dependencies[3].push_back(10);
+  modelSpecs[3].dependencies.push_back(3);
+  modelSpecs[3].dependencies.push_back(10);
 
-  dependencies[4].push_back(4);
-  dependencies[4].push_back(10);
+  modelSpecs[4].dependencies.push_back(4);
+  modelSpecs[4].dependencies.push_back(10);
 
-  dependencies[5].push_back(5);
-  dependencies[5].push_back(10);
+  modelSpecs[5].dependencies.push_back(5);
+  modelSpecs[5].dependencies.push_back(10);
+/*
+  modelSpecs[6].dependencies.push_back(6);
+  modelSpecs[6].dependencies.push_back(10);
 
-  dependencies[6].push_back(6);
-  dependencies[6].push_back(10);
+  modelSpecs[7].dependencies.push_back(7);
+  modelSpecs[7].dependencies.push_back(10);
 
-  dependencies[7].push_back(7);
-  dependencies[7].push_back(10);
+  modelSpecs[8].dependencies.push_back(8);
+  modelSpecs[8].dependencies.push_back(10);
 
-  dependencies[8].push_back(8);
-  dependencies[8].push_back(10);
+  modelSpecs[9].dependencies.push_back(9);
+  modelSpecs[9].dependencies.push_back(10);
+*/
+  // establish prediction structures
+  modelSpecs[11].noPrediction.push_back(6);
+  modelSpecs[11].noPrediction.push_back(7);
+  modelSpecs[11].noPrediction.push_back(8);
+  modelSpecs[11].noPrediction.push_back(9);
 
-  dependencies[9].push_back(9);
-  dependencies[9].push_back(10);
+  modelSpecs[12].noPrediction.push_back(6);
+  modelSpecs[13].noPrediction.push_back(7);
+  modelSpecs[14].noPrediction.push_back(8);
+  modelSpecs[15].noPrediction.push_back(9);
 
   reset();
 }
@@ -254,8 +268,6 @@ bool Arcade::isEpisodic() {
     return true;
 }
 
-
-
-const std::vector<std::vector<int> >& Arcade::getDependencyStructure() {
-    return dependencies;
+const std::vector<ModelSpecification>& Arcade::getModelSpecs() {
+    return modelSpecs;
 }
