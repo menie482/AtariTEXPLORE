@@ -30,12 +30,12 @@ ModelBasedAgent::ModelBasedAgent(int numactions, float gamma,
                                  float epsilon, float lambda, float MAX_TIME,
                                  float m, const std::vector<float> &featmin,
                                  const std::vector<float> &featmax, 
-                                 std::vector<std::vector<int> > &dependencies,
+                                 std::vector<ModelSpecification> &modelSpecs,
 				 std::vector<int> nstatesPerDim, int history, float v, float n,
                                  bool depTrans, bool relTrans, float featPct, bool stoch, bool episodic,
                                  Random rng):
   featmin(featmin), featmax(featmax),
-  dependencies(dependencies),
+  modelSpecs(modelSpecs),
   numactions(numactions), gamma(gamma), rmax(rmax), rrange(rrange),
   qmax(rmax/(1.0-gamma)), 
   modelType(modelType), exploreType(exploreType), 
@@ -63,12 +63,12 @@ ModelBasedAgent::ModelBasedAgent(int numactions, float gamma,
                                  float epsilon, float lambda, float MAX_TIME,
                                  float m, const std::vector<float> &featmin,
                                  const std::vector<float> &featmax, 
-				 std::vector<std::vector<int> > &dependencies,
+                                 std::vector<ModelSpecification> &modelSpecs,
                                  int nstatesPerDim, int history, float v, float n,
                                  bool depTrans, bool relTrans, float featPct,
 				 bool stoch, bool episodic, Random rng):
   featmin(featmin), featmax(featmax),
-  dependencies(dependencies),
+  modelSpecs(modelSpecs),
   numactions(numactions), gamma(gamma), rmax(rmax), rrange(rrange),
   qmax(rmax/(1.0-gamma)), 
   modelType(modelType), exploreType(exploreType), 
@@ -265,7 +265,7 @@ void ModelBasedAgent::initModel(int nfactors){
            modelType == LSTMULTI || modelType == LSTSINGLE ||
            modelType == GPREGRESS || modelType == GPTREE){
 
-    model = new FactoredModel(0,numactions, M, modelType, predType, nModels, treeRangePct, dependencies, featRange, rrange, needConf, depTrans, relTrans, featPct, stoch, episodic, rng);
+    model = new FactoredModel(0,numactions, M, modelType, predType, nModels, treeRangePct, modelSpecs, featRange, rrange, needConf, depTrans, relTrans, featPct, stoch, episodic, rng);
   }
   
   /*
@@ -318,7 +318,7 @@ void ModelBasedAgent::initPlanner(){
     planner = new PO_ETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax, featmin, statesPerDim, true, history, rng);
   }
   else if (plannerType == POMDP_PAR_ETUCT){
-    planner = new PO_ParallelETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax, featmin, statesPerDim, true, history, rng);
+    planner = new PO_ParallelETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelSpecs, featmax, featmin, statesPerDim, true, history, rng);
   }
   else if (plannerType == ET_UCT_ACTUAL){
     planner = new ETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax, featmin, statesPerDim, true, history, rng);
