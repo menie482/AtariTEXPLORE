@@ -43,7 +43,7 @@ public:
   */
   FactoredModel(int id, int numactions, int M, int modelType, 
           int predType, int nModels, float treeThreshold,
-	  std::vector<std::vector<int> > &dependencies,
+	  std::vector<ModelSpecs> &modelSpecs,
           const std::vector<float> &featRange, float rRange,
           bool needConf, bool dep, bool relTrans, float featPct, 
 	  bool stoch, bool episodic, Random rng = Random());
@@ -82,7 +82,7 @@ private:
   std::vector<Classifier*> outputModels;
 
   /** Dependency model for the feature models */
-  std::vector<std::vector<int> > dependencies;
+  std::vector<ModelSpecification> modelSpecs;
 
   /** Classifier to predict reward */
   Classifier* rewardModel;

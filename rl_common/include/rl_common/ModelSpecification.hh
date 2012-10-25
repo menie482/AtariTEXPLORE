@@ -13,5 +13,5 @@ public:
     vector<unsigned int> noPrediction;
     vector<unsigned int> relativeSplits;
     vector<unsigned int> absoluteSplits;
-    map<unsigned int, vector<unsigned int> > suggestedSplits;
+//    map<unsigned int, vector<unsigned int> > suggestedSplits;
 };
