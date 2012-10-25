@@ -16,7 +16,6 @@
 
 #include <rl_common/Random.h>
 #include <rl_common/core.hh>
-#include <rl_common/ModelSpecification.hh>
 #include <vector>
 
 
@@ -44,7 +43,7 @@ public:
   */
   FactoredModel(int id, int numactions, int M, int modelType, 
           int predType, int nModels, float treeThreshold,
-	  std::vector<ModelSpecs> &modelSpecs,
+	  std::vector<ModelSpecification> &modelSpecs,
           const std::vector<float> &featRange, float rRange,
           bool needConf, bool dep, bool relTrans, float featPct, 
 	  bool stoch, bool episodic, Random rng = Random());
@@ -95,7 +94,7 @@ private:
   int nfactors;
   const int nact;
   const int M;
-  const int modelType;
+  int modelType;
   const int predType;
   const int nModels;
   const int treeBuildType;

@@ -1,6 +1,7 @@
 #ifndef _RLCORE_H_
 #define _RLCORE_H_
 
+#include "ModelSpecification.hh"
 #include "Random.h"
 #include <vector>
 #include <map>

@@ -4,7 +4,6 @@
 
 #include <rl_common/Random.h>
 #include <rl_common/core.hh>
-#include <rl_common/ModelSpecification.hh>
 
 #include <stdio.h>
 #include <string.h>

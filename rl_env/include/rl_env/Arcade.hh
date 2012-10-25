@@ -7,7 +7,6 @@
 #include "ale_interface.hpp"
 #include <stdio.h>
 #include <cmath>
-#include <rl_common/ModelSpecification.hh>
 
 /** This class defines the Atari Arcade domain */
 class Arcade: public Environment {

@@ -8,7 +8,6 @@
 
 #include <rl_common/Random.h>
 #include <rl_common/core.hh>
-#include <rl_common/ModelSpecification.hh>
 
 #include <set>
 #include <vector>
