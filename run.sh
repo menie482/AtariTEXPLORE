@@ -5,6 +5,6 @@
 
 set -e
 
-./experiment --agent texplore --rom ./games/asterix.bin
+./experiment --agent texplore --rom ./games/freeway.bin
 
 set +e

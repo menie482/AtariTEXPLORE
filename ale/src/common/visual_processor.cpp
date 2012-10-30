@@ -1441,6 +1441,9 @@ bool VisualProcessor::handleSDLEvent(const SDL_Event& event) {
             proto_indx = manual_obj_classes.size()-1;
             focus_level = 1;
             return true;
+        // (cdonahue)
+        case SDLK_p: // Print model trees
+            
         default: // switch(sdl.keydown)
             break;
         }
