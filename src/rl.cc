@@ -36,7 +36,7 @@
 unsigned NUMEPISODES = 1000; //10; //200; //500; //200;
 const unsigned NUMTRIALS = 1; //30; //30; //5; //30; //30; //50
 unsigned MAXSTEPS = 1000; // per episode
-bool PRINTS = false;
+bool PRINTS = true;
 
 
 void displayHelp(){

@@ -8,7 +8,8 @@
 #include <rl_env/Arcade.hh>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength), modelSpecs(stateSpaceLength)
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength),
+    modelSpecs(stateSpaceLength + 3)
 {
   // save the path
   romPath = rom_path;
@@ -246,6 +247,7 @@ void Arcade::reset() {
   }
 
   //init state
+  // TODO: make this push back current state space
   state.clear();
   for(int i = 0; i<stateSpaceLength; i++) {
   	state.push_back(-1);
