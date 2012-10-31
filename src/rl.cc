@@ -947,20 +947,23 @@ int main(int argc, char **argv) {
         ++steps;
 
         while (!e->terminal() && steps < MAXSTEPS) {
-
+          printf("------------------------------------------------\n");
+          float oldY = es[0];
+          
           // perform an action
           es = e->sensation();
          
+          bool lostLoc = false;
           // don't update learning while self unknown
 		  while (es[0] == -1 && !e->terminal())
 		  {
-		      //a = agent->first_action(es);
-		      r = e->apply((Action) 1);
-              r = e->apply((Action) 2);
-              //r = e->apply((Action) 3);
-              //r = e->apply((Action) 4);
+              lostLoc = true;
+		      r = e->apply((Action) 2);
+              r = e->apply((Action) 5);
 		      es = e->sensation();
 		  }
+          if (lostLoc)
+              a = agent->first_action(es);
 
           if (e->terminal())
               break;
@@ -971,7 +974,9 @@ int main(int argc, char **argv) {
           // update performance info
           sum += r;
           ++steps;
-
+          
+          if (!lostLoc)
+              printf("s: %f, s': %f, a: %d, r: %f\n", oldY, es[0], a, r);
         }
 
         // terminal/last state

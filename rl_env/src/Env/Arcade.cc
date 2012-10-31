@@ -27,10 +27,11 @@ Arcade::Arcade(char* rom_path) :
     // 3 = terminal tree
 
   // establish dependency structure
-  modelSpecs[0].modelType = C45TREE;
+  modelSpecs[0].modelType = M5ALLMULTI;
+  //modelSpecs[0].modelType = C45TREE;
   modelSpecs[0].dependencies.push_back(0);
   modelSpecs[0].dependencies.push_back(1);
-  modelSpecs[2].modelType = C45TREE;
+  modelSpecs[2].modelType = M5ALLMULTI;
   modelSpecs[3].modelType = C45TREE;
 
   reset();
@@ -45,6 +46,10 @@ const std::vector<float> &Arcade::sensation() const {
 
 float Arcade::apply(int action) {
 	Action a = ale.allowed_actions[action];
+
+    //printf("Texplore: %d, Atari: %d\n", action, a);
+
+    float prevY = state[0];
 
 	int framesPerAction = 1;
 	float reward = 0;
@@ -61,13 +66,19 @@ float Arcade::apply(int action) {
         return 0;
     }
 
-	if (reward != 0)
+    point selfLoc = ale.getSelfLocation();
+	
+    if (reward != 0)
         printf("reward: %f\n", reward);
+    else if (selfLoc.y != -1 && prevY != -1) {
+        reward = prevY - selfLoc.y;
+        if (reward > 1 || reward < -1)
+            reward = 0;
+    }
 
     // do self state
-    point selfLoc = ale.getSelfLocation();
 	state[0] = selfLoc.y;
-    printf("Y Loc: %f\n", state[0]);
+    //printf("Reward: %f\n", reward);
 /*
 	// do radar state
 	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
@@ -131,7 +142,6 @@ void Arcade::reset() {
   //init state
   state.clear();
   state.push_back(selfLoc.y);
-  printf("INITIALIZED Y LOC: %f\n", state[0]);
 }
 
 int Arcade::getNumActions() {
@@ -153,7 +163,7 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
 void Arcade::getMinMaxReward(float *minR,
                                float *maxR){
   
-  *minR = 0;
+  *minR = -1;
   *maxR = 1;
 }
 
