@@ -27,12 +27,15 @@ Arcade::Arcade(char* rom_path) :
     // 3 = terminal tree
 
   // establish dependency structure
-  modelSpecs[0].modelType = M5ALLMULTI;
+  modelSpecs[0].modelType = C45TREE;
   //modelSpecs[0].modelType = C45TREE;
-  modelSpecs[0].dependencies.push_back(0);
+  //modelSpecs[0].dependencies.push_back(0);
   modelSpecs[0].dependencies.push_back(1);
-  modelSpecs[2].modelType = M5ALLMULTI;
+  modelSpecs[2].modelType = C45TREE;
+  modelSpecs[2].dependencies.push_back(1);
   modelSpecs[3].modelType = C45TREE;
+  modelSpecs[3].dependencies.push_back(0);
+  modelSpecs[3].dependencies.push_back(1);
 
   reset();
 }
@@ -78,6 +81,7 @@ float Arcade::apply(int action) {
 
     // do self state
 	state[0] = selfLoc.y;
+    //state[0] = 0;
     //printf("Reward: %f\n", reward);
 /*
 	// do radar state
@@ -134,8 +138,8 @@ void Arcade::reset() {
   }
   point selfLoc = ale.getSelfLocation();
   while (selfLoc.y == -1 || selfLoc.y == 0) {
-    ale.act((Action) 1);
     ale.act((Action) 2);
+    ale.act((Action) 5);
     selfLoc = ale.getSelfLocation();
   }
 

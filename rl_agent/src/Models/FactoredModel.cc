@@ -258,20 +258,21 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 	int nonTermIndex = 0;
 
 	// (cdonahue) only allocate one action model
-	std::vector<float> inputs(instances[0].s.size() + 1);
+	// std::vector<float> inputs(instances[0].s.size() + 1);
 
 	for (unsigned i = 0; i < instances.size(); i++)
 	{
 		experience e = instances[i];
 
-		//std::vector<float> inputs(e.s.size() + 1);
+		std::vector<float> inputs(e.s.size() + 1);
 
 		for (unsigned k = 0; k < e.s.size(); k++)
 		{
 			inputs[k] = e.s[k];
 		}
 		inputs[e.s.size()] = e.act;
-		/*
+		
+        /*
 		// convert to binary vector of length nact
 		for (int k = 0; k < nact; k++){
 		  if (e.act == k)
@@ -286,13 +287,25 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 			e.next = subVec(e.next, e.s);
 
 		// reward and terminal models
-		classPair cp;
-		cp.in = inputs;
-		cp.out = e.reward;
-		rewardData[i] = cp;
+		classPair cpr;
+        unsigned rewardIndex = modelSpecs.size() - 2;
+        std::vector<float> rewardInputs(modelSpecs[rewardIndex].dependencies.size());
+        for (unsigned k = 0; k < rewardInputs.size(); k++) {
+            rewardInputs[k] = inputs[modelSpecs[rewardIndex].dependencies[k]];
+        }
+		cpr.in = rewardInputs;
+		cpr.out = e.reward;
+		rewardData[i] = cpr;
 
-		cp.out = e.terminal;
-		termData[i] = cp;
+        classPair cpt;
+        unsigned terminalIndex = modelSpecs.size() - 1;
+        std::vector<float> terminalInputs(modelSpecs[terminalIndex].dependencies.size());
+        for (unsigned k = 0; k < terminalInputs.size(); k++) {
+            terminalInputs[k] = inputs[modelSpecs[terminalIndex].dependencies[k]];
+        }
+        cpt.in = terminalInputs;
+		cpt.out = e.terminal;
+		termData[i] = cpt;
 
 		// add to each vector
 		if (!e.terminal)
@@ -303,8 +316,8 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 				// (cdonahue)
 				// only gives specified dependencies to feature models
                 std::vector<float> featuredInputs(modelSpecs[j].dependencies.size());
-				//std::vector<float> featuredInputs(dependencies[j].size());
-				for (unsigned k = 0; k < featuredInputs.size(); k++)
+				
+                for (unsigned k = 0; k < featuredInputs.size(); k++)
 				{
 					featuredInputs[k] = inputs[modelSpecs[j].dependencies[k]];
 				}
@@ -331,10 +344,30 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 	{
 		if (stateData[k].size() > 0)
 		{
+            for (unsigned m = 0; m < nonTermIndex; m++) {
+                for (unsigned l = 0; l < stateData[k][m].in.size(); l++) {
+                    printf("MODEL: %d, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", k, m, l,
+                    stateData[k][m].in[l], stateData[k][m].out);
+                }
+            }
 			bool singleChange = outputModels[k]->trainInstances(stateData[k]);
 			changed = changed || singleChange;
 		}
 	}
+
+    // (cdonahue) just print stuff
+    for (unsigned a = 0; a < rewardData.size(); a++) {
+        for (unsigned b = 0; b < rewardData[a].in.size(); b++) {
+            printf("MODEL: 1, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b,
+            rewardData[a].in[b], rewardData[a].out);
+        }
+    }
+    for (unsigned a = 0; a < termData.size(); a++) {
+        for (unsigned b = 0; b < termData[a].in.size(); b++) {
+            //printf("MODEL: 2, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b, termData[a].in[b], termData[a].out);
+        }
+    }
+
 
 	bool singleChange = rewardModel->trainInstances(rewardData);
 	changed = changed || singleChange;

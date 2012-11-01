@@ -63,7 +63,7 @@ reward_t FreewaySettings::getReward() const {
 bool FreewaySettings::isLegal(const Action &a) const {
 
     switch (a) {
-        case PLAYER_A_NOOP:
+        //case PLAYER_A_NOOP:
         case PLAYER_A_UP:
         case PLAYER_A_DOWN:
             return true;
