@@ -134,6 +134,8 @@ bool MultipleClassifiers::trainInstances(std::vector<classPair> &instances){
       changed = changed || singleChange;
     }
   }
+
+  //((M5Tree*) models[0])->printTree();
   
   nsteps += instances.size();
 

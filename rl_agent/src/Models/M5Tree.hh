@@ -131,6 +131,8 @@ public:
   /** Calculate the standard deviation for the given vector of experiences */
   float calcSDforSet(const std::vector<tree_experience*> &instances);
 
+  void printTree();
+
   /** Print the tree for debug purposes. */
   void printTree(tree_node *t, int level);
 

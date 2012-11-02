@@ -27,11 +27,12 @@ Arcade::Arcade(char* rom_path) :
     // 3 = terminal tree
 
   // establish dependency structure
-  modelSpecs[0].modelType = C45TREE;
+  modelSpecs[0].modelType = M5MULTI;
   //modelSpecs[0].modelType = C45TREE;
-  //modelSpecs[0].dependencies.push_back(0);
+  modelSpecs[0].dependencies.push_back(0);
   modelSpecs[0].dependencies.push_back(1);
-  modelSpecs[2].modelType = C45TREE;
+  modelSpecs[2].modelType = M5MULTI;
+  modelSpecs[2].dependencies.push_back(0);
   modelSpecs[2].dependencies.push_back(1);
   modelSpecs[3].modelType = C45TREE;
   modelSpecs[3].dependencies.push_back(0);
@@ -75,9 +76,10 @@ float Arcade::apply(int action) {
         printf("reward: %f\n", reward);
     else if (selfLoc.y != -1 && prevY != -1) {
         reward = prevY - selfLoc.y;
-        if (reward > 1 || reward < -1)
-            reward = 0;
     }
+    if (reward > 1 || reward < 1)
+        reward = -1;
+ 
 
     // do self state
 	state[0] = selfLoc.y;

@@ -468,17 +468,14 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   std::vector<float> &Q = info->Q;
 
 
-  if (ATHREADDEBUG || true) {
+  if (ATHREADDEBUG) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;
     cout << "Getting best action from state ";
     for (unsigned i = 0; i < s->size(); i++){
       cout << (*s)[i] << ", ";
     }
-    cout << " sampled " << info->uctVisits << " times." << endl;
-    for (int i = 0; i < numactions; i++) {
-        cout << "Action " << i << " value: " << Q[i] << endl;
-    }
+    cout << " sampled " << info->uctVisits << " times.";// << endl << flush;
   }
 
   // Choose an action

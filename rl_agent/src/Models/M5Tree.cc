@@ -281,6 +281,7 @@ bool M5Tree::trainInstances(std::vector<classPair> &instances){
 
   bool doBuild = false;
 
+  printf("$$$$$$$$$$$$$$$\n");
   // loop through instances, possibly checking for errors
   for (unsigned a = 0; a < instances.size(); a++){
     classPair instance = instances[a];
@@ -298,6 +299,10 @@ bool M5Tree::trainInstances(std::vector<classPair> &instances){
       e = new tree_experience;
     }
 
+    for (unsigned w = 0; w < instance.in.size(); w++) {
+        printf("%f, ", instance.in[w]);
+    }
+    printf(": %f\n##############\n", instance.out);
 
     e->input = instance.in;
     e->output = instance.out;
@@ -1512,6 +1517,9 @@ float* M5Tree::sortOnDim(int dim, const std::vector<tree_experience*> &instances
 
 }
 
+void M5Tree::printTree() {
+    printTree(root, 0);
+}
 
 void M5Tree::printTree(tree_node *t, int level){
 
