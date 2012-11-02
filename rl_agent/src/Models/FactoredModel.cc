@@ -648,11 +648,15 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 	}
 
 	// input we want predictions for
-	std::vector<float> inputs(state.size() + nact);
+	std::vector<float> inputs(state.size() + 1);//nact);
 	for (unsigned i = 0; i < state.size(); i++)
 	{
 		inputs[i] = state[i];
 	}
+
+	inputs[state.size()] = act;
+
+	/*
 	// convert to binary vector of length nact
 	for (int k = 0; k < nact; k++)
 	{
@@ -661,7 +665,7 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 		else
 			inputs[state.size()+k] = 0;
 	}
-
+	*/
 
 	// get the separate predictions for each outcome variable from the respective trees
 	// combine together for outcome predictions

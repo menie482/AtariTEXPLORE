@@ -468,7 +468,7 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   std::vector<float> &Q = info->Q;
 
 
-  if (ATHREADDEBUG) {
+  if (ATHREADDEBUG || true) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;
     cout << "Getting best action from state ";
@@ -476,6 +476,9 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
       cout << (*s)[i] << ", ";
     }
     cout << " sampled " << info->uctVisits << " times.";// << endl << flush;
+    for (unsigned i = 0; i < numactions; i++) {
+        cout << "Action " << i << " value: " << Q[i] << endl;
+    }
   }
 
   // Choose an action
@@ -486,6 +489,8 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   if (TIMINGDEBUG) cout << "got action: " << (getSeconds()-initTime) << endl;
 
   pthread_mutex_unlock(&info->stateinfo_mutex);
+
+  cout << "TAKE ACTION " << act << endl;
 
   // return index of action
   return act;
@@ -1051,6 +1056,14 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
   *reward = modelInfo->reward;
   *term = (rng.uniform() < modelInfo->termProb);
 
+  /*
+  cout << "From state: ";
+  for (unsigned i = 0; i < actualState.size(); i++){
+    cout << actualState[i] << ", ";
+  }
+  cout << " action: " << action << ": predict r: " << *reward << endl;
+  */
+
   if (*term){
     pthread_mutex_unlock(&info->statemodel_mutex);
     return actualState;
@@ -1073,6 +1086,8 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
     float prob = (*outIt).second;
     probSum += prob;
     if (REALSTATEDEBUG) cout << randProb << ", " << probSum << ", " << prob << endl;
+
+    //cout << "predict y value : " << (*outIt).first[0] << " with prob: " << prob << endl;
 
     if (randProb <= probSum){
       nextstate = (*outIt).first;

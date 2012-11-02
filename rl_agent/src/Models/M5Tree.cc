@@ -281,7 +281,7 @@ bool M5Tree::trainInstances(std::vector<classPair> &instances){
 
   bool doBuild = false;
 
-  printf("$$$$$$$$$$$$$$$\n");
+  //printf("$$$$$$$$$$$$$$$\n");
   // loop through instances, possibly checking for errors
   for (unsigned a = 0; a < instances.size(); a++){
     classPair instance = instances[a];
@@ -300,9 +300,9 @@ bool M5Tree::trainInstances(std::vector<classPair> &instances){
     }
 
     for (unsigned w = 0; w < instance.in.size(); w++) {
-        printf("%f, ", instance.in[w]);
+    //    printf("%f, ", instance.in[w]);
     }
-    printf(": %f\n##############\n", instance.out);
+    //printf(": %f\n##############\n", instance.out);
 
     e->input = instance.in;
     e->output = instance.out;

@@ -27,8 +27,8 @@ Arcade::Arcade(char* rom_path) :
     // 3 = terminal tree
 
   // establish dependency structure
-  modelSpecs[0].modelType = M5MULTI;
-  //modelSpecs[0].modelType = C45TREE;
+  //modelSpecs[0].modelType = M5MULTI;
+  modelSpecs[0].modelType = C45TREE;
   modelSpecs[0].dependencies.push_back(0);
   modelSpecs[0].dependencies.push_back(1);
   modelSpecs[2].modelType = M5MULTI;
