@@ -17,6 +17,7 @@
 #include <rl_common/Random.h>
 #include <rl_common/core.hh>
 #include <vector>
+#include <algorithm>
 
 
 /** Builds an mdp model consisting of a tree (or ensemble of trees) to predict each feature, reward, and termination probability. Thus forming a complete model of the MDP. */
@@ -60,6 +61,8 @@ public:
   bool initMDPModel(int nfactors);
   virtual float getStateActionInfo(const std::vector<float> &state, int act, StateActionInfo* retval);
   virtual FactoredModel* getCopy();
+
+  std::vector<float>& populateDependencies(std::vector<float> &inputs, int nfactors, int nact, int actionTaken, std::vector<unsigned> &dep);
 
   /** Method to get a single sample of the predicted next state for the given state-action, rather than the full distribution given by getStateActionInfo */
   float getSingleSAInfo(const std::vector<float> &state, int act, StateActionInfo* retval);

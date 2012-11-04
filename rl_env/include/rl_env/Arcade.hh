@@ -27,7 +27,7 @@ public:
   virtual void getMinMaxFeatures(std::vector<float> *minFeat, std::vector<float> *maxFeat);
   virtual void getMinMaxReward(float* minR, float* maxR);
   virtual bool isEpisodic();
-  const std::vector<ModelSpecification>& getModelSpecs();
+  std::vector<ModelSpecification>& getModelSpecs();
 
   virtual std::vector<experience> getSeedings();
 

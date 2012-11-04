@@ -216,6 +216,20 @@ bool FactoredModel::initMDPModel(int nfactors)
 
 }
 
+std::vector<float>& FactoredModel::populateDependencies(std::vector<float> &inputs, int nfactors, int nact, int
+actionTaken, std::vector<unsigned> &dep)
+{
+    std::vector<float>* ret;
+
+    ret = new std::vector<float>(dep.size());
+
+    for (unsigned k = 0; k < dep.size(); k++) {
+        (*ret)[k] = inputs[dep[k]];
+    }
+
+    return *ret;
+}
+
 
 // update all trees with multiple experiences
 bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
@@ -264,15 +278,13 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 	{
 		experience e = instances[i];
 
-		std::vector<float> inputs(e.s.size() + 1);
+		std::vector<float> inputs(e.s.size() + nact);
 
 		for (unsigned k = 0; k < e.s.size(); k++)
 		{
 			inputs[k] = e.s[k];
 		}
-		inputs[e.s.size()] = e.act;
-		
-        /*
+
 		// convert to binary vector of length nact
 		for (int k = 0; k < nact; k++){
 		  if (e.act == k)
@@ -280,7 +292,6 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 		  else
 		    inputs[e.s.size()+k] = 0;
 		}
-		*/
 
 		// convert to rel
 		if (relTrans)
@@ -289,21 +300,13 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 		// reward and terminal models
 		classPair cpr;
         unsigned rewardIndex = modelSpecs.size() - 2;
-        std::vector<float> rewardInputs(modelSpecs[rewardIndex].dependencies.size());
-        for (unsigned k = 0; k < rewardInputs.size(); k++) {
-            rewardInputs[k] = inputs[modelSpecs[rewardIndex].dependencies[k]];
-        }
-		cpr.in = rewardInputs;
+		cpr.in = populateDependencies(inputs, nfactors, nact, e.act, modelSpecs[rewardIndex].dependencies);
 		cpr.out = e.reward;
 		rewardData[i] = cpr;
 
         classPair cpt;
         unsigned terminalIndex = modelSpecs.size() - 1;
-        std::vector<float> terminalInputs(modelSpecs[terminalIndex].dependencies.size());
-        for (unsigned k = 0; k < terminalInputs.size(); k++) {
-            terminalInputs[k] = inputs[modelSpecs[terminalIndex].dependencies[k]];
-        }
-        cpt.in = terminalInputs;
+        cpt.in = populateDependencies(inputs, nfactors, nact, e.act, modelSpecs[terminalIndex].dependencies);
 		cpt.out = e.terminal;
 		termData[i] = cpt;
 
@@ -315,14 +318,8 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 				classPair cp;
 				// (cdonahue)
 				// only gives specified dependencies to feature models
-                std::vector<float> featuredInputs(modelSpecs[j].dependencies.size());
-				
-                for (unsigned k = 0; k < featuredInputs.size(); k++)
-				{
-					featuredInputs[k] = inputs[modelSpecs[j].dependencies[k]];
-				}
-				cp.in = featuredInputs;
-
+                
+                cp.in = populateDependencies(inputs, nfactors, nact, e.act, modelSpecs[j].dependencies);
 				// split the outcome and rewards up
 				// into each vector
 				cp.out = e.next[j];
@@ -346,8 +343,8 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 		{
             for (unsigned m = 0; m < nonTermIndex; m++) {
                 for (unsigned l = 0; l < stateData[k][m].in.size(); l++) {
-                    printf("MODEL: %d, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", k, m, l,
-                    stateData[k][m].in[l], stateData[k][m].out);
+                //    printf("MODEL: %d, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", k, m, l,
+                 //   stateData[k][m].in[l], stateData[k][m].out);
                 }
             }
 			bool singleChange = outputModels[k]->trainInstances(stateData[k]);
@@ -358,13 +355,13 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
     // (cdonahue) just print stuff
     for (unsigned a = 0; a < rewardData.size(); a++) {
         for (unsigned b = 0; b < rewardData[a].in.size(); b++) {
-            printf("MODEL: 1, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b,
-            rewardData[a].in[b], rewardData[a].out);
+      //      printf("MODEL: 1, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b,
+        //    rewardData[a].in[b], rewardData[a].out);
         }
     }
     for (unsigned a = 0; a < termData.size(); a++) {
         for (unsigned b = 0; b < termData[a].in.size(); b++) {
-            //printf("MODEL: 2, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b, termData[a].in[b], termData[a].out);
+        //    printf("MODEL: 2, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b, termData[a].in[b], termData[a].out);
         }
     }
 
@@ -647,6 +644,7 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 		return 0;
 	}
 
+    /*
 	// input we want predictions for
 	std::vector<float> inputs(state.size() + 1);//nact);
 	for (unsigned i = 0; i < state.size(); i++)
@@ -655,8 +653,9 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 	}
 
 	inputs[state.size()] = act;
+    */
 
-	/*
+    std::vector<float> inputs(state.size() + nact);
 	// convert to binary vector of length nact
 	for (int k = 0; k < nact; k++)
 	{
@@ -665,7 +664,6 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 		else
 			inputs[state.size()+k] = 0;
 	}
-	*/
 
 	// get the separate predictions for each outcome variable from the respective trees
 	// combine together for outcome predictions
