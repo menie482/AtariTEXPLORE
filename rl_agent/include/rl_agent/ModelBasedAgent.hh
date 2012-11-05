@@ -153,7 +153,8 @@ protected:
   /** Update the agent with the new s,a,s',r experience */
   void updateWithNewExperience(const std::vector<float> &last, 
                                const std::vector<float> & curr, 
-                               int lastact, float reward, bool term);
+                               int lastact, float reward, bool term,
+                               const std::vector<unsigned> &validFor);
 
   /** Get the current time in seconds */
   double getSeconds();

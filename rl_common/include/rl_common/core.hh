@@ -32,6 +32,7 @@
 #define ALLM5TYPES  12
 #define GPREGRESS   13
 #define GPTREE      14
+#define CONSTANT    15
 
 const std::string modelNames[] = {
   "Tabular",
@@ -48,7 +49,8 @@ const std::string modelNames[] = {
   "LS Tree",
   "M5 Combo",
   "GP Regression",
-  "GP Tree"
+  "GP Tree",
+  "Constant"
 };
 
 // types of model combos
@@ -163,6 +165,7 @@ struct experience {
   float reward;
   std::vector<float> next;
   bool terminal;
+  std::vector<unsigned> validForModels;
 };
 
 /** Training instances for prediction models */
@@ -256,6 +259,8 @@ public:
       \param s The current sensation from the environment.
       \return The action the agent wishes to take next. */
   virtual int next_action(float r, const std::vector<float> &s) = 0;
+
+  int next_action(float r, const std::vector<float> &s, const std::vector<unsigned> &validFor) = 0;
 
   /** Gives feedback for the last action taken.  This method may only
       be called if the last method called was first_action or
@@ -356,6 +361,13 @@ class Planner {
 public:
   /** Give the planner the model being used with the agent */
   virtual void setModel(MDPModel* model) = 0;
+
+  /** Update the given model with an experience <s,a,s',r>. */
+  bool updateModelWithExperience(const std::vector<float>& last,
+                                         int act,
+                                         const std::vector<float>& curr,
+                                         float reward, bool terminal,
+                                         const std::vector<unsigned>& validFor) = 0;
 
   /** Update the given model with an experience <s,a,s',r>. */
   virtual bool updateModelWithExperience(const std::vector<float>& last,

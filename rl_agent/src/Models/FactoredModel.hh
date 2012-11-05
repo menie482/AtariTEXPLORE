@@ -7,6 +7,7 @@
 #ifndef _FACTOREDMODEL_HH_
 #define _FACTOREDMODEL_HH_
 
+#include "../Models/ConstantClassifier.hh"
 #include "../Models/C45Tree.hh"
 #include "../Models/M5Tree.hh"
 #include "../Models/LinearSplitsTree.hh"

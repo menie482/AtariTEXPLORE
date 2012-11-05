@@ -19,6 +19,7 @@ add_library(agentlib
   src/Models/M5Tree.cc
   src/Models/LinearSplitsTree.cc
   src/Models/C45Tree.cc
+  src/Models/ConstantClassifier.cc
   src/Models/Stump.cc
   src/Models/MultipleClassifiers.cc
   src/Models/ExplorationModel.cc

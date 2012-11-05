@@ -62,21 +62,17 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[5].dependencies.push_back(5);
   modelSpecs[5].dependencies.push_back(10);
 
-  modelSpecs[6].modelType = C45TREE;
+  modelSpecs[6].modelType = CONSTANT;
   modelSpecs[6].dependencies.push_back(6);
-  modelSpecs[6].dependencies.push_back(10);
 
-  modelSpecs[7].modelType = C45TREE;
+  modelSpecs[7].modelType = CONSTANT;
   modelSpecs[7].dependencies.push_back(7);
-  modelSpecs[7].dependencies.push_back(10);
 
-  modelSpecs[8].modelType = C45TREE;
+  modelSpecs[8].modelType = CONSTANT;
   modelSpecs[8].dependencies.push_back(8);
-  modelSpecs[8].dependencies.push_back(10);
 
-  modelSpecs[9].modelType = C45TREE;
+  modelSpecs[9].modelType = CONSTANT;
   modelSpecs[9].dependencies.push_back(9);
-  modelSpecs[9].dependencies.push_back(10);
 
   modelSpecs[11].modelType = C45TREE;
   modelSpecs[11].dependencies.push_back(2);

@@ -181,12 +181,17 @@ bool FactoredModel::initMDPModel(int nfactors)
 		else if (nModels > 1 || modelType == ALLM5TYPES)
 		{
             modelType = modelSpecs[i].modelType;
-			outputModels[i] = new MultipleClassifiers((id * (nfactors+1)) + i,
+            if (modelType == CONSTANT) {
+                outputModels[i] = new ConstantClassifier((id * (nfactors + 1)) + i);
+            }
+            else {
+			    outputModels[i] = new MultipleClassifiers((id * (nfactors+1)) + i,
 					modelType, predType,
 					nModels, treeBuildType, 5,
 					FEAT_PCT,
 					EXP_PCT,
 					treeThresh *featRange[i], stoch, rng);
+            }
 			if (i == 0)
 			{
 				rewardModel = new MultipleClassifiers((id * (nfactors+1)) + nfactors,
@@ -328,7 +333,6 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 				// for dep trees, add this models target to next model's input
 				if (dep)
 				{
-                    printf("ASK TODD WHAT THIS MEANS");
 					inputs.push_back(e.next[j]);
 				}
 			}
@@ -347,7 +351,7 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
                  //   stateData[k][m].in[l], stateData[k][m].out);
                 }
             }
-			bool singleChange = outputModels[k]->trainInstances(stateData[k]);
+		    bool singleChange = outputModels[k]->trainInstances(stateData[k]);
 			changed = changed || singleChange;
 		}
 	}
