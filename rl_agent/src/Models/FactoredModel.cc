@@ -328,7 +328,8 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 				// split the outcome and rewards up
 				// into each vector
 				cp.out = e.next[j];
-				stateData[j][nonTermIndex] = cp;
+                if (e.validForModels[j])
+				    stateData[j][nonTermIndex] = cp;
 
 				// for dep trees, add this models target to next model's input
 				if (dep)
