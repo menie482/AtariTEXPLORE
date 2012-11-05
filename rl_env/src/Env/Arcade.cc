@@ -129,6 +129,13 @@ float Arcade::apply(int action) {
     if (reward != 0)
         printf("reward: %f\n", reward);
 
+    updateState();
+
+	printf("STATE: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5], state[6], state[7], state[8], state[9]);
+	return reward;
+}
+
+void Arcade::updateState() {
     // do self state
     point selfLoc = ale.getSelfLocation();
 	state[0] = selfLoc.x;
@@ -167,9 +174,6 @@ float Arcade::apply(int action) {
 			}
 		}
 	}
-	
-	printf("STATE: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5], state[6], state[7], state[8], state[9]);
-	return reward;
 }
 
 bool Arcade::terminal() const {
@@ -185,6 +189,7 @@ void Arcade::reset() {
       cerr << "Ale had problem loading rom..." << endl;
       exit(-1);
   }
+
   point selfLoc = ale.getSelfLocation();
   while (selfLoc.x == -1) {
     ale.act((Action) 1);
@@ -196,6 +201,8 @@ void Arcade::reset() {
   for (int i = 0; i < stateSpaceLength; i++) {
     state.push_back(-1);
   }
+
+  updateState();
 }
 
 int Arcade::getNumActions() {

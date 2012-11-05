@@ -187,6 +187,10 @@ bool MultipleClassifiers::trainInstance(classPair &instance){
 void MultipleClassifiers::testInstance(const std::vector<float> &input, std::map<float, float>* retval){
   if (STDEBUG) cout << id << " testInstance" << endl;
 
+  for (unsigned i = 0; i < input.size(); i++) {
+  //  cout << "Input " << i << ": " << input[i] << endl;
+  }
+
   if ((int)infos.size() != nModels){
     infos.resize(nModels);
   }

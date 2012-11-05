@@ -12,6 +12,7 @@ make clean
 cd ..
 find -iname '*cmake*' -not -name CMakeLists.txt -exec rm -rf {} \+
 find ./ -type f -name '*.o' -delete
+find . -name \*.sw* -type f -delete
 rm ./Makefile
 rm ./experiment
 rm lib/*.a

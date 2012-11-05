@@ -1,19 +1,19 @@
-./experiment --agent texplore --rom ./games/asterix.bin
+TODO NEXT TIME:
+    FIGURE OUT WHY CLASSIFIERS AREN'T GETTING REAL VALUES FOR testInstance
 
 todo:
 	Alter visual processing framework to do better self-tracking
 		don't remove self object if its not moving
 		maybe use a particle filter updated by current model?
 	Edit TEXPLORE:
-        Think of a way to pass dependency structure (Type of model, Feature Dependencies, Which features kept steady for
-        prediction, which features to have absolute vs relative splits, suggested values for those splits...)
+		Pass split structure through modelSpecs (which features in the model to have absolute vs relative splits, suggested values for those splits...)
 		Detect whether or not to pass certain training experiences to certain features
-        Print decision trees to see what's going on
-		Improve fault tolerance and sensor delay, reject certain samples that aren't of some threshold of consistency
+		Print decision trees to see what's going on
+		Improve fault tolerance and sensor delay, reject certain samples that aren't of some threshold of consistency?
 		Don't recreate trees on missed prediction
-		Certain trees update on absolute states, some on relative changes
 		Suggest certain splits for decision tree (on variable values)
 	State space:
+		Think of a way to make this adapt better to decision tree framework
 		Add nearest n object radar (or other type if we think of that first)
 		Add map # feature
 		Frames since start

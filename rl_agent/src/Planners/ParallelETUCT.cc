@@ -475,10 +475,11 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
     for (unsigned i = 0; i < s->size(); i++){
       cout << (*s)[i] << ", ";
     }
-    cout << " sampled " << info->uctVisits << " times.";// << endl << flush;
+    cout << " sampled " << info->uctVisits << " times." << endl;
     for (unsigned i = 0; i < numactions; i++) {
         cout << "Action " << i << " value: " << Q[i] << endl;
     }
+    cout << flush;
   }
 
   // Choose an action
