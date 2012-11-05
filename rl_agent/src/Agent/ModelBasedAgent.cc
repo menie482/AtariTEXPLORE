@@ -167,7 +167,7 @@ int ModelBasedAgent::first_action(const std::vector<float> &s) {
 
 }
 
-int ModelBasedAgent::next_action(float r, const std::vector<float> &s, const std::vector<unsigned> &validFor) {
+int ModelBasedAgent::next_action(float r, const std::vector<float> &s) {
   if (AGENTDEBUG) {
     cout << "next_action(r = " << r 
 	 << ", s = " << &s << ")" << endl;
@@ -177,7 +177,7 @@ int ModelBasedAgent::next_action(float r, const std::vector<float> &s, const std
  
   // update our models
   // this is where we possibly plan again if model changes
-  updateWithNewExperience(prevstate, s, prevact, r, false, validFor);
+  updateWithNewExperience(prevstate, s, prevact, r, false);
 
   // choose an action
   int act = chooseAction(s);
@@ -342,8 +342,7 @@ void ModelBasedAgent::initPlanner(){
 void ModelBasedAgent::updateWithNewExperience(const std::vector<float> &last, 
                                               const std::vector<float> &curr, 
                                               int lastact, float reward, 
-                                              bool terminal,
-                                              const std::vector<float> &validFor){
+                                              bool terminal){
   if (AGENTDEBUG) cout << "updateWithNewExperience(last = " << &last 
                        << ", curr = " << &curr
                        << ", lastact = " << lastact 
@@ -361,7 +360,7 @@ void ModelBasedAgent::updateWithNewExperience(const std::vector<float> &last,
   // update our models and see if they change
   if (false || TIMEDEBUG) initTime = getSeconds();
 
-  modelChanged = planner->updateModelWithExperience(last, lastact, curr, reward, terminal, validFor) || modelChanged;
+  modelChanged = planner->updateModelWithExperience(last, lastact, curr, reward, terminal) || modelChanged;
 
   if (false || TIMEDEBUG) timeTwo = getSeconds();
 
@@ -391,6 +390,7 @@ void ModelBasedAgent::updateWithNewExperience(const std::vector<float> &last,
 
 
 }
+
 
 
 int ModelBasedAgent::chooseAction(const std::vector<float> &s){

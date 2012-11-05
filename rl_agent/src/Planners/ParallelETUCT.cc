@@ -161,6 +161,8 @@ void ParallelETUCT::setModel(MDPModel* m){
 // Functional functions :) //
 /////////////////////////////
 
+
+
 /** Use the latest experience to update state info and the model. */
 bool ParallelETUCT::updateModelWithExperience(const std::vector<float> &laststate,
                                               int lastact,
@@ -215,146 +217,6 @@ bool ParallelETUCT::updateModelWithExperience(const std::vector<float> &laststat
   e.act = lastact;
   e.reward = reward;
   e.terminal = term;
-
-  if (HISTORY_SIZE > 0){
-    if (HISTORYDEBUG) {
-      cout << "Original state vector (size " << e.s.size() << ": " << e.s[0];
-      for (unsigned i = 1; i < e.s.size(); i++){
-        cout << "," << e.s[i];
-      }
-      cout << endl;
-    }
-    // add history onto e.s
-    pthread_mutex_lock(&history_mutex);
-    for (int i = 0; i < HISTORY_FL_SIZE; i++){
-      e.s.push_back(saHistory[i]);
-    }
-    pthread_mutex_unlock(&history_mutex);
-
-    if (HISTORYDEBUG) {
-      cout << "New state vector (size " << e.s.size() << ": " << e.s[0];
-      for (unsigned i = 1; i < e.s.size(); i++){
-        cout << "," << e.s[i];
-      }
-      cout << endl;
-    }
-
-    if (!seedMode){
-      pthread_mutex_lock(&history_mutex);
-      // push this state and action onto the history vector
-      /*
-        for (unsigned i = 0; i < last->size(); i++){
-        saHistory.push_back((*last)[i]);
-        saHistory.pop_front();
-        }
-
-        saHistory.push_back((*last)[3]);
-        saHistory.pop_front();
-      */
-      for (int i = 0; i < numactions; i++){
-        if (i == lastact)
-          saHistory.push_back(1.0);
-        else
-          saHistory.push_back(0.0);
-        saHistory.pop_front();
-      }
-
-      //      saHistory.push_back(lastact);
-      //saHistory.pop_front();
-      if (HISTORYDEBUG) {
-        cout << "New history vector (size " << saHistory.size() << ": " << saHistory[0];
-        for (unsigned i = 1; i < saHistory.size(); i++){
-          cout << "," << saHistory[i];
-        }
-        cout << endl;
-      }
-      pthread_mutex_unlock(&history_mutex);
-    }
-  }
-
-  expList.push_back(e);
-  //expfile.saveExperience(e);
-  if (ATHREADDEBUG || MTHREADDEBUG)
-    cout << "added exp to list, size: " << expList.size() << endl << flush;
-  if (TIMINGDEBUG) cout << "list updated, time: " << (getSeconds()-initTime) << endl;
-  pthread_cond_signal(&list_cond);
-  pthread_mutex_unlock(&list_mutex);
-
-  /*
-    if (e.reward > -0.5 && e.reward < 0){
-    expfile.saveExperience(e);
-    nsaved++;
-    cout << "Saved Experience " << e.reward << endl;
-    }
-  */
-
-  if (timingType)
-    planTime = getSeconds();
-
-  if (TIMINGDEBUG) cout << "leaving updateModel, time: " << (getSeconds()-initTime) << endl;
-
-
-  return false;
-
-}
-
-
-/** Use the latest experience to update state info and the model. */
-bool ParallelETUCT::updateModelWithExperience(const std::vector<float> &laststate,
-                                              int lastact,
-                                              const std::vector<float> &currstate,
-                                              float reward, bool term,
-                                              const std::vector<unsigned>& validFor){
-  //  if (PLANNERDEBUG) cout << "updateModelWithExperience(last = " << &laststate
-  //     << ", curr = " << &currstate
-  //        << ", lastact = " << lastact
-  //     << ", r = " << reward
-  //     << ", term = " << term
-  //     << ")" << endl;
-
-  //cout << "updateModel" << endl << flush;
-
-  if (!timingType)
-    planTime = getSeconds();
-  initTime = getSeconds();
-
-  // canonicalize these things
-  state_t last = canonicalize(laststate);
-
-  prevstate = last;
-  prevact = lastact;
-
-  // get state info
-  pthread_mutex_lock(&statespace_mutex);
-  previnfo = &(statedata[last]);
-  pthread_mutex_unlock(&statespace_mutex);
-
-  if (MODELDEBUG){
-    cout << "Update with exp from state: ";
-    for (unsigned i = 0; i < last->size(); i++){
-      cout << (laststate)[i] << ", ";
-    }
-    cout << " action: " << lastact;
-    cout << " to state: ";
-    for (unsigned i = 0; i < currstate.size(); i++){
-      cout << (currstate)[i] << ", ";
-    }
-    cout << " and reward: " << reward << endl;
-  }
-
-  // add experiences to list to later be updated into model
-  if (ATHREADDEBUG)
-    cout << "*** Action thread wants list lock ***" << endl << flush;
-  if (TIMINGDEBUG) cout << "Want list mutex, time: " << (getSeconds()-initTime) << endl;
-  pthread_mutex_lock(&list_mutex);
-  if (TIMINGDEBUG) cout << "got list mutex, time: " << (getSeconds()-initTime) << endl;
-  experience e;
-  e.s = laststate;
-  e.next = currstate;
-  e.act = lastact;
-  e.reward = reward;
-  e.terminal = term;
-  e.validForModels = validFor;
 
   if (HISTORY_SIZE > 0){
     if (HISTORYDEBUG) {
