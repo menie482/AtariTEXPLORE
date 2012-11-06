@@ -63,7 +63,7 @@ public:
   virtual float getStateActionInfo(const std::vector<float> &state, int act, StateActionInfo* retval);
   virtual FactoredModel* getCopy();
 
-  std::vector<float>& populateDependencies(std::vector<float> &inputs, int nfactors, int nact, int actionTaken, std::vector<unsigned> &dep);
+  std::vector<float>& populateDependencies(std::vector<float> &inputs, std::vector<unsigned> &dep);
 
   /** Method to get a single sample of the predicted next state for the given state-action, rather than the full distribution given by getStateActionInfo */
   float getSingleSAInfo(const std::vector<float> &state, int act, StateActionInfo* retval);

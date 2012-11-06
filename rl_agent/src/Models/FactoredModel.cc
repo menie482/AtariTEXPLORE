@@ -221,8 +221,7 @@ bool FactoredModel::initMDPModel(int nfactors)
 
 }
 
-std::vector<float>& FactoredModel::populateDependencies(std::vector<float> &inputs, int nfactors, int nact, int
-actionTaken, std::vector<unsigned> &dep)
+std::vector<float>& FactoredModel::populateDependencies(std::vector<float> &inputs, std::vector<unsigned> &dep)
 {
     std::vector<float>* ret;
 
@@ -305,13 +304,13 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 		// reward and terminal models
 		classPair cpr;
         unsigned rewardIndex = modelSpecs.size() - 2;
-		cpr.in = populateDependencies(inputs, nfactors, nact, e.act, modelSpecs[rewardIndex].dependencies);
+		cpr.in = populateDependencies(inputs, modelSpecs[rewardIndex].dependencies);
 		cpr.out = e.reward;
 		rewardData[i] = cpr;
 
         classPair cpt;
         unsigned terminalIndex = modelSpecs.size() - 1;
-        cpt.in = populateDependencies(inputs, nfactors, nact, e.act, modelSpecs[terminalIndex].dependencies);
+        cpt.in = populateDependencies(inputs, modelSpecs[terminalIndex].dependencies);
 		cpt.out = e.terminal;
 		termData[i] = cpt;
 
@@ -324,7 +323,7 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
 				// (cdonahue)
 				// only gives specified dependencies to feature models
                 
-                cp.in = populateDependencies(inputs, nfactors, nact, e.act, modelSpecs[j].dependencies);
+                cp.in = populateDependencies(inputs, modelSpecs[j].dependencies);
 				// split the outcome and rewards up
 				// into each vector
 				cp.out = e.next[j];
@@ -622,8 +621,6 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 {
 	if (MODEL_DEBUG) cout << "getStateActionInfo, " << &state <<  ", " << act << endl;
 
-
-
 	if (MODEL_DEBUG)
 	{
 		for (unsigned i = 0; i < state.size(); i++)
@@ -647,18 +644,15 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 		return 0;
 	}
 
-    /*
 	// input we want predictions for
-	std::vector<float> inputs(state.size() + 1);//nact);
+	std::vector<float> inputs(state.size() + nact);
 	for (unsigned i = 0; i < state.size(); i++)
 	{
 		inputs[i] = state[i];
 	}
+    
+	//inputs[state.size()] = act;
 
-	inputs[state.size()] = act;
-    */
-
-    std::vector<float> inputs(state.size() + nact);
 	// convert to binary vector of length nact
 	for (int k = 0; k < nact; k++)
 	{
@@ -727,7 +721,7 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 		{
 			for (int i = 0; i < nfactors; i++)
 			{
-				outputModels[i]->testInstance(inputs, &(predictions[i]));
+				outputModels[i]->testInstance(populateDependencies(inputs, modelSpecs[i].dependencies), &(predictions[i]));
 			}
 		}
 
@@ -745,7 +739,7 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 	float rewardSum = 0.0;
 	// each value
 	std::map<float, float> rewardPreds;
-	rewardModel->testInstance(inputs, &rewardPreds);
+	rewardModel->testInstance(populateDependencies(inputs, modelSpecs[modelSpecs.size() - 2].dependencies), &rewardPreds);
 
 	if (rewardPreds.size() == 0)
 	{
@@ -781,7 +775,7 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 	}
 	else
 	{
-		terminalModel->testInstance(inputs, &termProbs);
+		terminalModel->testInstance(populateDependencies(inputs, modelSpecs[modelSpecs.size() - 1].dependencies), &termProbs);
 	}
 	// this needs to be a weighted sum.
 	// discrete trees will give some probabilty of termination (outcome 1)
@@ -811,10 +805,10 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 	if (needConf)
 	{
 		// conf is avg of each variable's model's confidence
-		float rConf = rewardModel->getConf(inputs);
+		float rConf = rewardModel->getConf(populateDependencies(inputs, modelSpecs[modelSpecs.size() - 2].dependencies));
 		float tConf = 1.0;
 		if (episodic)
-			tConf = terminalModel->getConf(inputs);
+			tConf = terminalModel->getConf(populateDependencies(inputs, modelSpecs[modelSpecs.size() - 1].dependencies));
 
 		//cout << "conf is " << confSum << ", r: " << rConf << ", " << tConf << endl;
 
@@ -824,7 +818,7 @@ float FactoredModel::getStateActionInfo(const std::vector<float> &state, int act
 		{
 			for (int i = 0; i < nfactors; i++)
 			{
-				float featConf = outputModels[i]->getConf(inputs);
+				float featConf = outputModels[i]->getConf(populateDependencies(inputs, modelSpecs[i].dependencies));
 				confSum += featConf;
 				//cout << "indep, conf for " << i << ": " << featConf << endl;
 			}
