@@ -1,5 +1,6 @@
 TODO NEXT TIME:
-    FIGURE OUT WHY CLASSIFIERS AREN'T GETTING REAL VALUES FOR testInstance
+    COPY CONSTRUCTOR BEING CALLED WHY?
+    RADAR DISTANCE NOT WORKING?
 
 todo:
 	Alter visual processing framework to do better self-tracking

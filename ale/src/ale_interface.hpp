@@ -327,7 +327,8 @@ public:
                 CompositeObject o = visProc->composite_objs[*it2];
                 point obj_centroid = o.get_centroid();
                 if (!(my_centroid.x == obj_centroid.x && my_centroid.y == obj_centroid.y))
-                    v.push_back(std::make_pair(o, p.id));
+                    //v.push_back(std::make_pair(o, p.id));
+                    v.push_back(std::make_pair(o, p.masks[0].size));
             }
         }
 

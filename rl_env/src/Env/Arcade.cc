@@ -36,29 +36,29 @@ Arcade::Arcade(char* rom_path) :
     // 12 = terminal tree
 
   // establish dep structure
-  modelSpecs[0].modelType = C45TREE;
+  modelSpecs[0].modelType = M5MULTI;
   modelSpecs[0].dependencies.push_back(0);
   modelSpecs[0].dependencies.push_back(1);
   modelSpecs[0].dependencies.push_back(10);
 
-  modelSpecs[1].modelType = C45TREE;
+  modelSpecs[1].modelType = M5MULTI;
   modelSpecs[1].dependencies.push_back(1);
   modelSpecs[1].dependencies.push_back(0);
   modelSpecs[1].dependencies.push_back(10);
 
-  modelSpecs[2].modelType = C45TREE;
+  modelSpecs[2].modelType = M5MULTI;
   modelSpecs[2].dependencies.push_back(2);
   modelSpecs[2].dependencies.push_back(10);
 
-  modelSpecs[3].modelType = C45TREE;
+  modelSpecs[3].modelType = M5MULTI;
   modelSpecs[3].dependencies.push_back(3);
   modelSpecs[3].dependencies.push_back(10);
 
-  modelSpecs[4].modelType = C45TREE;
+  modelSpecs[4].modelType = M5MULTI;
   modelSpecs[4].dependencies.push_back(4);
   modelSpecs[4].dependencies.push_back(10);
 
-  modelSpecs[5].modelType = C45TREE;
+  modelSpecs[5].modelType = M5MULTI;
   modelSpecs[5].dependencies.push_back(5);
   modelSpecs[5].dependencies.push_back(10);
 

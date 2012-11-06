@@ -358,7 +358,7 @@ bool FactoredModel::updateWithExperiences(std::vector<experience> &instances)
     // (cdonahue) just print stuff
     for (unsigned a = 0; a < rewardData.size(); a++) {
         for (unsigned b = 0; b < rewardData[a].in.size(); b++) {
-            printf("MODEL: REWARD, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b, rewardData[a].in[b], rewardData[a].out);
+            //printf("MODEL: REWARD, NONTERMINDEX: %d, INPUTINDEX: %d, VALUE: %f, OUTPUTVALUE: %f\n", a, b, rewardData[a].in[b], rewardData[a].out);
         }
     }
     for (unsigned a = 0; a < termData.size(); a++) {
