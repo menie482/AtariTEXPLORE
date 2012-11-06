@@ -136,6 +136,10 @@ float Arcade::apply(int action) {
 }
 
 void Arcade::updateState() {
+    for (int i = 0; i < state.size(); i++) {
+        state[i] = -1;
+    }
+
     // do self state
     point selfLoc = ale.getSelfLocation();
 	state[0] = selfLoc.x;
@@ -153,6 +157,7 @@ void Arcade::updateState() {
 		int xdist = selfLoc.x - objLoc.x;
 		int ydist = selfLoc.y - objLoc.y;
 		
+        printf("objID: %ld, xdist: %d, ydist: %d\n", objID, xdist, ydist);
 		if (abs(xdist) <= 10) {
 			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == -1)) {
 				state[2] = abs(ydist);
@@ -195,11 +200,6 @@ void Arcade::reset() {
     ale.act((Action) 1);
     ale.act((Action) 2);
     selfLoc = ale.getSelfLocation();
-  }
-
-  state.clear();
-  for (int i = 0; i < stateSpaceLength; i++) {
-    state.push_back(-1);
   }
 
   updateState();
