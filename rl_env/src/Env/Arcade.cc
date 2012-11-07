@@ -6,9 +6,10 @@
 */
 
 #include <rl_env/Arcade.hh>
+#include <cmath>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength),
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(3), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -21,6 +22,37 @@ Arcade::Arcade(char* rom_path) :
       exit(-1);
   }
 
+    // 0 = nearest obj dist x
+    // 1 = nearest obj dist y
+    // 2 = nearest obj pixel size
+    // 3 = action
+    // 4 = reward tree
+    // 5 = terminal tree
+
+  modelSpecs[0].modelType = M5MULTI;
+  modelSpecs[0].dependencies.push_back(0);
+  modelSpecs[0].dependencies.push_back(3);
+
+  modelSpecs[1].modelType = M5MULTI;
+  modelSpecs[1].dependencies.push_back(1);
+  modelSpecs[1].dependencies.push_back(3);
+
+  modelSpecs[2].modelType = CONSTANT;
+  modelSpecs[2].dependencies.push_back(2);
+  
+  modelSpecs[4].modelType = C45TREE;
+  modelSpecs[4].dependencies.push_back(0);
+  modelSpecs[4].dependencies.push_back(1);
+  modelSpecs[4].dependencies.push_back(2);
+  modelSpecs[4].dependencies.push_back(3);
+
+  modelSpecs[5].modelType = C45TREE;
+  modelSpecs[5].dependencies.push_back(0);
+  modelSpecs[5].dependencies.push_back(1);
+  modelSpecs[5].dependencies.push_back(2);
+  modelSpecs[5].dependencies.push_back(3);
+
+    /*
 	// 0 = selfLoc x
     // 1 = selfLoc y
     // 2 = radar in front
@@ -95,7 +127,7 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[12].dependencies.push_back(8);
   modelSpecs[12].dependencies.push_back(9);
   modelSpecs[12].dependencies.push_back(10);
-
+  */
   reset();
 }
 
@@ -131,7 +163,6 @@ float Arcade::apply(int action) {
 
     updateState();
 
-	printf("STATE: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", state[0], state[1], state[2], state[3], state[4], state[5], state[6], state[7], state[8], state[9]);
 	return reward;
 }
 
@@ -142,13 +173,14 @@ void Arcade::updateState() {
 
     // do self state
     point selfLoc = ale.getSelfLocation();
-	state[0] = selfLoc.x;
-    state[1] = selfLoc.y;
+	//state[0] = selfLoc.x;
+    //state[1] = selfLoc.y;
 
 	// do radar state
 	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
 	//for (int i = 0; i < objs.size(); i++) {
 	//	CompositeObject obj = objs[i];
+    float distToNearest = -1;
     for (vector<pair<CompositeObject,long> >::iterator it=objs.begin(); it != objs.end(); it++) {
         pair<CompositeObject,long> pair = *it;
         CompositeObject obj = pair.first;
@@ -156,7 +188,21 @@ void Arcade::updateState() {
 		point objLoc = obj.get_centroid();
 		int xdist = selfLoc.x - objLoc.x;
 		int ydist = selfLoc.y - objLoc.y;
-		
+        float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
+        if (distToNearest == -1 || objDist < distToNearest) {
+            distToNearest = objDist;
+            state[0] = xdist;
+            state[1] = ydist;
+            state[2] = objID;
+        }
+    }
+    printf("STATE: ");
+    for (int i = 0; i < state.size() - 1; i++) {
+        printf("%f, ", state[i]);
+    }
+    printf("%f\n", state[state.size() - 1]);
+
+        /*
         printf("objID: %ld, xdist: %d, ydist: %d\n", objID, xdist, ydist);
 		if (abs(xdist) <= 10) {
 			if (ydist >= 0 && (abs(ydist) < state[2] || state[2] == -1)) {
@@ -178,7 +224,7 @@ void Arcade::updateState() {
 				state[9] = objID;
 			}
 		}
-	}
+        */
 }
 
 bool Arcade::terminal() const {

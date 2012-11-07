@@ -1,6 +1,8 @@
 TODO NEXT TIME:
+    MANUALLY DISCRETIZE STATE SPACE
+    VERIFY ALGORITHM
+    DONT LEARN ON RADAR JUMPS
     COPY CONSTRUCTOR BEING CALLED WHY?
-    RADAR DISTANCE NOT WORKING?
 
 todo:
 	Alter visual processing framework to do better self-tracking
