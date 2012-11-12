@@ -67,18 +67,6 @@ PixelMask::PixelMask(const string& filename)
     load(filename);
 };
 
-// (cdonahue)
-PixelMask& PixelMask::rotate_mask_90_cw() {
-    PixelMask *ret = new PixelMask(height, width);
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            if (get_pixel(x, y))
-                ret->add_pixel(height-(y+1), x);
-        }
-    }
-    return *ret;
-};
-
 void PixelMask::add_pixel(int x, int y) {
     int block = (width * y + x) / 8;
     int indx_in_block = (width * y + x) % 8;
@@ -409,13 +397,7 @@ Prototype::Prototype (CompositeObject& obj, long id) :
 {
     // Add this object and save its mask
     obj_ids.insert(obj.id);
-    PixelMask rotated1 = obj.mask.rotate_mask_90_cw();
-    PixelMask rotated2 = rotated1.rotate_mask_90_cw();
-    PixelMask rotated3 = rotated2.rotate_mask_90_cw();
     masks.push_back(obj.mask);
-    masks.push_back(rotated1);
-    masks.push_back(rotated2);
-    masks.push_back(rotated3);
 };
 
 void Prototype::get_pixel_match(const CompositeObject& obj, float& overlap, int& mask_indx) {
@@ -536,16 +518,15 @@ void VisualProcessor::process_image(const IntMatrix* screen_matrix, Action actio
         sanitize_objects();
 
         // Merge objects into classes
-        merge_objects(.96);
+        //merge_objects(.96);
 
         // Identify which object we are
-        //identify_self();
+        // identify_self();
         manual_self.find_matching_objects(.99, composite_objs);
 
         // Assign objects to the saved obj class files
-        //for (int i=0; i<manual_obj_classes.size(); ++i)
-        //    manual_obj_classes[i].find_matching_objects(.99, composite_objs);
-        //printf("Found %d objects, %d blobs!\n", obj_classes.size(), curr_blobs.size());
+        for (int i=0; i<manual_obj_classes.size(); ++i)
+            manual_obj_classes[i].find_matching_objects(.99, composite_objs);
     }
 
     // Save State and action history
@@ -912,7 +893,7 @@ void VisualProcessor::sanitize_objects() {
         CompositeObject& obj = it->second;
 
         // (piyushk) if blob is too small or the velocity is 0, then remove the object
-        if (obj.mask.size < 15) {
+        if (obj.mask.size < 2) {
             to_remove.push_back(obj.id);
             continue;
         }
@@ -1202,7 +1183,10 @@ bool VisualProcessor::saveSelection() {
     }
 
     // Make sure a valid object is selected
-    assert(composite_objs.find(focused_entity_id) != composite_objs.end());
+    if (composite_objs.find(focused_entity_id) == composite_objs.end()) {
+        printf("No valid object selected to save.\n");
+        return false;
+    }
     CompositeObject& obj = composite_objs[focused_entity_id];
     obj.computeMask(curr_blobs); // Recompute the object's mask just to be sure
 
@@ -1299,17 +1283,22 @@ bool VisualProcessor::handleSDLEvent(const SDL_Event& event) {
                     }
                 }
             } else if (focus_level == 1 || focus_level == 2) {
-                // Find an object that is under the click
+                // Find the minimum sized object that is under the click
+                int minMaskSize = numeric_limits<int>::max();
                 for (map<long,CompositeObject>::iterator it=composite_objs.begin();
                      it!=composite_objs.end(); ++it) {
                     CompositeObject& obj = it->second;
                     if (approx_x >= obj.x_min && approx_x <= obj.x_max &&
                         approx_y >= obj.y_min && approx_y <= obj.y_max) {
-                        focused_entity_id = obj.id;
-                        if (focus_level == 1) obj.to_string();
-                        break;
+                        if (obj.mask.size < minMaskSize) {
+                            focused_entity_id = obj.id;
+                            minMaskSize = obj.mask.size;
+                        }
                     }
                 }
+                // Print object info
+                if (focused_entity_id > 0 && focus_level == 1)
+                    composite_objs[focused_entity_id].to_string();                    
                 // To which prototype does this obj belong?
                 if (focus_level == 2 && focused_entity_id > 0) { 
                     long obj_id = focused_entity_id;
@@ -1441,9 +1430,6 @@ bool VisualProcessor::handleSDLEvent(const SDL_Event& event) {
             proto_indx = manual_obj_classes.size()-1;
             focus_level = 1;
             return true;
-        // (cdonahue)
-        case SDLK_p: // Print model trees
-            
         default: // switch(sdl.keydown)
             break;
         }
@@ -1550,11 +1536,15 @@ void VisualProcessor::plot_objects(IntMatrix& screen_matrix) {
 // Draws a box around the an object
 void VisualProcessor::box_object(CompositeObject& obj, IntMatrix& screen_matrix, int color) {
     for (int x=obj.x_min; x<=obj.x_max; ++x) {
-        screen_matrix[obj.y_min-1][x] = color;
-        screen_matrix[obj.y_max+1][x] = color;
+        if (obj.y_min > 0)
+            screen_matrix[obj.y_min-1][x] = color;
+        if (obj.y_max < screen_height - 1)
+            screen_matrix[obj.y_max+1][x] = color;
     }
     for (int y=obj.y_min; y<=obj.y_max; ++y) {
-        screen_matrix[y][obj.x_min-1] = color;
+        if (obj.x_min > 0)
+            screen_matrix[y][obj.x_min-1] = color;
+        if (obj.x_max < screen_width - 1)
         screen_matrix[y][obj.x_max+1] = color;
     }
 };

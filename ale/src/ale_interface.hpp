@@ -321,6 +321,16 @@ public:
         vector<pair<CompositeObject, long> > v;
         point my_centroid = visProc->get_self_centroid();
 
+        for (unsigned i = 0; i < visProc->manual_obj_classes.size(); i++) {
+            Prototype p = visProc->manual_obj_classes[i];
+            for (set<long>::iterator it2=p.obj_ids.begin(); it2 != p.obj_ids.end(); it2++) {
+                CompositeObject o = visProc->composite_objs[*it2];
+                point obj_centroid = o.get_centroid();
+                assert(!(my_centroid.x == obj_centroid.x && my_centroid.y == obj_centroid.y));
+                v.push_back(std::make_pair(o, i));
+            }
+        }
+        /*
         for (vector<Prototype>::iterator it=visProc->obj_classes.begin(); it != visProc->obj_classes.end(); it++) {
             Prototype p = *it;
             for (set<long>::iterator it2=p.obj_ids.begin(); it2 != p.obj_ids.end(); it2++) {
@@ -331,6 +341,7 @@ public:
                     v.push_back(std::make_pair(o, p.masks[0].size));
             }
         }
+        */
 
         return v;
     }

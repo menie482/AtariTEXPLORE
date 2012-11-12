@@ -10,6 +10,7 @@
 #ifndef VISUAL_PROCESSOR_H
 #define VISUAL_PROCESSOR_H
 
+#include "SDL/SDL.h"
 #include <deque>
 #include "Constants.h"
 #include "display_screen.h"
@@ -95,9 +96,6 @@ struct PixelMask {
     PixelMask();
     PixelMask(int width, int height);
     PixelMask(const string& filename);
-
-    // (cdonahue) Create a rotated mask
-    PixelMask& rotate_mask_90_cw();
 
     // Sets pixel at location (x, y) to value val and updates size
     void add_pixel(int x, int y);
