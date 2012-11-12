@@ -180,7 +180,6 @@ bool FactoredModel::initMDPModel(int nfactors)
 		}
 		else if (nModels > 1 || modelType == ALLM5TYPES)
 		{
-            modelType = modelSpecs[i].modelType;
             if (modelType == CONSTANT) {
                 outputModels[i] = new ConstantClassifier((id * (nfactors + 1)) + i);
             }

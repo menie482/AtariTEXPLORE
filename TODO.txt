@@ -3,6 +3,7 @@ TODO NEXT TIME:
     VERIFY ALGORITHM
     DONT LEARN ON RADAR JUMPS
     COPY CONSTRUCTOR BEING CALLED WHY?
+    multipleclassifiers::traininstances()
 
 todo:
 	Alter visual processing framework to do better self-tracking
