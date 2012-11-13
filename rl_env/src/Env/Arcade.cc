@@ -9,7 +9,7 @@
 #include <cmath>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(3), state(stateSpaceLength),
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(4), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -24,110 +24,44 @@ Arcade::Arcade(char* rom_path) :
 
     // 0 = nearest obj dist x
     // 1 = nearest obj dist y
-    // 2 = nearest obj pixel size
-    // 3 = action
-    // 4 = reward tree
-    // 5 = terminal tree
+    // 2 = nearest obj id
+    // 3 = collision imminent
+    // 4 = action
+    // 5 = reward tree
+    // 6 = terminal tree
 
   modelSpecs[0].modelType = M5MULTI;
   modelSpecs[0].dependencies.push_back(0);
-  modelSpecs[0].dependencies.push_back(3);
+  modelSpecs[0].dependencies.push_back(4);
 
   modelSpecs[1].modelType = M5MULTI;
   modelSpecs[1].dependencies.push_back(1);
-  modelSpecs[1].dependencies.push_back(3);
+  modelSpecs[1].dependencies.push_back(4);
 
   modelSpecs[2].modelType = CONSTANT;
   modelSpecs[2].dependencies.push_back(2);
-  
-  modelSpecs[4].modelType = C45TREE;
-  modelSpecs[4].dependencies.push_back(0);
-  modelSpecs[4].dependencies.push_back(1);
-  modelSpecs[4].dependencies.push_back(2);
-  modelSpecs[4].dependencies.push_back(3);
 
+  modelSpecs[3].modelType = C45TREE;
+  modelSpecs[3].dependencies.push_back(0);
+  modelSpecs[3].dependencies.push_back(1);
+  modelSpecs[3].dependencies.push_back(2);
+  modelSpecs[3].dependencies.push_back(3);
+  modelSpecs[3].dependencies.push_back(4);
+  
   modelSpecs[5].modelType = C45TREE;
   modelSpecs[5].dependencies.push_back(0);
   modelSpecs[5].dependencies.push_back(1);
   modelSpecs[5].dependencies.push_back(2);
   modelSpecs[5].dependencies.push_back(3);
+  modelSpecs[5].dependencies.push_back(4);
 
-    /*
-	// 0 = selfLoc x
-    // 1 = selfLoc y
-    // 2 = radar in front
-    // 3 = radar behind
-    // 4 = radar left
-    // 5 = radar right
-    // 6 = size in front
-    // 7 = size behind
-    // 8 = size left
-    // 9 = size right
-	// 10 = action
-    // 11 = reward tree
-    // 12 = terminal tree
+  modelSpecs[6].modelType = C45TREE;
+  modelSpecs[6].dependencies.push_back(0);
+  modelSpecs[6].dependencies.push_back(1);
+  modelSpecs[6].dependencies.push_back(2);
+  modelSpecs[6].dependencies.push_back(3);
+  modelSpecs[6].dependencies.push_back(4);
 
-  // establish dep structure
-  modelSpecs[0].modelType = M5MULTI;
-  modelSpecs[0].dependencies.push_back(0);
-  modelSpecs[0].dependencies.push_back(1);
-  modelSpecs[0].dependencies.push_back(10);
-
-  modelSpecs[1].modelType = M5MULTI;
-  modelSpecs[1].dependencies.push_back(1);
-  modelSpecs[1].dependencies.push_back(0);
-  modelSpecs[1].dependencies.push_back(10);
-
-  modelSpecs[2].modelType = M5MULTI;
-  modelSpecs[2].dependencies.push_back(2);
-  modelSpecs[2].dependencies.push_back(10);
-
-  modelSpecs[3].modelType = M5MULTI;
-  modelSpecs[3].dependencies.push_back(3);
-  modelSpecs[3].dependencies.push_back(10);
-
-  modelSpecs[4].modelType = M5MULTI;
-  modelSpecs[4].dependencies.push_back(4);
-  modelSpecs[4].dependencies.push_back(10);
-
-  modelSpecs[5].modelType = M5MULTI;
-  modelSpecs[5].dependencies.push_back(5);
-  modelSpecs[5].dependencies.push_back(10);
-
-  modelSpecs[6].modelType = CONSTANT;
-  modelSpecs[6].dependencies.push_back(6);
-
-  modelSpecs[7].modelType = CONSTANT;
-  modelSpecs[7].dependencies.push_back(7);
-
-  modelSpecs[8].modelType = CONSTANT;
-  modelSpecs[8].dependencies.push_back(8);
-
-  modelSpecs[9].modelType = CONSTANT;
-  modelSpecs[9].dependencies.push_back(9);
-
-  modelSpecs[11].modelType = C45TREE;
-  modelSpecs[11].dependencies.push_back(2);
-  modelSpecs[11].dependencies.push_back(3);
-  modelSpecs[11].dependencies.push_back(4);
-  modelSpecs[11].dependencies.push_back(5);
-  modelSpecs[11].dependencies.push_back(6);
-  modelSpecs[11].dependencies.push_back(7);
-  modelSpecs[11].dependencies.push_back(8);
-  modelSpecs[11].dependencies.push_back(9);
-  modelSpecs[11].dependencies.push_back(10);
-
-  modelSpecs[12].modelType = C45TREE;
-  modelSpecs[12].dependencies.push_back(2);
-  modelSpecs[12].dependencies.push_back(3);
-  modelSpecs[12].dependencies.push_back(4);
-  modelSpecs[12].dependencies.push_back(5);
-  modelSpecs[12].dependencies.push_back(6);
-  modelSpecs[12].dependencies.push_back(7);
-  modelSpecs[12].dependencies.push_back(8);
-  modelSpecs[12].dependencies.push_back(9);
-  modelSpecs[12].dependencies.push_back(10);
-  */
   reset();
 }
 
@@ -170,6 +104,7 @@ void Arcade::updateState() {
     for (int i = 0; i < state.size(); i++) {
         state[i] = -1;
     }
+    state[3] = 0;
 
     // do self state
     point selfLoc = ale.getSelfLocation();
@@ -194,6 +129,8 @@ void Arcade::updateState() {
             state[0] = xdist;
             state[1] = ydist;
             state[2] = objID;
+            if (distToNearest < 18)
+                state[3] = 1;
         }
     }
     printf("STATE: ");
@@ -263,8 +200,16 @@ std::vector<experience> Arcade::getSeedings() {
 
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
-  minFeat->resize(stateSpaceLength, -1);
-  maxFeat->resize(stateSpaceLength, 192);
+  minFeat->resize(stateSpaceLength, 0);
+  minFeat->at(0) = -60;
+  minFeat->at(1) = -70;
+  minFeat->at(2) = -1;
+  minFeat->at(3) = 0;
+  maxFeat->resize(stateSpaceLength, 120);
+  maxFeat->at(0) = 130;
+  maxFeat->at(1) = 70;
+  maxFeat->at(2) = 3;
+  maxFeat->at(3) = 1;
 }
 
 void Arcade::getMinMaxReward(float *minR,

@@ -2,8 +2,8 @@ TODO NEXT TIME:
     MANUALLY DISCRETIZE STATE SPACE
     VERIFY ALGORITHM
     DONT LEARN ON RADAR JUMPS
-    COPY CONSTRUCTOR BEING CALLED WHY?
-    multipleclassifiers::traininstances()
+    COPY CONSTRUCTOR FOR CONSTANT RETURNS THIS
+    rl.cc: CHANGE es[0] == -1 TO SELFLOC == -1
 
 todo:
 	Alter visual processing framework to do better self-tracking

@@ -46,7 +46,7 @@ void AsterixSettings::step(const System& system) {
     // and death_counter == 0x01) by holding 'fire'
     // m_terminal = (death_counter == 0x01 && lives == 1);
     // m_terminal = (lives == 2);
-    m_terminal = (death_counter == 126);
+    m_terminal = (death_counter == 126 || lives < 3);
 }
 
 
