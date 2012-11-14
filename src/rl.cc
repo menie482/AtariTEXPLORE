@@ -954,7 +954,7 @@ int main(int argc, char **argv) {
         
           // (cdonahue) don't update learning while self unknown
           bool lostLoc = false;
-		  while (es[0] == -1 && !e->terminal())
+		  while (e->lostLocation() && !e->terminal())
 		  {
               lostLoc = true;
 		      r = e->apply(0);

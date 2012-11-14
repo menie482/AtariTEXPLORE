@@ -3,7 +3,9 @@ TODO NEXT TIME:
     VERIFY ALGORITHM
     DONT LEARN ON RADAR JUMPS
     COPY CONSTRUCTOR FOR CONSTANT RETURNS THIS
-    rl.cc: CHANGE es[0] == -1 TO SELFLOC == -1
+    Maybe add indicator feature for pos/neg x-vel and pos/neg y-vel
+    How is planner getting the feature sizes of its dependencies?
+
 
 todo:
 	Alter visual processing framework to do better self-tracking

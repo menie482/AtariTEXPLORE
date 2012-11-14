@@ -9,7 +9,7 @@
 #include <cmath>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(4), state(stateSpaceLength),
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(6), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -22,45 +22,63 @@ Arcade::Arcade(char* rom_path) :
       exit(-1);
   }
 
-    // 0 = nearest obj dist x
-    // 1 = nearest obj dist y
-    // 2 = nearest obj id
-    // 3 = collision imminent
-    // 4 = action
-    // 5 = reward tree
-    // 6 = terminal tree
+    // 0 = self x
+    // 1 = self y
+    // 2 = nearest obj dist x
+    // 3 = nearest obj dist y
+    // 4 = nearest obj id
+    // 5 = collision imminent
+    // 6 = action
+    // 7 = reward tree
+    // 8 = terminal tree
 
-  modelSpecs[0].modelType = M5MULTI;
-  modelSpecs[0].dependencies.push_back(0);
-  modelSpecs[0].dependencies.push_back(4);
+  modelSpecs[0].modelType = C45TREE;
+  //modelSpecs[0].dependencies.push_back(0);
+  //modelSpecs[0].dependencies.push_back(1);
+  modelSpecs[0].dependencies.push_back(6);
+  
+  modelSpecs[1].modelType = C45TREE;
+  //modelSpecs[1].dependencies.push_back(0);
+  //modelSpecs[1].dependencies.push_back(1);
+  modelSpecs[1].dependencies.push_back(6);
 
-  modelSpecs[1].modelType = M5MULTI;
-  modelSpecs[1].dependencies.push_back(1);
-  modelSpecs[1].dependencies.push_back(4);
-
-  modelSpecs[2].modelType = CONSTANT;
-  modelSpecs[2].dependencies.push_back(2);
+  modelSpecs[2].modelType = C45TREE;
+  //modelSpecs[2].dependencies.push_back(2);
+  modelSpecs[2].dependencies.push_back(4);
 
   modelSpecs[3].modelType = C45TREE;
-  modelSpecs[3].dependencies.push_back(0);
-  modelSpecs[3].dependencies.push_back(1);
-  modelSpecs[3].dependencies.push_back(2);
-  modelSpecs[3].dependencies.push_back(3);
+  //modelSpecs[3].dependencies.push_back(3);
   modelSpecs[3].dependencies.push_back(4);
-  
+
+  modelSpecs[4].modelType = CONSTANT;
+  modelSpecs[4].dependencies.push_back(4);
+
   modelSpecs[5].modelType = C45TREE;
   modelSpecs[5].dependencies.push_back(0);
   modelSpecs[5].dependencies.push_back(1);
   modelSpecs[5].dependencies.push_back(2);
   modelSpecs[5].dependencies.push_back(3);
   modelSpecs[5].dependencies.push_back(4);
+  modelSpecs[5].dependencies.push_back(5);
+  modelSpecs[5].dependencies.push_back(6);
 
-  modelSpecs[6].modelType = C45TREE;
-  modelSpecs[6].dependencies.push_back(0);
-  modelSpecs[6].dependencies.push_back(1);
-  modelSpecs[6].dependencies.push_back(2);
-  modelSpecs[6].dependencies.push_back(3);
-  modelSpecs[6].dependencies.push_back(4);
+  modelSpecs[7].modelType = C45TREE;
+  modelSpecs[7].dependencies.push_back(0);
+  modelSpecs[7].dependencies.push_back(1);
+  //modelSpecs[7].dependencies.push_back(2);
+  //modelSpecs[7].dependencies.push_back(3);
+  modelSpecs[7].dependencies.push_back(4);
+  modelSpecs[7].dependencies.push_back(5);
+  modelSpecs[7].dependencies.push_back(6);
+  
+  modelSpecs[8].modelType = C45TREE;
+  //modelSpecs[8].dependencies.push_back(0);
+  //modelSpecs[8].dependencies.push_back(1);
+  //modelSpecs[8].dependencies.push_back(2);
+  //modelSpecs[8].dependencies.push_back(3);
+  modelSpecs[8].dependencies.push_back(4);
+  modelSpecs[8].dependencies.push_back(5);
+  modelSpecs[8].dependencies.push_back(6);
 
   reset();
 }
@@ -77,10 +95,11 @@ float Arcade::apply(int action) {
 
     float prevY = state[0];
 
-	int framesPerAction = 1;
+	int idleFrames = 3;
 	float reward = 0;
-	for (int i = 0; i < framesPerAction; i++) {
-		reward += ale.act(a);
+    reward += ale.act(a);
+	for (int i = 0; i < idleFrames; i++) {
+		reward += ale.act(PLAYER_A_NOOP);
 		game_over = ale.game_over();
 		if (game_over) {
 			break;
@@ -104,12 +123,12 @@ void Arcade::updateState() {
     for (int i = 0; i < state.size(); i++) {
         state[i] = -1;
     }
-    state[3] = 0;
+    state[5] = 0;
 
     // do self state
     point selfLoc = ale.getSelfLocation();
-	//state[0] = selfLoc.x;
-    //state[1] = selfLoc.y;
+	state[0] = selfLoc.x;
+    state[1] = selfLoc.y;
 
 	// do radar state
 	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
@@ -126,9 +145,9 @@ void Arcade::updateState() {
         float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
         if (distToNearest == -1 || objDist < distToNearest) {
             distToNearest = objDist;
-            state[0] = xdist;
-            state[1] = ydist;
-            state[2] = objID;
+            state[2] = xdist;
+            state[3] = ydist;
+            state[4] = objID;
             if (distToNearest < 18)
                 state[3] = 1;
         }
@@ -201,15 +220,19 @@ std::vector<experience> Arcade::getSeedings() {
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
   minFeat->resize(stateSpaceLength, 0);
-  minFeat->at(0) = -60;
-  minFeat->at(1) = -70;
-  minFeat->at(2) = -1;
-  minFeat->at(3) = 0;
-  maxFeat->resize(stateSpaceLength, 120);
-  maxFeat->at(0) = 130;
-  maxFeat->at(1) = 70;
-  maxFeat->at(2) = 3;
-  maxFeat->at(3) = 1;
+  minFeat->at(0) = -1;
+  minFeat->at(1) = -1;
+  minFeat->at(2) = -160;
+  minFeat->at(3) = -192;
+  minFeat->at(4) = -1;
+  minFeat->at(5) = -1;
+  maxFeat->resize(stateSpaceLength, 0);
+  maxFeat->at(0) = 160;
+  maxFeat->at(1) = 192;
+  maxFeat->at(2) = 160;
+  maxFeat->at(3) = 192;
+  maxFeat->at(4) = 3;
+  maxFeat->at(5) = 1;
 }
 
 void Arcade::getMinMaxReward(float *minR,
@@ -221,6 +244,10 @@ void Arcade::getMinMaxReward(float *minR,
 
 bool Arcade::isEpisodic() {
     return true;
+}
+
+bool Arcade::lostLocation() {
+    return ale.getSelfLocation().x == -1;
 }
 
 std::vector<ModelSpecification>& Arcade::getModelSpecs() {

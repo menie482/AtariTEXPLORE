@@ -6,6 +6,6 @@
 set -e
 
 #./experiment --agent texplore --explore epsilongreedy --epsilon 0.05 --rom ./games/asterix.bin
-./experiment --agent texplore --rom ./games/asterix.bin
+./experiment --agent texplore --rom ./games/boxing.bin
 
 set +e

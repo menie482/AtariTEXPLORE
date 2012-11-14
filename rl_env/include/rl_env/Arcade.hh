@@ -28,6 +28,7 @@ public:
   virtual void getMinMaxReward(float* minR, float* maxR);
   virtual bool isEpisodic();
   std::vector<ModelSpecification>& getModelSpecs();
+  bool lostLocation();
   void updateState();
 
   virtual std::vector<experience> getSeedings();

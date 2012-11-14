@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 2.4.6)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 
+IF (BUILD_CONDOR_EXE)
+    SET (CONDOR_COMPILE "condor_compile  ")
+    SET (CMAKE_CXX_COMPILER "${CONDOR_COMPILE}${CMAKE_CXX_COMPILER}")
+ENDIF (BUILD_CONDOR_EXE)
+
 include_directories(
 rl_common/include
 rl_env/include
