@@ -1,9 +1,8 @@
 Matt:
-    visual_processing::update_existing_objs():
-        Why break on inconsistent velocity?
-        Why remove object with inconsistent velocity?
 
 Todd:
-    ParallelETUCT:
-        why canonicalize by default?
-    Copy constructors called on planners, why?
+    So far I've changed:
+        Environment
+        FactoredModel (in two places)
+        What do I need to change in ParallelETUCT?
+        What do feature sizes actually do?

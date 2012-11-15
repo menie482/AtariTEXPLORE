@@ -6,6 +6,10 @@ TODO NEXT TIME:
     Maybe add indicator feature for pos/neg x-vel and pos/neg y-vel
     How is planner getting the feature sizes of its dependencies?
 
+Investigate:
+    Branch with original TEXPLORE code to check sanity?
+    What do featMIN and featMAX get used for? Are we passing these correctly with depedency structure?
+    Do we need to update Monte Carlo simulation to work with depedencies?
 
 todo:
 	Alter visual processing framework to do better self-tracking
