@@ -1,0 +1,9 @@
+Matt:
+    visual_processing::update_existing_objs():
+        Why break on inconsistent velocity?
+        Why remove object with inconsistent velocity?
+
+Todd:
+    ParallelETUCT:
+        why canonicalize by default?
+    Copy constructors called on planners, why?
