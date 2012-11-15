@@ -5,4 +5,6 @@ Todd:
         Environment
         FactoredModel (in two places)
         What do I need to change in ParallelETUCT?
-        What do feature sizes actually do?
+        Are there any complications with feature sizes?
+            Shouldn't be anything involving the model and couldn't find anything in the planner that would suggest
+            dependency structure required

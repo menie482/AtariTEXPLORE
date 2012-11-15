@@ -99,7 +99,7 @@ float Arcade::apply(int action) {
 	float reward = 0;
     reward += ale.act(a);
 	for (int i = 0; i < idleFrames; i++) {
-		reward += ale.act(PLAYER_A_NOOP);
+		reward += ale.act(a);
 		game_over = ale.game_over();
 		if (game_over) {
 			break;
@@ -149,7 +149,7 @@ void Arcade::updateState() {
             state[3] = ydist;
             state[4] = objID;
             if (distToNearest < 18)
-                state[3] = 1;
+                state[5] = 1;
         }
     }
     printf("STATE: ");
