@@ -17,12 +17,13 @@
 ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float lambda,
                              int MAX_ITER, float MAX_TIME, int MAX_DEPTH, int modelType,
                              const std::vector<float> &fmax, const std::vector<float> &fmin,
+                             std::vector<ModelSpecification> &modelSpecs,
                              const std::vector<int> &nstatesPerDim, bool trackActual, int historySize, Random r):
   numactions(numactions), gamma(gamma), rrange(rrange), lambda(lambda),
   MAX_ITER(MAX_ITER), MAX_TIME(MAX_TIME),
   MAX_DEPTH(MAX_DEPTH), modelType(modelType), statesPerDim(nstatesPerDim),
   trackActual(trackActual), HISTORY_SIZE(historySize),
-  HISTORY_FL_SIZE(historySize*numactions),
+  HISTORY_FL_SIZE(historySize*numactions), modelSpecs(modelSpecs),
   CLEAR_SIZE(25)
 {
   rng = r;

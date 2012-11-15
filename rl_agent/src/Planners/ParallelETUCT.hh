@@ -54,6 +54,7 @@ public:
   ParallelETUCT(int numactions, float gamma, float rrange, float lambda,
                 int MAX_ITER, float MAX_TIME, int MAX_DEPTH,  int modelType,
                 const std::vector<float> &featmax, const std::vector<float> &featmin,
+                std::vector<ModelSpecification> &mSpecs,
                  const std::vector<int> &statesPerDim, bool trackActual, int historySize, Random rng = Random());
   
   /** Unimplemented copy constructor: internal state cannot be simply
@@ -287,6 +288,7 @@ private:
 
   std::vector<float> featmax;
   std::vector<float> featmin;
+  std::vector<ModelSpecification> modelSpecs;
 
   /** Current history of previous actions. */
   std::deque<float> saHistory;
