@@ -1,32 +1,38 @@
-TODO NEXT TIME:
-    MANUALLY DISCRETIZE STATE SPACE
-    VERIFY ALGORITHM
-    DONT LEARN ON RADAR JUMPS
-    COPY CONSTRUCTOR FOR CONSTANT RETURNS THIS
-    Maybe add indicator feature for pos/neg x-vel and pos/neg y-vel
-    How is planner getting the feature sizes of its dependencies?
+TODO SOON:
+    Play with discretization and actrate, other TEXPLORE parameters (like the intrinsic motivation)?
+    Fix collision imminent
+    Think about how to deal with idle frames for games that require multiple presses to move certain directions
+    Check if objects are always delivered in the same order for radar consistency when two objects are same distance
+    Fix memory efficiency of dependency structure (array copying)
 
-Investigate:
-    Branch with original TEXPLORE code to check sanity?
-    What do featMIN and featMAX get used for? Are we passing these correctly with depedency structure?
-    Do we need to update Monte Carlo simulation to work with depedencies?
+DEBUG TODO:
+    Git branch with original TEXPLORE code to check sanity?
+    Check sanity of featMin and featMax in Planner
+    Toggle dependency structure to see if its causing the loss of rollouts
+    Test other TEXPLORE given examples and compare with Todd's results from the paper
 
-todo:
-	Alter visual processing framework to do better self-tracking
-		don't remove self object if its not moving
-		maybe use a particle filter updated by current model?
-	Edit TEXPLORE:
-		Pass split structure through modelSpecs (which features in the model to have absolute vs relative splits, suggested values for those splits...)
-		Detect whether or not to pass certain training experiences to certain features
-		Print decision trees to see what's going on
-		Improve fault tolerance and sensor delay, reject certain samples that aren't of some threshold of consistency?
-		Don't recreate trees on missed prediction
-		Suggest certain splits for decision tree (on variable values)
-	State space:
-		Think of a way to make this adapt better to decision tree framework
-		Add nearest n object radar (or other type if we think of that first)
-		Add map # feature
-		Frames since start
-		Discretize x,y coordinates?
+TEXPLORE TODO:
+    Pass split structure through modelSpecs (which features in the model to have absolute vs relative splits, suggested values for those splits...)
+    Detect whether or not to pass certain training experiences to certain features
+    Print decision trees to see what's going on
+    Improve fault tolerance and sensor delay, reject certain samples that aren't of some threshold of consistency?
+    Don't recreate trees on missed prediction
+    Suggest certain splits for decision tree (on variable values)
 
-	no GUI on submit to condor
+STATE SPACE TODO:
+    Pos/neg x-vel, y-vel features?
+    Think of a way to make this adapt better to relative decision tree framework
+    Add nearest n object radar (or other type if I think of it)
+    Add map # feature
+    Frames since start
+    Discretize x,y coordinates?
+    Don't learn on radar jumps
+
+VISUAL PROCESSING TODO:
+    Don't remove object after 50 idle frames if it matches the self object
+    Switch back to automatic recognition... maybe...
+
+TESTING TODO:
+    Submit no GUI version to condor
+    Many training episodes and then a few evaluation episods
+    More gaemz!
