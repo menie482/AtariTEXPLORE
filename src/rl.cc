@@ -15,6 +15,17 @@
 // Environments //
 //////////////////
 #include <rl_env/Arcade.hh>
+#include <rl_env/RobotCarVel.hh>
+#include <rl_env/fourrooms.hh>
+#include <rl_env/tworooms.hh>
+#include <rl_env/taxi.hh>
+#include <rl_env/FuelRooms.hh>
+#include <rl_env/stocks.hh>
+#include <rl_env/energyrooms.hh>
+#include <rl_env/MountainCar.hh>
+#include <rl_env/CartPole.hh>
+#include <rl_env/LightWorld.hh>
+
 
 ////////////
 // Agents //
@@ -36,7 +47,7 @@
 unsigned NUMEPISODES = 1000; //10; //200; //500; //200;
 const unsigned NUMTRIALS = 1; //30; //30; //5; //30; //30; //50
 unsigned MAXSTEPS = 1000; // per episode
-bool PRINTS = true;
+bool PRINTS = false;
 
 
 void displayHelp(){
@@ -74,7 +85,7 @@ void displayHelp(){
   cout << "--highvar (have variation fuel costs in Fuel World)\n";
   cout << "--nsectors value (# sectors for stocks domain)\n";
   cout << "--nstocks value (# stocks for stocks domain)\n";
-  cout << "--rom path (path to ROM for arcade env)\n";
+  cout << "--rom path (path to ROM for Arcade env)\n";
 
   cout << "\n--prints (turn on debug printing of actions/rewards)\n";
   cout << "--nepisodes value (# of episodes to run (1000 default)\n";
@@ -176,7 +187,7 @@ int main(int argc, char **argv) {
 
   // parse ROM path
   bool gotRom = false;
-  for (int i = 1; i < argc-1; i++){
+  for (int i = 1; i < argc-1; i++) {
     if (strcmp(argv[i], "--rom") == 0){
       gotRom = true;
       romPath = argv[i+1];
@@ -228,7 +239,7 @@ int main(int argc, char **argv) {
     {"nolag", 0, 0, 8},
     {"highvar", 0, 0, 11},
     {"nepisodes", 1, 0, 12},
-		{"rom", 1, 0, 13}
+    {"rom", 1, 0, 13}
   };
 
   bool epsilonChanged = false;
@@ -608,7 +619,7 @@ int main(int argc, char **argv) {
       break;
 
     case 13:
-      // already processed this one
+      // rom case, already processed
       break;
 
     case 'h':
@@ -682,12 +693,7 @@ int main(int argc, char **argv) {
   Arcade* e;
   e = new Arcade(romPath);
 /*
-	if (strcmp(envType, "arcade") == 0) {
-		if (PRINTS) cout << "Environment: Atari!\n";
-		e = new Arcade(romPath);
-	}
-
-  else if (strcmp(envType, "cartpole") == 0){
+  if (strcmp(envType, "cartpole") == 0){
     if (PRINTS) cout << "Environment: Cart Pole\n";
     e = new CartPole(rng, stochastic);
   }
@@ -713,6 +719,40 @@ int main(int argc, char **argv) {
   else if (strcmp(envType, "tworooms") == 0){
     if (PRINTS) cout << "Environment: TwoRooms\n";
     e = new TwoRooms(rng, stochastic, true, delay, false);
+  }
+
+  // car vel, 2 to 7
+  else if (strcmp(envType, "car2to7") == 0){
+    if (PRINTS) cout << "Environment: Car Velocity 2 to 7 m/s\n";
+    e = new RobotCarVel(rng, false, true, false, lag);
+    statesPerDim.resize(4,0);
+    statesPerDim[0] = 12;
+    statesPerDim[1] = 120;
+    statesPerDim[2] = 4;
+    statesPerDim[3] = 10;
+    MAXSTEPS = 100;
+  }
+  // car vel, 7 to 2
+  else if (strcmp(envType, "car7to2") == 0){
+    if (PRINTS) cout << "Environment: Car Velocity 7 to 2 m/s\n";
+    e = new RobotCarVel(rng, false, false, false, lag);
+    statesPerDim.resize(4,0);
+    statesPerDim[0] = 12;
+    statesPerDim[1] = 120;
+    statesPerDim[2] = 4;
+    statesPerDim[3] = 10;
+    MAXSTEPS = 100;
+  }
+  // car vel, random vels
+  else if (strcmp(envType, "carrandom") == 0){
+    if (PRINTS) cout << "Environment: Car Velocity Random Velocities\n";
+    e = new RobotCarVel(rng, true, false, false, lag);
+    statesPerDim.resize(4,0);
+    statesPerDim[0] = 12;
+    statesPerDim[1] = 48;
+    statesPerDim[2] = 4;
+    statesPerDim[3] = 10;
+    MAXSTEPS = 100;
   }
 
   // four rooms
@@ -947,36 +987,33 @@ int main(int argc, char **argv) {
         ++steps;
 
         while (!e->terminal() && steps < MAXSTEPS) {
-          printf("------------------------------------------------\n");
-          
+          printf("----------------------------------------------\n");
+
           // perform an action
           es = e->sensation();
-        
-          // (cdonahue) don't update learning while self unknown
+
+          // (cdonahue) don't update learning while invalid
           bool lostLoc = false;
-		  while (e->lostLocation() && !e->terminal())
-		  {
-              lostLoc = true;
-		      r = e->apply(0);
-              r = e->apply(1);
-		      es = e->sensation();
-		  }
+          while (e->lostLocation() && !e->terminal())
+          {
+              lostLoc = true;;
+              r = e->apply(0);
+              //r = e->apply(1);
+              es = e->sensation();
+          }
           if (lostLoc) {
               a = agent->first_action(es);
               if (e->terminal())
                   break;
               continue;
           }
-		      
+
           a = agent->next_action(r, es);
           r = e->apply(a);
 
           // update performance info
           sum += r;
           ++steps;
-          
-          if (!lostLoc)
-              printf("s: %f, s': %f, a: %d, r: %f\n", es[0], e->sensation()[0], a, r);
         }
 
         // terminal/last state

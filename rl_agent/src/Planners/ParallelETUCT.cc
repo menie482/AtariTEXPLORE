@@ -17,13 +17,12 @@
 ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float lambda,
                              int MAX_ITER, float MAX_TIME, int MAX_DEPTH, int modelType,
                              const std::vector<float> &fmax, const std::vector<float> &fmin,
-                             std::vector<ModelSpecification> &modelSpecs,
                              const std::vector<int> &nstatesPerDim, bool trackActual, int historySize, Random r):
   numactions(numactions), gamma(gamma), rrange(rrange), lambda(lambda),
   MAX_ITER(MAX_ITER), MAX_TIME(MAX_TIME),
   MAX_DEPTH(MAX_DEPTH), modelType(modelType), statesPerDim(nstatesPerDim),
   trackActual(trackActual), HISTORY_SIZE(historySize),
-  HISTORY_FL_SIZE(historySize*numactions), modelSpecs(modelSpecs),
+  HISTORY_FL_SIZE(historySize*numactions),
   CLEAR_SIZE(25)
 {
   rng = r;
@@ -477,10 +476,9 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
       cout << (*s)[i] << ", ";
     }
     cout << " sampled " << info->uctVisits << " times." << endl;
-    for (unsigned i = 0; i < numactions; i++) {
+    for (int i = 0; i < numactions; i++) {
         cout << "Action " << i << " value: " << Q[i] << endl;
     }
-    cout << flush;
   }
 
   // Choose an action
@@ -491,8 +489,6 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   if (TIMINGDEBUG) cout << "got action: " << (getSeconds()-initTime) << endl;
 
   pthread_mutex_unlock(&info->stateinfo_mutex);
-
-  cout << "TAKE ACTION " << act << endl;
 
   // return index of action
   return act;
@@ -1058,14 +1054,6 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
   *reward = modelInfo->reward;
   *term = (rng.uniform() < modelInfo->termProb);
 
-  /*
-  cout << "From state: ";
-  for (unsigned i = 0; i < actualState.size(); i++){
-    cout << actualState[i] << ", ";
-  }
-  cout << " action: " << action << ": predict r: " << *reward << endl;
-  */
-
   if (*term){
     pthread_mutex_unlock(&info->statemodel_mutex);
     return actualState;
@@ -1088,8 +1076,6 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
     float prob = (*outIt).second;
     probSum += prob;
     if (REALSTATEDEBUG) cout << randProb << ", " << probSum << ", " << prob << endl;
-
-    //cout << "predict y value : " << (*outIt).first[0] << " with prob: " << prob << endl;
 
     if (randProb <= probSum){
       nextstate = (*outIt).first;

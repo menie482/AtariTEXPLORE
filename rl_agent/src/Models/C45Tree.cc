@@ -27,7 +27,7 @@ C45Tree::C45Tree(int id, int trainMode, int trainFreq, int m,
 
   MIN_GAIN_RATIO = 0.0001; //0.0004; //0.001; //0.0002; //0.001;
 
-  DTDEBUG = false; //false; //true;
+  DTDEBUG = false; //true;
   SPLITDEBUG = false; //true;
   STOCH_DEBUG = false; //true; //false; //true;
   INCDEBUG = false; //true; //false; //true;
@@ -438,10 +438,10 @@ void C45Tree::initTree(){
 
 // init a tree node
 void C45Tree::initTreeNode(tree_node* node){
-  //if (DTDEBUG) cout << "initTreeNode()";
+  if (DTDEBUG) cout << "initTreeNode()";
 
   node->id = nnodes++;
-  //if (DTDEBUG) cout << " id = " << node->id << endl;
+  if (DTDEBUG) cout << " id = " << node->id << endl;
 
   totalnodes++;
   if (totalnodes > maxnodes){

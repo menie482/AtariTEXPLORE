@@ -29,9 +29,9 @@ ModelBasedAgent::ModelBasedAgent(int numactions, float gamma,
                                  int predType, int nModels, int plannerType, 
                                  float epsilon, float lambda, float MAX_TIME,
                                  float m, const std::vector<float> &featmin,
-                                 const std::vector<float> &featmax, 
+                                 const std::vector<float> &featmax,
                                  std::vector<ModelSpecification> &modelSpecs,
-				 std::vector<int> nstatesPerDim, int history, float v, float n,
+                                 std::vector<int> nstatesPerDim, int history, float v, float n,
                                  bool depTrans, bool relTrans, float featPct, bool stoch, bool episodic,
                                  Random rng):
   featmin(featmin), featmax(featmax),
@@ -67,8 +67,7 @@ ModelBasedAgent::ModelBasedAgent(int numactions, float gamma,
                                  int nstatesPerDim, int history, float v, float n,
                                  bool depTrans, bool relTrans, float featPct,
 				 bool stoch, bool episodic, Random rng):
-  featmin(featmin), featmax(featmax),
-  modelSpecs(modelSpecs),
+  featmin(featmin), featmax(featmax), modelSpecs(modelSpecs),
   numactions(numactions), gamma(gamma), rmax(rmax), rrange(rrange),
   qmax(rmax/(1.0-gamma)), 
   modelType(modelType), exploreType(exploreType), 
@@ -324,12 +323,10 @@ void ModelBasedAgent::initPlanner(){
     planner = new ETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax, featmin, statesPerDim, true, history, rng);
   }
   else if (plannerType == PARALLEL_ET_UCT){
-    planner = new ParallelETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax,
-    featmin, modelSpecs, statesPerDim, false, history, rng);
+    planner = new ParallelETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax, featmin, statesPerDim, false, history, rng);
   }
   else if (plannerType == PAR_ETUCT_ACTUAL){
-    planner = new ParallelETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax,
-    featmin, modelSpecs, statesPerDim, true, history, rng);
+    planner = new ParallelETUCT(numactions, gamma, rrange, lambda, 500000, MAX_TIME, max_path, modelType, featmax, featmin, statesPerDim, true, history, rng);
   }
   else if (plannerType == ET_UCT_L1){
     planner = new ETUCT(numactions, gamma, rrange, 1.0, 500000, MAX_TIME, max_path, modelType, featmax, featmin, statesPerDim, false, history, rng);
@@ -392,7 +389,6 @@ void ModelBasedAgent::updateWithNewExperience(const std::vector<float> &last,
 
 
 }
-
 
 
 int ModelBasedAgent::chooseAction(const std::vector<float> &s){

@@ -439,6 +439,10 @@ void Prototype::to_string(bool verbose) {
     }
 }
 
+bool Prototype::hasObjectID(long objID) {
+    return obj_ids.find(objID) != obj_ids.end();
+}
+
 VisualProcessor::VisualProcessor(OSystem* _osystem, string myRomFile) : 
     p_osystem(_osystem),
     game_settings(NULL),
@@ -897,7 +901,7 @@ void VisualProcessor::sanitize_objects() {
             to_remove.push_back(obj.id);
             continue;
         }
-        if (obj.frames_since_last_movement > 50) {
+        if (obj.frames_since_last_movement > 50 && !manual_self.hasObjectID(obj.id)) {
             to_remove.push_back(obj.id);
             continue;
         }

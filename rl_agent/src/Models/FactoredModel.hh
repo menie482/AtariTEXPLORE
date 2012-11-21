@@ -7,7 +7,6 @@
 #ifndef _FACTOREDMODEL_HH_
 #define _FACTOREDMODEL_HH_
 
-#include "../Models/ConstantClassifier.hh"
 #include "../Models/C45Tree.hh"
 #include "../Models/M5Tree.hh"
 #include "../Models/LinearSplitsTree.hh"
@@ -18,7 +17,6 @@
 #include <rl_common/Random.h>
 #include <rl_common/core.hh>
 #include <vector>
-#include <algorithm>
 
 
 /** Builds an mdp model consisting of a tree (or ensemble of trees) to predict each feature, reward, and termination probability. Thus forming a complete model of the MDP. */
@@ -45,7 +43,7 @@ public:
   */
   FactoredModel(int id, int numactions, int M, int modelType, 
           int predType, int nModels, float treeThreshold,
-	  std::vector<ModelSpecification> &modelSpecs,
+          std::vector<ModelSpecification> &modelSpecs,
           const std::vector<float> &featRange, float rRange,
           bool needConf, bool dep, bool relTrans, float featPct, 
 	  bool stoch, bool episodic, Random rng = Random());
@@ -62,8 +60,6 @@ public:
   bool initMDPModel(int nfactors);
   virtual float getStateActionInfo(const std::vector<float> &state, int act, StateActionInfo* retval);
   virtual FactoredModel* getCopy();
-
-  std::vector<float>& populateDependencies(std::vector<float> &inputs, std::vector<unsigned> &dep);
 
   /** Method to get a single sample of the predicted next state for the given state-action, rather than the full distribution given by getStateActionInfo */
   float getSingleSAInfo(const std::vector<float> &state, int act, StateActionInfo* retval);
@@ -85,7 +81,7 @@ private:
   /** Classifier to predict each feature */
   std::vector<Classifier*> outputModels;
 
-  /** Dependency model for the feature models */
+  /** Structure of the feature predictors */
   std::vector<ModelSpecification> modelSpecs;
 
   /** Classifier to predict reward */

@@ -226,6 +226,8 @@ struct Prototype {
     void find_matching_objects(float similarity_threshold, map<long,CompositeObject>& obj_map);
 
     void to_string(bool verbose=false);
+
+    bool hasObjectID(long id);
 };
 
 

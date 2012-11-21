@@ -128,7 +128,7 @@ public:
 
   std::vector<float> featmin;
   std::vector<float> featmax;
-  
+
   std::vector<ModelSpecification> modelSpecs;
 
 protected:

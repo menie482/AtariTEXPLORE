@@ -134,8 +134,6 @@ bool MultipleClassifiers::trainInstances(std::vector<classPair> &instances){
       changed = changed || singleChange;
     }
   }
-
-  //((M5Tree*) models[0])->printTree();
   
   nsteps += instances.size();
 
@@ -186,10 +184,6 @@ bool MultipleClassifiers::trainInstance(classPair &instance){
 // get all the models outputs and combine them somehow
 void MultipleClassifiers::testInstance(const std::vector<float> &input, std::map<float, float>* retval){
   if (STDEBUG) cout << id << " testInstance" << endl;
-
-  for (unsigned i = 0; i < input.size(); i++) {
-  //  cout << "Input " << i << ": " << input[i] << endl;
-  }
 
   if ((int)infos.size() != nModels){
     infos.resize(nModels);

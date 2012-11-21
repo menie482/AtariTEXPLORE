@@ -33,52 +33,13 @@ Arcade::Arcade(char* rom_path) :
     // 8 = terminal tree
 
   modelSpecs[0].modelType = C45TREE;
-  //modelSpecs[0].dependencies.push_back(0);
-  //modelSpecs[0].dependencies.push_back(1);
-  modelSpecs[0].dependencies.push_back(6);
-  
   modelSpecs[1].modelType = C45TREE;
-  //modelSpecs[1].dependencies.push_back(0);
-  //modelSpecs[1].dependencies.push_back(1);
-  modelSpecs[1].dependencies.push_back(6);
-
   modelSpecs[2].modelType = C45TREE;
-  //modelSpecs[2].dependencies.push_back(2);
-  modelSpecs[2].dependencies.push_back(4);
-
   modelSpecs[3].modelType = C45TREE;
-  //modelSpecs[3].dependencies.push_back(3);
-  modelSpecs[3].dependencies.push_back(4);
-
   modelSpecs[4].modelType = CONSTANT;
-  modelSpecs[4].dependencies.push_back(4);
-
   modelSpecs[5].modelType = C45TREE;
-  //modelSpecs[5].dependencies.push_back(0);
-  //modelSpecs[5].dependencies.push_back(1);
-  modelSpecs[5].dependencies.push_back(2);
-  modelSpecs[5].dependencies.push_back(3);
-  modelSpecs[5].dependencies.push_back(4);
-  modelSpecs[5].dependencies.push_back(5);
-  modelSpecs[5].dependencies.push_back(6);
-
   modelSpecs[7].modelType = C45TREE;
-  modelSpecs[7].dependencies.push_back(0);
-  modelSpecs[7].dependencies.push_back(1);
-  //modelSpecs[7].dependencies.push_back(2);
-  //modelSpecs[7].dependencies.push_back(3);
-  modelSpecs[7].dependencies.push_back(4);
-  modelSpecs[7].dependencies.push_back(5);
-  modelSpecs[7].dependencies.push_back(6);
-  
   modelSpecs[8].modelType = C45TREE;
-  //modelSpecs[8].dependencies.push_back(0);
-  //modelSpecs[8].dependencies.push_back(1);
-  //modelSpecs[8].dependencies.push_back(2);
-  //modelSpecs[8].dependencies.push_back(3);
-  modelSpecs[8].dependencies.push_back(4);
-  modelSpecs[8].dependencies.push_back(5);
-  modelSpecs[8].dependencies.push_back(6);
 
   reset();
 }
@@ -252,6 +213,7 @@ bool Arcade::lostLocation() {
 
 std::vector<ModelSpecification>& Arcade::getModelSpecs() {
     // encode actions as binary representation
+    /*
     for (unsigned j = 0; j < modelSpecs.size(); j++) {
         std::vector<unsigned> dep = modelSpecs[j].dependencies;
         if (std::find(dep.begin(), dep.end(), stateSpaceLength) != dep.end()) {
@@ -260,6 +222,7 @@ std::vector<ModelSpecification>& Arcade::getModelSpecs() {
             }
         }
     }
+    */
 
     return modelSpecs;
 }
