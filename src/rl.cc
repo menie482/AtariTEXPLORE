@@ -996,7 +996,7 @@ int main(int argc, char **argv) {
           bool lostLoc = false;
           while (e->lostLocation() && !e->terminal())
           {
-              lostLoc = true;;
+              lostLoc = true;
               r = e->apply(0);
               //r = e->apply(1);
               es = e->sensation();

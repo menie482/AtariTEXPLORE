@@ -1,5 +1,4 @@
 TODO SOON:
-    Add getMaxReward and getMinReward to supported games and ale_interface.hpp
     Use Stella to find a better switch for end of Asterix
     Play with discretization and actrate, other TEXPLORE parameters (like the intrinsic motivation)?
     Fix collision imminent

@@ -7,6 +7,7 @@
 #include "ale_interface.hpp"
 #include <stdio.h>
 #include <cmath>
+#include <string>
 
 /** This class defines the Atari Arcade domain */
 class Arcade: public Environment {
@@ -46,6 +47,8 @@ protected:
   const int stateSpaceLength;
 	
 private:
+  float minReward;
+  float maxReward;
   std::vector<float> state;
   std::vector<ModelSpecification> modelSpecs;
 };

@@ -32,10 +32,10 @@ Arcade::Arcade(char* rom_path) :
     // 7 = reward tree
     // 8 = terminal tree
 
-  modelSpecs[0].modelType = C45TREE;
-  modelSpecs[1].modelType = C45TREE;
-  modelSpecs[2].modelType = C45TREE;
-  modelSpecs[3].modelType = C45TREE;
+  modelSpecs[0].modelType = M5MULTI;
+  modelSpecs[1].modelType = M5MULTI;
+  modelSpecs[2].modelType = M5MULTI;
+  modelSpecs[3].modelType = M5MULTI;
   modelSpecs[4].modelType = CONSTANT;
   modelSpecs[5].modelType = C45TREE;
   modelSpecs[7].modelType = C45TREE;
@@ -69,7 +69,7 @@ float Arcade::apply(int action) {
 	totalScore += reward;
 	if (game_over) {
 		printf("Game over! Total score was %ld.\n", totalScore);
-        return -50.0;
+        reward = minReward;
     }
 
     if (reward != 0)
@@ -186,7 +186,7 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
   minFeat->at(2) = -160;
   minFeat->at(3) = -192;
   minFeat->at(4) = -1;
-  minFeat->at(5) = -1;
+  minFeat->at(5) = 0;
   maxFeat->resize(stateSpaceLength, 0);
   maxFeat->at(0) = 160;
   maxFeat->at(1) = 192;
@@ -198,9 +198,25 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
 
 void Arcade::getMinMaxReward(float *minR,
                                float *maxR){
-  
-  *minR = -50;
-  *maxR = 50;
+  string romStr (romPath);
+  if (romStr.find("asterix") != string::npos) {
+    minReward = -50;
+    maxReward = 50;
+  }
+  else if (romStr.find("boxing") != string::npos) {
+    minReward = -1;
+    maxReward = 1;
+  }
+  else if (romStr.find("freeway") != string::npos) {
+    minReward = 0;
+    maxReward = 1;
+  }
+  else {
+    minReward = 0;
+    maxReward = 1;
+  }
+  *minR = minReward;
+  *maxR = maxReward;
 }
 
 bool Arcade::isEpisodic() {

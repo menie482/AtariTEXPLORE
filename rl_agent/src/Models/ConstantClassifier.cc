@@ -14,7 +14,7 @@ ConstantClassifier::ConstantClassifier(int id):
 ConstantClassifier::ConstantClassifier(const ConstantClassifier& cc):
   id(cc.id)
 {
-    cout << " Constant classifier copy constructor id " << id << endl;
+    //cout << " Constant classifier copy constructor id " << id << endl;
 }
 
 ConstantClassifier* ConstantClassifier::getCopy(){
