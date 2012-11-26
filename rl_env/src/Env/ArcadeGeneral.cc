@@ -9,7 +9,7 @@
 #include <cmath>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(6), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -21,17 +21,16 @@ Arcade::Arcade(char* rom_path) :
       cerr << "Unable to find or open rom file: \"" << romPath << "\"" << endl;
       exit(-1);
   }
-    // 0 = collision imminent right
-    // 1 = collision imminent left
-    // 2 = collision imminent up
-    // 3 = collision imminent down
-    // 4 = object id right
-    // 5 = object id left
-    // 6 = object id up
-    // 7 = object id down
-    // 8 = action
-    // 9 = reward tree
-    // 10 = terminal tree
+
+    // 0 = self x
+    // 1 = self y
+    // 2 = nearest obj dist x
+    // 3 = nearest obj dist y
+    // 4 = nearest obj id
+    // 5 = collision imminent
+    // 6 = action
+    // 7 = reward tree
+    // 8 = terminal tree
 
   modelSpecs[0].modelType = C45TREE;
   modelSpecs[1].modelType = C45TREE;
@@ -82,58 +81,37 @@ float Arcade::apply(int action) {
 }
 
 void Arcade::updateState() {
-    for (int i = 4; i < state.size(); i++) {
+    for (int i = 0; i < state.size(); i++) {
         state[i] = -1;
     }
-    for (int i = 0; i < 4; i++) {
-	state[i] = 0;
-    }
+    state[5] = 0;
 
     // do self state
     point selfLoc = ale.getSelfLocation();
-    // 0 = collision imminent right
-    // 1 = collision imminent left
-    // 2 = collision imminent up
-    // 3 = collision imminent down
-    // 4 = object id right
-    // 5 = object id left
-    // 6 = object id up
-    // 7 = object id down
-    // 8 = action
-    // 9 = reward tree
-    // 10 = terminal tree
+	state[0] = selfLoc.x;
+    state[1] = selfLoc.y;
 
 	// do radar state
 	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
 	//for (int i = 0; i < objs.size(); i++) {
 	//	CompositeObject obj = objs[i];
     float distToNearest = -1;
-    long radius = 20;
-    long alignmentRadius = 10;
     for (vector<pair<CompositeObject,long> >::iterator it=objs.begin(); it != objs.end(); it++) {
         pair<CompositeObject,long> pair = *it;
         CompositeObject obj = pair.first;
-	long objID = pair.second;
-	point objLoc = obj.get_centroid();
-	int xdist = selfLoc.x - objLoc.x;
-	int ydist = selfLoc.y - objLoc.y;
+		long objID = pair.second;
+		point objLoc = obj.get_centroid();
+		int xdist = selfLoc.x - objLoc.x;
+		int ydist = selfLoc.y - objLoc.y;
         float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
-        if (xdist < 0 && xdist > -radius && abs(ydist) < alignmentRadius) {
-		state[0] = 1;
-		state[4] = objID;
-	}
-	else if (xdist > 0 && xdist < radius && abs(ydist) < alignmentRadius) {
-		state[1] = 1;
-		state[5] = objID;
-	}
-	else if (ydist < 0 && ydist > -radius && abs(xdist) < alignmentRadius) {
-		state[3] = 1;
-		state[7] = objID;
-	}
-	else if (ydist > 0 && ydist < radius && abs(xdist) < alignmentRadius) {
-		state[2] = 1;
-		state[6] = objID;
-	}
+        if (distToNearest == -1 || objDist < distToNearest) {
+            distToNearest = objDist;
+            state[2] = xdist;
+            state[3] = ydist;
+            state[4] = objID;
+            if (distToNearest < 18)
+                state[5] = 1;
+        }
     }
     printf("STATE: ");
     for (int i = 0; i < state.size() - 1; i++) {
@@ -203,23 +181,19 @@ std::vector<experience> Arcade::getSeedings() {
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
   minFeat->resize(stateSpaceLength, 0);
-  minFeat->at(0) = 0;
-  minFeat->at(1) = 0;
-  minFeat->at(2) = 0;
-  minFeat->at(3) = 0;
+  minFeat->at(0) = -1;
+  minFeat->at(1) = -1;
+  minFeat->at(2) = -160;
+  minFeat->at(3) = -192;
   minFeat->at(4) = -1;
-  minFeat->at(5) = -1;
-  minFeat->at(6) = -1;
-  minFeat->at(7) = -1;
+  minFeat->at(5) = 0;
   maxFeat->resize(stateSpaceLength, 0);
-  maxFeat->at(0) = 1;
-  maxFeat->at(1) = 1;
-  maxFeat->at(2) = 1;
-  maxFeat->at(3) = 1;
-  maxFeat->at(4) = 2;
-  maxFeat->at(5) = 2;
-  maxFeat->at(6) = 2;
-  maxFeat->at(7) = 2;
+  maxFeat->at(0) = 160;
+  maxFeat->at(1) = 192;
+  maxFeat->at(2) = 160;
+  maxFeat->at(3) = 192;
+  maxFeat->at(4) = 3;
+  maxFeat->at(5) = 1;
 }
 
 void Arcade::getMinMaxReward(float *minR,

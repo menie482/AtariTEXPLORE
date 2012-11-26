@@ -1,12 +1,10 @@
+STATE OF THINGS:
+    Modeltypes not being passed from modelSpecs
+    Rollouts at some absurdly limited depth for simple state space
+
 TODO SOON:
-    Use Stella to find a better switch for end of Asterix
-    Play with discretization and actrate, other TEXPLORE parameters (like the intrinsic motivation)?
-    Fix collision imminent
-    Think about how to deal with idle frames for games that require multiple presses to move certain directions
-    Check if objects are always delivered in the same order for radar consistency when two objects are same distance
 
 DEBUG TODO:
-    Toggle dependency structure to see if its causing the loss of rollouts
     Test other TEXPLORE given examples and compare with Todd's results from the paper
 
 TEXPLORE TODO:
@@ -25,6 +23,8 @@ STATE SPACE TODO:
     Frames since start
     Discretize x,y coordinates?
     Don't learn on radar jumps
+    Think about how to deal with idle frames for games that require multiple presses to move certain directions
+    Check if objects are always delivered in the same order for radar consistency when two objects are same distance
 
 VISUAL PROCESSING TODO:
     Don't remove object after 50 idle frames if it matches the self object
