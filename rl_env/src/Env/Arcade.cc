@@ -32,11 +32,11 @@ Arcade::Arcade(char* rom_path) :
     // 7 = reward tree
     // 8 = terminal tree
 
-  modelSpecs[0].modelType = M5MULTI;
-  modelSpecs[1].modelType = M5MULTI;
-  modelSpecs[2].modelType = M5MULTI;
-  modelSpecs[3].modelType = M5MULTI;
-  modelSpecs[4].modelType = CONSTANT;
+  modelSpecs[0].modelType = C45TREE;
+  modelSpecs[1].modelType = C45TREE;
+  modelSpecs[2].modelType = C45TREE;
+  modelSpecs[3].modelType = C45TREE;
+  modelSpecs[4].modelType = C45TREE;
   modelSpecs[5].modelType = C45TREE;
   modelSpecs[7].modelType = C45TREE;
   modelSpecs[8].modelType = C45TREE;

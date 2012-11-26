@@ -985,13 +985,14 @@ int main(int argc, char **argv) {
         // update performance
         sum += r;
         ++steps;
-
+				
+				/*
         while (!e->terminal() && steps < MAXSTEPS) {
           printf("----------------------------------------------\n");
 
           // perform an action
           es = e->sensation();
-
+					
           // (cdonahue) don't update learning while invalid
           bool lostLoc = false;
           while (e->lostLocation() && !e->terminal())
@@ -1014,6 +1015,19 @@ int main(int argc, char **argv) {
           // update performance info
           sum += r;
           ++steps;
+        }
+        */
+				while (!e->terminal() && steps < MAXSTEPS) {
+
+          // perform an action
+          es = e->sensation();
+          a = agent->next_action(r, es);
+          r = e->apply(a);
+
+          // update performance info
+          sum += r;
+          ++steps;
+
         }
 
         // terminal/last state
