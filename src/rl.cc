@@ -104,6 +104,7 @@ int main(int argc, char **argv) {
   char* agentType = NULL;
   char* envType = NULL;
   char* romPath = NULL;
+  char* modelTypeString = NULL;
   float discountfactor = 0.99;
   float epsilon = 0.1;
   float alpha = 0.3;
@@ -967,6 +968,26 @@ int main(int argc, char **argv) {
 
     // EPISODIC DOMAINS
     else {
+      time_t now = time(0);
+      struct tm tstruct;
+      char buff[80];
+      tstruct = *localtime(&now);
+      strftime(buff, sizeof(buff), "%m.%d.%Y..%H.%M.%S.", &tstruct);
+
+      std::string rompath(romPath);
+
+      const size_t last_slash_idx = rompath.find_last_of("\\/");
+      if (std::string::npos != last_slash_idx) {
+        rompath.erase(0, last_slash_idx + 1);
+      }
+
+      const size_t period_idx = rompath.find('.');
+      if (std::string::npos != period_idx) {
+        rompath.erase(period_idx);
+      }
+      
+      char pathBuffer[200] = {};
+      sprintf(pathBuffer, "scores/%s.agent-%s.n-%f.v-%f.rate-%f.rom-%s.scores", buff, agentType, n, v, actrate, rompath.c_str());
 
       //////////////////////////////////
       // episodic
@@ -1035,7 +1056,7 @@ int main(int argc, char **argv) {
           agent->last_action(r);
           long totalScore = e->totalScore;
           ofstream scoreFile;
-          scoreFile.open("scores.txt", ios::app);
+          scoreFile.open(pathBuffer, ios::app);
           scoreFile << totalScore << endl;
           scoreFile.close();
         }else{
