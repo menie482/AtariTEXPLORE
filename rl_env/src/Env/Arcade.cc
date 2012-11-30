@@ -9,7 +9,7 @@
 #include <cmath>
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(9), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -21,26 +21,29 @@ Arcade::Arcade(char* rom_path) :
       cerr << "Unable to find or open rom file: \"" << romPath << "\"" << endl;
       exit(-1);
   }
-    // 0 = collision imminent right
-    // 1 = collision imminent left
-    // 2 = collision imminent up
-    // 3 = collision imminent down
-    // 4 = object id right
-    // 5 = object id left
-    // 6 = object id up
-    // 7 = object id down
-    // 8 = action
-    // 9 = reward tree
-    // 10 = terminal tree
+    // 0 = self x position
+    // 1 = self row
+    // 2 = row above obj collision imminent
+    // 3 = row above obj ID
+    // 4 = row below obj collision imminent
+    // 5 = row below obj ID
+    // 6 = row obj collision imminent left
+    // 7 = row obj collision imminent right
+    // 8 = row obj ID
+    // 9 = action
+    // 10 = reward
+    // 11 = terminal
 
   modelSpecs[0].modelType = C45TREE;
   modelSpecs[1].modelType = C45TREE;
   modelSpecs[2].modelType = C45TREE;
-  modelSpecs[3].modelType = C45TREE;
+  modelSpecs[3].modelType = CONSTANT;
   modelSpecs[4].modelType = C45TREE;
-  modelSpecs[5].modelType = C45TREE;
-  modelSpecs[7].modelType = C45TREE;
-  modelSpecs[8].modelType = C45TREE;
+  modelSpecs[5].modelType = CONSTANT;
+  modelSpecs[6].modelType = C45TREE;
+  modelSpecs[7].modelType = CONSTANT;
+  modelSpecs[9].modelType = C45TREE;
+  modelSpecs[10].modelType = C45TREE;
 
   reset();
 }
@@ -82,28 +85,33 @@ float Arcade::apply(int action) {
 }
 
 void Arcade::updateState() {
-    for (int i = 4; i < state.size(); i++) {
+    for (int i = 0; i < state.size(); i++) {
         state[i] = -1;
     }
-    for (int i = 0; i < 4; i++) {
-	state[i] = 0;
-    }
+    state[2] = 0;
+    state[4] = 0;
+    state[6] = 0;
+    state[7] = 0;
+
+    // 0 = self x position
+    // 1 = self row
+    // 2 = row above obj collision imminent
+    // 3 = row above obj ID
+    // 4 = row below obj collision imminent
+    // 5 = row below obj ID
+    // 6 = row obj collision imminent left
+    // 7 = row obj collision imminent right
+    // 8 = row obj ID
+    // 9 = action
+    // 10 = reward
+    // 11 = terminal
 
     // do self state
     point selfLoc = ale.getSelfLocation();
-    // 0 = collision imminent right
-    // 1 = collision imminent left
-    // 2 = collision imminent up
-    // 3 = collision imminent down
-    // 4 = object id right
-    // 5 = object id left
-    // 6 = object id up
-    // 7 = object id down
-    // 8 = action
-    // 9 = reward tree
-    // 10 = terminal tree
+	state[0] = selfLoc.x;
+    state[1] = (int) ((selfLoc.y - 31) / 16);
 
-	// do radar state
+    // do radar state
 	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
 	//for (int i = 0; i < objs.size(); i++) {
 	//	CompositeObject obj = objs[i];
@@ -113,27 +121,50 @@ void Arcade::updateState() {
     for (vector<pair<CompositeObject,long> >::iterator it=objs.begin(); it != objs.end(); it++) {
         pair<CompositeObject,long> pair = *it;
         CompositeObject obj = pair.first;
-	long objID = pair.second;
-	point objLoc = obj.get_centroid();
-	int xdist = selfLoc.x - objLoc.x;
-	int ydist = selfLoc.y - objLoc.y;
-        float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
-        if (xdist < 0 && xdist > -radius && abs(ydist) < alignmentRadius) {
-		state[0] = 1;
-		state[4] = objID;
-	}
-	else if (xdist > 0 && xdist < radius && abs(ydist) < alignmentRadius) {
-		state[1] = 1;
-		state[5] = objID;
-	}
-	else if (ydist < 0 && ydist > -radius && abs(xdist) < alignmentRadius) {
-		state[3] = 1;
-		state[7] = objID;
-	}
-	else if (ydist > 0 && ydist < radius && abs(xdist) < alignmentRadius) {
-		state[2] = 1;
-		state[6] = objID;
-	}
+        long objID = pair.second;
+        point objLoc = obj.get_centroid();
+        int xdist = selfLoc.x - objLoc.x;
+        int ydist = selfLoc.y - objLoc.y;
+            float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
+            /*
+        if (abs(ydist) < 5 && abs(xdist) < 10) {
+            if (xdist < 0) {
+                state[7] = 1;
+            }
+            else if (xdist > 0) {
+                state[6] = 1;
+            }
+            state[8] = objID;
+        }
+        else if (ydist > 0 && ydist < 20 && abs(xdist) < 10) {
+            state[2] = 1;
+            state[3] = objID;
+        }
+        else if (ydist < 0 && ydist > -20 && abs(xdist) < 10) {
+            state[4] = 1;
+            state[5] = objID;
+        }
+        */
+        if (abs(ydist) < 5) {
+            if (xdist < 0) {
+                state[7] = 1;
+            }
+            else if (xdist > 0) {
+                state[6] = 1;
+            }
+            state[8] = objID;
+        }
+        else if (abs(xdist) < 13) {
+            if (ydist < 0) {
+                state[4] = 1;
+                state[5] = objID;
+            }
+            else if (ydist > 0) {
+                state[2] = 1;
+                state[3] = objID;
+            }
+       }
+ 
     }
     printf("STATE: ");
     for (int i = 0; i < state.size() - 1; i++) {
@@ -202,24 +233,36 @@ std::vector<experience> Arcade::getSeedings() {
 
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
+    // 0 = self x position
+    // 1 = self row
+    // 2 = row above obj collision imminent
+    // 3 = row above obj ID
+    // 4 = row below obj collision imminent
+    // 5 = row below obj ID
+    // 6 = row obj collision imminent left
+    // 7 = row obj collision imminent right
+    // 8 = row obj ID
+
   minFeat->resize(stateSpaceLength, 0);
-  minFeat->at(0) = 0;
-  minFeat->at(1) = 0;
+  minFeat->at(0) = -1;
+  minFeat->at(1) = -2;
   minFeat->at(2) = 0;
-  minFeat->at(3) = 0;
-  minFeat->at(4) = -1;
+  minFeat->at(3) = -1;
+  minFeat->at(4) = 0;
   minFeat->at(5) = -1;
-  minFeat->at(6) = -1;
-  minFeat->at(7) = -1;
+  minFeat->at(6) = 0;
+  minFeat->at(7) = 0;
+  minFeat->at(8) = -1;
   maxFeat->resize(stateSpaceLength, 0);
-  maxFeat->at(0) = 1;
-  maxFeat->at(1) = 1;
+  maxFeat->at(0) = 162;
+  maxFeat->at(1) = 7;
   maxFeat->at(2) = 1;
-  maxFeat->at(3) = 1;
-  maxFeat->at(4) = 2;
+  maxFeat->at(3) = 2;
+  maxFeat->at(4) = 1;
   maxFeat->at(5) = 2;
-  maxFeat->at(6) = 2;
-  maxFeat->at(7) = 2;
+  maxFeat->at(6) = 1;
+  maxFeat->at(7) = 1;
+  maxFeat->at(8) = 2;
 }
 
 void Arcade::getMinMaxReward(float *minR,
@@ -251,6 +294,10 @@ bool Arcade::isEpisodic() {
 
 bool Arcade::lostLocation() {
     return ale.getSelfLocation().x == -1;
+}
+
+bool Arcade::invalidStateChange() {
+    return false;
 }
 
 std::vector<ModelSpecification>& Arcade::getModelSpecs() {

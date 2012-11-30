@@ -30,6 +30,7 @@ public:
   virtual bool isEpisodic();
   std::vector<ModelSpecification>& getModelSpecs();
   bool lostLocation();
+  bool invalidStateChange();
   void updateState();
 
   virtual std::vector<experience> getSeedings();

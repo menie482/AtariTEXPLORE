@@ -1038,7 +1038,32 @@ int main(int argc, char **argv) {
           ++steps;
         }
         */
-				while (!e->terminal() && steps < MAXSTEPS) {
+        /*
+        bool changedRow = false;
+        while (!e->terminal() && steps < MAXSTEPS) {
+
+          // perform an action
+          es = e->sensation();
+          if (changedRow) {
+              a = agent->first_action(es);
+              changedRow = false;
+          }
+          else {
+              a = agent->next_action(r, es);
+          }
+          r = e->apply(a);
+          if (a == 1 || a == 4) {
+              printf("CHANGED ROW");
+              changedRow = true;
+          }
+
+          // update performance info
+          sum += r;
+          ++steps;
+
+        }
+        */
+        while (!e->terminal() && steps < MAXSTEPS) {
 
           // perform an action
           es = e->sensation();
@@ -1050,7 +1075,7 @@ int main(int argc, char **argv) {
           ++steps;
 
         }
-
+ 
         // terminal/last state
         if (e->terminal()){
           agent->last_action(r);
