@@ -1,8 +1,11 @@
 STATE OF THINGS:
-    Modeltypes not being passed from modelSpecs
+    Modeltypes ARE being passed from modelSpecs
     Rollouts at some absurdly limited depth for simple state space
 
 TODO SOON:
+	try extreme lambda values between 0 and 1
+	modelSpecs reward and terminal tree in FactoredModel
+	can discretize each feature individually
 
 DEBUG TODO:
     Test other TEXPLORE given examples and compare with Todd's results from the paper

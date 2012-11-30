@@ -37,7 +37,7 @@ bool ConstantClassifier::trainInstances(std::vector<classPair> &instances){
 // Here we want to return the probability of the output value being each of the possible values, in the stochastic case
 void ConstantClassifier::testInstance(const std::vector<float> &input, std::map<float, float>* retval){
   //cout << "Input: " << input[0] << ", output: " << input[0] << " = 1.0" << endl;
-  (*retval)[input[0]] = 1.0;
+  (*retval)[0] = 1.0;
   return;
 }
 

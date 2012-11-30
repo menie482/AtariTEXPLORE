@@ -99,7 +99,7 @@ bool FactoredModel::initMDPModel(int nfactors){
 
   // institute a model for each state factor, depending on model type
   for (int i = 0; i < nfactors; i++){
-    //modelType = modelSpecs[i].modelType;
+    modelType = modelSpecs[i].modelType;
     if (modelType == C45TREE && nModels == 1){
       outputModels[i] = new C45Tree((id * (nfactors+1)) + i, treeBuildType, 5, M, 0, rng);
       if (i == 0){
