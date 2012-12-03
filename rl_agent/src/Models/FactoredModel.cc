@@ -165,12 +165,14 @@ bool FactoredModel::initMDPModel(int nfactors){
                                                EXP_PCT,
                                                treeThresh *featRange[i], stoch, rng);
       if (i == 0){
+        modelType = modelSpecs[modelSpecs.size() - 2].modelType;
         rewardModel = new MultipleClassifiers((id * (nfactors+1)) + nfactors,
                                              modelType, predType,
                                              nModels, treeBuildType, 5,
                                              FEAT_PCT, // remove this pct of feats
                                              EXP_PCT, treeThresh *rRange, stoch, rng);
 	if (episodic){
+        modelType = modelSpecs[modelSpecs.size() - 1].modelType;
 	  terminalModel = new MultipleClassifiers((id * (nfactors+1)) +1+ nfactors,
 						 modelType, predType,
 						 nModels, treeBuildType, 5,

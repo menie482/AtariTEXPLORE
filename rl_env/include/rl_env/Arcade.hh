@@ -25,6 +25,7 @@ public:
   virtual void reset();
 
   virtual int getNumActions();
+  virtual void getDiscretization(std::vector<int> *statesPerDim);
   virtual void getMinMaxFeatures(std::vector<float> *minFeat, std::vector<float> *maxFeat);
   virtual void getMinMaxReward(float* minR, float* maxR);
   virtual bool isEpisodic();

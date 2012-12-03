@@ -688,20 +688,10 @@ int main(int argc, char **argv) {
 
   Random rng(1 + seed);
 
-  std::vector<int> statesPerDim;
-    statesPerDim.resize(8,0);
-    statesPerDim[0] = 20;
-    statesPerDim[1] = 9;
-    statesPerDim[2] = 20;
-    statesPerDim[3] = 3;
-    statesPerDim[4] = 20;
-    statesPerDim[5] = 3;
-    statesPerDim[6] = 20;
-    statesPerDim[7] = 3;
- 
   // Construct environment here.
   Arcade* e;
   e = new Arcade(romPath);
+
 /*
   if (strcmp(envType, "cartpole") == 0){
     if (PRINTS) cout << "Environment: Cart Pole\n";
@@ -802,6 +792,9 @@ int main(int argc, char **argv) {
   e->getMinMaxFeatures(&minValues, &maxValues);
   bool episodic = e->isEpisodic();
   std::vector<ModelSpecification> modelSpecs = e->getModelSpecs();
+  std::vector<int> statesPerDim;
+  e->getDiscretization(&statesPerDim);
+
 
   cout << "Environment is ";
   if (!episodic) cout << "NOT ";

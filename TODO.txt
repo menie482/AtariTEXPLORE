@@ -1,6 +1,7 @@
 STATE OF THINGS:
     Modeltypes ARE being passed from modelSpecs
     Rollouts at some absurdly limited depth for simple state space
+    individual discretization values
 
 TODO SOON:
 	try extreme lambda values between 0 and 1

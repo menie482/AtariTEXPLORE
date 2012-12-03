@@ -41,9 +41,8 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[5].modelType = C45TREE;
   modelSpecs[6].modelType = M5MULTI;
   modelSpecs[7].modelType = C45TREE;
-  modelSpecs[8].modelType = C45TREE;
+  modelSpecs[9].modelType = C45TREE;
   modelSpecs[10].modelType = C45TREE;
-  modelSpecs[11].modelType = C45TREE;
 
   reset();
 }
@@ -327,6 +326,18 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
   maxFeat->at(7) = 2;
 
 
+}
+
+void Arcade::getDiscretization(std::vector<int> *statesPerDim) {
+    statesPerDim->resize(stateSpaceLength,0);
+    statesPerDim->at(0) = 20;
+    statesPerDim->at(1) = 9;
+    statesPerDim->at(2) = 20;
+    statesPerDim->at(3) = 3;
+    statesPerDim->at(4) = 20;
+    statesPerDim->at(5) = 3;
+    statesPerDim->at(6) = 20;
+    statesPerDim->at(7) = 3;
 }
 
 void Arcade::getMinMaxReward(float *minR,
