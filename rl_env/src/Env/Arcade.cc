@@ -8,6 +8,21 @@
 #include <rl_env/Arcade.hh>
 #include <cmath>
 
+char* Arcade::getEnvironmentDescription() {
+    return 
+        "Specialized environment for Asterix, "
+        "uses 8 features:\n"
+        "0: self x position\n"
+        "1: self row #\n"
+        "2: relative x distance to object in row above self\n"
+        "3: ID of object in row above self\n"
+        "4: relative x distance to object in row below self\n"
+        "5: ID of object in row below self\n"
+        "6: relative x distance to object in current row of self\n"
+        "7: ID of object in current row of self\n"
+        ;
+}
+
 Arcade::Arcade(char* rom_path) :
 	totalScore(0), display_active(true), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
@@ -21,17 +36,6 @@ Arcade::Arcade(char* rom_path) :
       cerr << "Unable to find or open rom file: \"" << romPath << "\"" << endl;
       exit(-1);
   }
-    // 0 = self x position
-    // 1 = self row
-    // 2 = row above obj relative x distance
-    // 3 = row above obj ID
-    // 4 = row below obj relative x distance
-    // 5 = row below obj ID
-    // 6 = row current obj relative x distance
-    // 7 = row obj ID
-    // 8 = action
-    // 9 = reward
-    // 10 = terminal
 
   modelSpecs[0].modelType = M5MULTI;
   modelSpecs[1].modelType = C45TREE;
@@ -41,8 +45,8 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[5].modelType = C45TREE;
   modelSpecs[6].modelType = M5MULTI;
   modelSpecs[7].modelType = C45TREE;
-  modelSpecs[9].modelType = C45TREE;
-  modelSpecs[10].modelType = C45TREE;
+  modelSpecs[9].modelType = C45TREE; // reward
+  modelSpecs[10].modelType = C45TREE; // terminal model
 
   reset();
 }
@@ -92,19 +96,6 @@ void Arcade::updateState() {
     state[6] = 0;
     state[7] = 0;
 
-    // 0 = self x position
-    // 1 = self row
-    // 2 = row above obj collision imminent
-    // 3 = row above obj ID
-    // 4 = row below obj collision imminent
-    // 5 = row below obj ID
-    // 6 = row obj collision imminent left
-    // 7 = row obj collision imminent right
-    // 8 = row obj ID
-    // 9 = action
-    // 10 = reward
-    // 11 = terminal
-
     // do self state
     point selfLoc = ale.getSelfLocation();
 	state[0] = selfLoc.x;
@@ -124,18 +115,7 @@ void Arcade::updateState() {
         point objLoc = obj.get_centroid();
         int xdist = selfLoc.x - objLoc.x;
         int ydist = selfLoc.y - objLoc.y;
-            float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
-     // 0 = self x position
-    // 1 = self row
-    // 2 = row above obj relative x distance
-    // 3 = row above obj ID
-    // 4 = row below obj relative x distance
-    // 5 = row below obj ID
-    // 6 = row current obj relative x distance
-    // 7 = row obj ID
-    // 8 = action
-    // 9 = reward
-    // 10 = terminal
+        float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
         if (abs(ydist) < 5) {
 		state[6] = xdist;
             state[7] = objID;
@@ -367,12 +347,8 @@ bool Arcade::isEpisodic() {
     return true;
 }
 
-bool Arcade::lostLocation() {
+bool Arcade::invalidStateChange(int lastAction) {
     return ale.getSelfLocation().x == -1;
-}
-
-bool Arcade::invalidStateChange() {
-    return false;
 }
 
 std::vector<ModelSpecification>& Arcade::getModelSpecs() {

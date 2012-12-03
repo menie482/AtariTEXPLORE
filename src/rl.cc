@@ -795,7 +795,6 @@ int main(int argc, char **argv) {
   std::vector<int> statesPerDim;
   e->getDiscretization(&statesPerDim);
 
-
   cout << "Environment is ";
   if (!episodic) cout << "NOT ";
   cout << "episodic." << endl;
@@ -970,26 +969,53 @@ int main(int argc, char **argv) {
 
     // EPISODIC DOMAINS
     else {
+      ofstream scoreFile;
+
       time_t now = time(0);
       struct tm tstruct;
       char buff[80];
       tstruct = *localtime(&now);
-      strftime(buff, sizeof(buff), "%m.%d.%Y..%H.%M.%S.", &tstruct);
-
-      std::string rompath(romPath);
-
-      const size_t last_slash_idx = rompath.find_last_of("\\/");
-      if (std::string::npos != last_slash_idx) {
-        rompath.erase(0, last_slash_idx + 1);
-      }
-
-      const size_t period_idx = rompath.find('.');
-      if (std::string::npos != period_idx) {
-        rompath.erase(period_idx);
-      }
+      strftime(buff, sizeof(buff), "%m.%d.%Y..%H.%M.%S", &tstruct);
       
-      char pathBuffer[200] = {};
-      sprintf(pathBuffer, "scores/%s.agent-%s.n-%f.v-%f.rate-%f.rom-%s.scores", buff, agentType, n, v, actrate, rompath.c_str());
+      char pathBuffer[100] = {};
+      sprintf(pathBuffer, "scores/%s.scores", buff);
+
+      scoreFile.open(pathBuffer, ios::app);
+
+      for (unsigned i = 0; i < argc; i++) {
+          scoreFile << argv[i] << " ";
+      }
+      scoreFile << endl << endl;
+      scoreFile << e->getEnvironmentDescription();
+      for (unsigned i = 0; i < modelSpecs.size() - 3; i++) {
+          scoreFile << i << ": " << modelNames[modelSpecs[i].modelType] << endl;
+      }
+      scoreFile << "REWARD: " << modelNames[modelSpecs[modelSpecs.size() - 2].modelType] << endl;
+      scoreFile << "TERMINAL: " << modelNames[modelSpecs[modelSpecs.size() - 1].modelType] << endl << endl;
+
+      FILE *hostname = popen("hostname", "r");
+      char hostbuffer[200];
+      while (fgets(hostbuffer, sizeof(hostbuffer) - 1, hostname) != NULL) {
+          scoreFile << hostbuffer;
+      }
+      pclose(hostname);
+
+      FILE *lscpu = popen("lscpu", "r");
+      char lscpubuffer[1024];
+      while (fgets(lscpubuffer, sizeof(lscpubuffer) - 1, lscpu) != NULL) {
+          scoreFile << lscpubuffer;
+      }
+      pclose(lscpu);
+
+      FILE *meminfo = popen("grep \"Mem\" /proc/meminfo", "r");
+      char meminfobuffer[200];
+      while (fgets(meminfobuffer, sizeof(meminfobuffer) - 1, meminfo) != NULL) {
+          scoreFile << meminfobuffer;
+      }
+      pclose(meminfo);
+
+      scoreFile << endl << endl;
+      scoreFile << "score\t#steps\t#invld" << endl;
 
       //////////////////////////////////
       // episodic
@@ -999,6 +1025,7 @@ int main(int argc, char **argv) {
         // performance tracking
         float sum = 0;
         int steps = 0;
+        int invalidStates = 0;
 
         // first action
         std::vector<float> es = e->sensation();
@@ -1009,6 +1036,45 @@ int main(int argc, char **argv) {
         sum += r;
         ++steps;
 				
+        while (!e->terminal() && steps < MAXSTEPS) {
+          // perform an action
+          es = e->sensation();
+          if (e->invalidStateChange(a)) {
+              a = agent->first_action(es);
+              ++invalidStates;
+          }
+          else {
+              a = agent->next_action(r, es);
+          }
+          r = e->apply(a);
+
+          // update performance info
+          sum += r;
+          ++steps;
+        }
+ 
+        // terminal/last state
+        if (e->terminal()){
+          agent->last_action(r);
+        }else{
+          agent->next_action(r, e->sensation());
+        }
+
+        scoreFile << e->totalScore << "\t" << steps << "\t" << invalidStates << endl;
+        e->reset();
+        //std::cerr << sum << endl;
+        rsum += sum;
+      } 
+      scoreFile.close();
+    }
+
+    if (NUMTRIALS > 1) delete agent;
+
+  }
+
+  if (PRINTS) cout << "Avg Rsum: " << (rsum / (float)NUMTRIALS) << endl;
+
+} // end main
 				/*
         while (!e->terminal() && steps < MAXSTEPS) {
           printf("----------------------------------------------\n");
@@ -1065,45 +1131,4 @@ int main(int argc, char **argv) {
 
         }
         */
-        while (!e->terminal() && steps < MAXSTEPS) {
-
-          // perform an action
-          es = e->sensation();
-          a = agent->next_action(r, es);
-          r = e->apply(a);
-
-          // update performance info
-          sum += r;
-          ++steps;
-
-        }
- 
-        // terminal/last state
-        if (e->terminal()){
-          agent->last_action(r);
-          long totalScore = e->totalScore;
-          ofstream scoreFile;
-          scoreFile.open(pathBuffer, ios::app);
-          scoreFile << totalScore << endl;
-          scoreFile.close();
-        }else{
-          agent->next_action(r, e->sensation());
-        }
-
-        e->reset();
-        std::cerr << sum << endl;
-
-        rsum += sum;
-
-      }
-
-    }
-
-    if (NUMTRIALS > 1) delete agent;
-
-  }
-
-  if (PRINTS) cout << "Avg Rsum: " << (rsum / (float)NUMTRIALS) << endl;
-
-} // end main
 

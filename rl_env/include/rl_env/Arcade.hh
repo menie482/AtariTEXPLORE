@@ -29,9 +29,9 @@ public:
   virtual void getMinMaxFeatures(std::vector<float> *minFeat, std::vector<float> *maxFeat);
   virtual void getMinMaxReward(float* minR, float* maxR);
   virtual bool isEpisodic();
-  std::vector<ModelSpecification>& getModelSpecs();
-  bool lostLocation();
-  bool invalidStateChange();
+  virtual std::vector<ModelSpecification>& getModelSpecs();
+  virtual bool invalidStateChange(int lastAction);
+  virtual char* getEnvironmentDescription();
   void updateState();
 
   virtual std::vector<experience> getSeedings();
