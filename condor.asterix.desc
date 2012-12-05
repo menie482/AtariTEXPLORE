@@ -1,0 +1,11 @@
++Group = "UNDER"
++Project = "AI_ROBOTICS"
++ProjectDescription = "Atari platform learning with TEXPLORE"
+executable = experiment
+Requirements = Memory >= 4000 && Lucid
+Log = asterix.condor.log
+Notification = Complete
+Arguments = --agent texplore --actrate 3 --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin --history 1 --model c45tree
+Output = condor.out.$(Process)
+Error = condor.err.$(Process)
+Queue 1
