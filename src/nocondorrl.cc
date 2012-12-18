@@ -975,44 +975,47 @@ int main(int argc, char **argv) {
       struct tm tstruct;
       char buff[80];
       tstruct = *localtime(&now);
-      strftime(buff, sizeof(buff), "%m.%d.%Y\n%H.%M.%S\n", &tstruct);
+      strftime(buff, sizeof(buff), "%m.%d.%Y..%H.%M.%S", &tstruct);
       
-      cerr << buff;
+      char pathBuffer[100] = {};
+      sprintf(pathBuffer, "scores/%s.scores", buff);
+
+      scoreFile.open(pathBuffer, ios::app);
 
       for (unsigned i = 0; i < argc; i++) {
-          cerr << argv[i] << " ";
+          scoreFile << argv[i] << " ";
       }
-      cerr << endl << endl;
-      cerr << e->getEnvironmentDescription();
+      scoreFile << endl << endl;
+      scoreFile << e->getEnvironmentDescription();
       for (unsigned i = 0; i < modelSpecs.size() - 3; i++) {
-          cerr << i << ": " << modelNames[modelSpecs[i].modelType] << endl;
+          scoreFile << i << ": " << modelNames[modelSpecs[i].modelType] << endl;
       }
-      cerr << "REWARD: " << modelNames[modelSpecs[modelSpecs.size() - 2].modelType] << endl;
-      cerr << "TERMINAL: " << modelNames[modelSpecs[modelSpecs.size() - 1].modelType] << endl << endl;
+      scoreFile << "REWARD: " << modelNames[modelSpecs[modelSpecs.size() - 2].modelType] << endl;
+      scoreFile << "TERMINAL: " << modelNames[modelSpecs[modelSpecs.size() - 1].modelType] << endl << endl;
 
       FILE *hostname = popen("hostname", "r");
       char hostbuffer[200];
       while (fgets(hostbuffer, sizeof(hostbuffer) - 1, hostname) != NULL) {
-          cerr << hostbuffer;
+          scoreFile << hostbuffer;
       }
       pclose(hostname);
 
       FILE *lscpu = popen("lscpu", "r");
       char lscpubuffer[1024];
       while (fgets(lscpubuffer, sizeof(lscpubuffer) - 1, lscpu) != NULL) {
-          cerr << lscpubuffer;
+          scoreFile << lscpubuffer;
       }
       pclose(lscpu);
 
       FILE *meminfo = popen("grep \"Mem\" /proc/meminfo", "r");
       char meminfobuffer[200];
       while (fgets(meminfobuffer, sizeof(meminfobuffer) - 1, meminfo) != NULL) {
-          cerr << meminfobuffer;
+          scoreFile << meminfobuffer;
       }
       pclose(meminfo);
 
-      cerr << endl << endl;
-      cerr << "score\t#steps\t#invld" << endl;
+      scoreFile << endl << endl;
+      scoreFile << "score\t#steps\t#invld" << endl;
 
       //////////////////////////////////
       // episodic
@@ -1057,11 +1060,12 @@ int main(int argc, char **argv) {
           agent->next_action(r, e->sensation());
         }
 
-        cerr << e->totalScore << "\t" << steps << "\t" << invalidStates << endl;
+        scoreFile << e->totalScore << "\t" << steps << "\t" << invalidStates << endl;
         e->reset();
         //std::cerr << sum << endl;
         rsum += sum;
       } 
+      scoreFile.close();
     }
 
     if (NUMTRIALS > 1) delete agent;
