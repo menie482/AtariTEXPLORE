@@ -11,10 +11,12 @@ include_directories(
 rl_common/include
 rl_env/include
 rl_agent/include
+auxlib/include
 ale/src
 )
 
 link_directories(
+    auxlib
 	ale
 )
 
