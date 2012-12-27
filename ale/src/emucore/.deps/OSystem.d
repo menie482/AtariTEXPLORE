@@ -15,6 +15,21 @@ src/emucore/OSystem.o: src/emucore/OSystem.cxx src/emucore/FSNode.hxx \
  src/emucore/../common/export_screen.h \
  src/emucore/../common/../emucore/Props.hxx \
  src/emucore/../common/Constants.h src/emucore/../common/display_screen.h \
+ auxlib/include/SDL/SDL.h auxlib/include/SDL/SDL_main.h \
+ auxlib/include/SDL/SDL_stdinc.h auxlib/include/SDL/SDL_config.h \
+ auxlib/include/SDL/SDL_platform.h auxlib/include/SDL/begin_code.h \
+ auxlib/include/SDL/close_code.h auxlib/include/SDL/SDL_audio.h \
+ auxlib/include/SDL/SDL_error.h auxlib/include/SDL/SDL_endian.h \
+ auxlib/include/SDL/SDL_mutex.h auxlib/include/SDL/SDL_thread.h \
+ auxlib/include/SDL/SDL_rwops.h auxlib/include/SDL/SDL_cdrom.h \
+ auxlib/include/SDL/SDL_cpuinfo.h auxlib/include/SDL/SDL_events.h \
+ auxlib/include/SDL/SDL_active.h auxlib/include/SDL/SDL_keyboard.h \
+ auxlib/include/SDL/SDL_keysym.h auxlib/include/SDL/SDL_mouse.h \
+ auxlib/include/SDL/SDL_video.h auxlib/include/SDL/SDL_joystick.h \
+ auxlib/include/SDL/SDL_quit.h auxlib/include/SDL/SDL_loadso.h \
+ auxlib/include/SDL/SDL_timer.h auxlib/include/SDL/SDL_version.h \
+ auxlib/include/SDL/SDL_image.h auxlib/include/SDL/SDL.h \
+ auxlib/include/SDL/SDL_rotozoom.h auxlib/include/SDL/SDL_gfxPrimitives.h \
  src/emucore/../common/export_screen.h \
  src/emucore/../common/../emucore/MediaSrc.hxx \
  src/emucore/../common/visual_processor.h \
@@ -94,6 +109,66 @@ src/emucore/../common/../emucore/Props.hxx:
 src/emucore/../common/Constants.h:
 
 src/emucore/../common/display_screen.h:
+
+auxlib/include/SDL/SDL.h:
+
+auxlib/include/SDL/SDL_main.h:
+
+auxlib/include/SDL/SDL_stdinc.h:
+
+auxlib/include/SDL/SDL_config.h:
+
+auxlib/include/SDL/SDL_platform.h:
+
+auxlib/include/SDL/begin_code.h:
+
+auxlib/include/SDL/close_code.h:
+
+auxlib/include/SDL/SDL_audio.h:
+
+auxlib/include/SDL/SDL_error.h:
+
+auxlib/include/SDL/SDL_endian.h:
+
+auxlib/include/SDL/SDL_mutex.h:
+
+auxlib/include/SDL/SDL_thread.h:
+
+auxlib/include/SDL/SDL_rwops.h:
+
+auxlib/include/SDL/SDL_cdrom.h:
+
+auxlib/include/SDL/SDL_cpuinfo.h:
+
+auxlib/include/SDL/SDL_events.h:
+
+auxlib/include/SDL/SDL_active.h:
+
+auxlib/include/SDL/SDL_keyboard.h:
+
+auxlib/include/SDL/SDL_keysym.h:
+
+auxlib/include/SDL/SDL_mouse.h:
+
+auxlib/include/SDL/SDL_video.h:
+
+auxlib/include/SDL/SDL_joystick.h:
+
+auxlib/include/SDL/SDL_quit.h:
+
+auxlib/include/SDL/SDL_loadso.h:
+
+auxlib/include/SDL/SDL_timer.h:
+
+auxlib/include/SDL/SDL_version.h:
+
+auxlib/include/SDL/SDL_image.h:
+
+auxlib/include/SDL/SDL.h:
+
+auxlib/include/SDL/SDL_rotozoom.h:
+
+auxlib/include/SDL/SDL_gfxPrimitives.h:
 
 src/emucore/../common/export_screen.h:
 

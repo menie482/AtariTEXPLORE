@@ -4,9 +4,9 @@
 
 srcdir      ?= .
 DEFINES     := -DRLGENV_NOMAINLOOP
-LDFLAGS     := 
-INCLUDES    := -Iauxlib/include -Isrc/control -Isrc/os_dependent -I/usr/include 
-LIBS	    := ./auxlib/libSDL.a ./auxlib/libSDL_image.a ./auxlib/libSDL_gfx.a -lpthread -lboost_thread-mt -lboost_serialization -lboost_system -lboost_filesystem
+LDFLAGS     := -ldl
+INCLUDES    := -Iliblocal/include -Isrc/control -Isrc/os_dependent -I/usr/include 
+LIBS	    := -Lliblocal/SDL-1.2.15/build/.libs -Lliblocal/SDL_image-1.2.12/.libs -Lliblocal/SDL_gfx-2.0.24/.libs -ldl -lSDL -lSDL_gfx -lSDL_image -lpthread -lboost_thread-mt -lboost_serialization -lboost_system -lboost_filesystem
 OBJS	    :=
 PROF        :=
 MODULES     :=
