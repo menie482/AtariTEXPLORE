@@ -335,7 +335,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12'
+ac_pwd='/home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -432,17 +432,17 @@ enable_static='yes'
 pic_mode='default'
 enable_fast_install='yes'
 host_alias=''
-host='x86_64-unknown-linux-gnu'
+host='i686-pc-linux-gnu'
 host_os='linux-gnu'
 build_alias=''
-build='x86_64-unknown-linux-gnu'
+build='i686-pc-linux-gnu'
 build_os='linux-gnu'
 SED='/bin/sed'
 Xsed='/bin/sed -e 1s/^X//'
 GREP='/bin/grep'
 EGREP='/bin/grep -E'
 FGREP='/bin/grep -F'
-LD='/usr/bin/ld -m elf_x86_64'
+LD='/usr/bin/ld'
 NM='/usr/bin/nm -B'
 LN_S='ln -s'
 max_cmd_len='1572864'
@@ -463,7 +463,7 @@ old_postinstall_cmds='chmod 644 $oldlib~$RANLIB $oldlib'
 old_postuninstall_cmds=''
 old_archive_cmds='$AR $AR_FLAGS $oldlib$oldobjs~$RANLIB $oldlib'
 CC='gcc'
-CFLAGS='-I/usr/include/libpng12   -g -O2 -D_GNU_SOURCE=1 -D_REENTRANT -I/lusr/opt/libsdl-1.2.14/include/SDL  '
+CFLAGS='-I/usr/include/libpng12   -g -O2 -D_GNU_SOURCE=1 -D_REENTRANT -I/usr/include/SDL  '
 compiler='gcc'
 GCC='yes'
 lt_cv_sys_global_symbol_pipe='sed -n -e '\''s/^.*[	 ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[	 ][	 ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p'\'''
@@ -537,8 +537,8 @@ postuninstall_cmds=''
 finish_cmds='PATH="\$PATH:/sbin" ldconfig -n $libdir'
 finish_eval=''
 hardcode_into_libs='yes'
-sys_lib_search_path_spec='/usr/lib/gcc/x86_64-linux-gnu/4.4.3 /usr/lib /lib'
-sys_lib_dlsearch_path_spec='/lib /usr/lib /usr/lib/mesa /usr/lib32/mesa /usr/lib/atlas /usr/lib32/alsa-lib /usr/lib/alsa-lib /usr/local/lib /usr/lib/simspark /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu '
+sys_lib_search_path_spec='/usr/lib/gcc/i686-linux-gnu/4.6 /usr/lib/i386-linux-gnu /usr/lib /lib/i386-linux-gnu /lib'
+sys_lib_dlsearch_path_spec='/lib /usr/lib /usr/lib/atlas /usr/lib/i386-linux-gnu/mesa /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib '
 hardcode_action='immediate'
 enable_dlopen='unknown'
 enable_dlopen_self='unknown'
@@ -696,11 +696,11 @@ s,@psdir@,|#_!!_#|${docdir},g
 s,@libdir@,|#_!!_#|${exec_prefix}/lib,g
 s,@localedir@,|#_!!_#|${datarootdir}/locale,g
 s,@mandir@,|#_!!_#|${datarootdir}/man,g
-s,@DEFS@,|#_!!_#|-DPACKAGE_NAME=\\"\\" -DPACKAGE_TARNAME=\\"\\" -DPACKAGE_VERSION=\\"\\" -DPACKAGE_STRING=\\"\\" -DPACKAGE_BUGREPORT=\\"\\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\\".libs/\\" -DPACKAGE=\\"SDL_image\\" -DVERSION=\\"1.2.12\\" -DLOAD_JPG=1 -DLOAD_PNG=1 -DLOAD_TIF=1 -DLOAD_BMP=1 -DLOAD_GIF=1 -DLOAD_LBM=1 -DLOAD_PCX=1 -DLOAD_PNM=1 -DLOAD_TGA=1 -DLOAD_XCF=1 -DLOAD_XPM=1 -DLOAD_XV=1 -DLOAD_TIF_DYNAMIC=\\"libtiff.so.4\\" -DLOAD_JPG_DYNAMIC=\\"libjpeg.so.62\\" -DLOAD_PNG_DYNAMIC=\\"libpng.so.3\\",g
+s,@DEFS@,|#_!!_#|-DPACKAGE_NAME=\\"\\" -DPACKAGE_TARNAME=\\"\\" -DPACKAGE_VERSION=\\"\\" -DPACKAGE_STRING=\\"\\" -DPACKAGE_BUGREPORT=\\"\\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\\".libs/\\" -DPACKAGE=\\"SDL_image\\" -DVERSION=\\"1.2.12\\" -DLOAD_JPG=1 -DLOAD_PNG=1 -DLOAD_TIF=1 -DLOAD_BMP=1 -DLOAD_GIF=1 -DLOAD_LBM=1 -DLOAD_PCX=1 -DLOAD_PNM=1 -DLOAD_TGA=1 -DLOAD_XCF=1 -DLOAD_XPM=1 -DLOAD_XV=1 -DLOAD_TIF_DYNAMIC=\\"libtiff.so.4\\" -DLOAD_JPG_DYNAMIC=\\"libjpeg.so.8\\" -DLOAD_PNG_DYNAMIC=\\"libpng12.so.0\\",g
 s,@ECHO_C@,|#_!!_#|,g
 s,@ECHO_N@,|#_!!_#|-n,g
 s,@ECHO_T@,|#_!!_#|,g
-s,@LIBS@,|#_!!_#| -Wl\,-rpath\,/lusr/opt/libsdl-1.2.14/lib -L/lusr/opt/libsdl-1.2.14/lib -lSDL -lpthread  ,g
+s,@LIBS@,|#_!!_#| -lSDL  ,g
 s,@build_alias@,|#_!!_#|,g
 s,@host_alias@,|#_!!_#|,g
 s,@target_alias@,|#_!!_#|,g
@@ -714,16 +714,16 @@ s,@AS@,|#_!!_#|as,g
 s,@DLLTOOL@,|#_!!_#|dlltool,g
 s,@OBJDUMP@,|#_!!_#|objdump,g
 s,@LIBTOOL@,|#_!!_#|$(SHELL) $(top_builddir)/libtool,g
-s,@build@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@build_cpu@,|#_!!_#|x86_64,g
-s,@build_vendor@,|#_!!_#|unknown,g
+s,@build@,|#_!!_#|i686-pc-linux-gnu,g
+s,@build_cpu@,|#_!!_#|i686,g
+s,@build_vendor@,|#_!!_#|pc,g
 s,@build_os@,|#_!!_#|linux-gnu,g
-s,@host@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@host_cpu@,|#_!!_#|x86_64,g
-s,@host_vendor@,|#_!!_#|unknown,g
+s,@host@,|#_!!_#|i686-pc-linux-gnu,g
+s,@host_cpu@,|#_!!_#|i686,g
+s,@host_vendor@,|#_!!_#|pc,g
 s,@host_os@,|#_!!_#|linux-gnu,g
 s,@CC@,|#_!!_#|gcc,g
-s,@CFLAGS@,|#_!!_#|-I/usr/include/libpng12   -g -O2 -D_GNU_SOURCE=1 -D_REENTRANT -I/lusr/opt/libsdl-1.2.14/include/SDL  ,g
+s,@CFLAGS@,|#_!!_#|-I/usr/include/libpng12   -g -O2 -D_GNU_SOURCE=1 -D_REENTRANT -I/usr/include/SDL  ,g
 s,@LDFLAGS@,|#_!!_#|,g
 s,@CPPFLAGS@,|#_!!_#|,g
 s,@ac_ct_CC@,|#_!!_#|gcc,g
@@ -733,7 +733,7 @@ s,@SED@,|#_!!_#|/bin/sed,g
 s,@GREP@,|#_!!_#|/bin/grep,g
 s,@EGREP@,|#_!!_#|/bin/grep -E,g
 s,@FGREP@,|#_!!_#|/bin/grep -F,g
-s,@LD@,|#_!!_#|/usr/bin/ld -m elf_x86_64,g
+s,@LD@,|#_!!_#|/usr/bin/ld,g
 s,@DUMPBIN@,|#_!!_#|,g
 s,@ac_ct_DUMPBIN@,|#_!!_#|,g
 s,@NM@,|#_!!_#|/usr/bin/nm -B,g
@@ -758,12 +758,12 @@ s,@INSTALL_DATA@,|#_!!_#|${INSTALL} -m 644,g
 s,@am__isrc@,|#_!!_#|,g
 s,@CYGPATH_W@,|#_!!_#|echo,g
 s,@PACKAGE@,|#_!!_#|SDL_image,g
-s,@ACLOCAL@,|#_!!_#|${SHELL} /u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run aclocal-1.10,g
-s,@AUTOCONF@,|#_!!_#|${SHELL} /u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run autoconf,g
-s,@AUTOMAKE@,|#_!!_#|${SHELL} /u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run automake-1.10,g
-s,@AUTOHEADER@,|#_!!_#|${SHELL} /u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run autoheader,g
-s,@MAKEINFO@,|#_!!_#|${SHELL} /u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run makeinfo,g
-s,@install_sh@,|#_!!_#|$(SHELL) /u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/install-sh,g
+s,@ACLOCAL@,|#_!!_#|${SHELL} /home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12/missing --run aclocal-1.10,g
+s,@AUTOCONF@,|#_!!_#|${SHELL} /home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12/missing --run autoconf,g
+s,@AUTOMAKE@,|#_!!_#|${SHELL} /home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12/missing --run automake-1.10,g
+s,@AUTOHEADER@,|#_!!_#|${SHELL} /home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12/missing --run autoheader,g
+s,@MAKEINFO@,|#_!!_#|${SHELL} /home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12/missing --run makeinfo,g
+s,@install_sh@,|#_!!_#|$(SHELL) /home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12/install-sh,g
 CEOF
 cat >"$tmp/subs-2.sed" <<\CEOF
 /@[a-zA-Z_][a-zA-Z_0-9]*@/!b end
@@ -772,7 +772,7 @@ s,@mkdir_p@,|#_!!_#|/bin/mkdir -p,g
 s,@AWK@,|#_!!_#|gawk,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@am__leading_dot@,|#_!!_#|.,g
-s,@AMTAR@,|#_!!_#|${SHELL} /u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run tar,g
+s,@AMTAR@,|#_!!_#|${SHELL} /home/cdonahue/research/atariggp/ale/liblocal/SDL_image-1.2.12/missing --run tar,g
 s,@am__tar@,|#_!!_#|${AMTAR} chof - "$$tardir",g
 s,@am__untar@,|#_!!_#|${AMTAR} xf -,g
 s,@DEPDIR@,|#_!!_#|.deps,g
@@ -785,7 +785,7 @@ s,@CCDEPMODE@,|#_!!_#|depmode=gcc3,g
 s,@am__fastdepCC_TRUE@,|#_!!_#|,g
 s,@am__fastdepCC_FALSE@,|#_!!_#|#,g
 s,@OBJC@,|#_!!_#|gcc,g
-s,@OBJCFLAGS@,|#_!!_#|-I/usr/include/libpng12   -g -O2 -D_GNU_SOURCE=1 -D_REENTRANT -I/lusr/opt/libsdl-1.2.14/include/SDL  ,g
+s,@OBJCFLAGS@,|#_!!_#|-I/usr/include/libpng12   -g -O2 -D_GNU_SOURCE=1 -D_REENTRANT -I/usr/include/SDL  ,g
 s,@ac_ct_OBJC@,|#_!!_#|gcc,g
 s,@OBJCDEPMODE@,|#_!!_#|depmode=gcc3,g
 s,@am__fastdepOBJC_TRUE@,|#_!!_#|,g
@@ -797,8 +797,8 @@ s,@USE_VERSION_RC_TRUE@,|#_!!_#|#,g
 s,@USE_VERSION_RC_FALSE@,|#_!!_#|,g
 s,@SDL_VERSION@,|#_!!_#|1.2.10,g
 s,@PKG_CONFIG@,|#_!!_#|/usr/bin/pkg-config,g
-s,@SDL_CFLAGS@,|#_!!_#|-D_GNU_SOURCE=1 -D_REENTRANT -I/lusr/opt/libsdl-1.2.14/include/SDL  ,g
-s,@SDL_LIBS@,|#_!!_#|-Wl\,-rpath\,/lusr/opt/libsdl-1.2.14/lib -L/lusr/opt/libsdl-1.2.14/lib -lSDL -lpthread  ,g
+s,@SDL_CFLAGS@,|#_!!_#|-D_GNU_SOURCE=1 -D_REENTRANT -I/usr/include/SDL  ,g
+s,@SDL_LIBS@,|#_!!_#|-lSDL  ,g
 s,@SDL_CONFIG@,|#_!!_#|pkg-config sdl,g
 s,@LIBPNG_CFLAGS@,|#_!!_#|-I/usr/include/libpng12  ,g
 s,@LIBPNG_LIBS@,|#_!!_#|-lpng12  ,g

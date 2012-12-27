@@ -341,7 +341,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/u/cdonahue/AtariTEXPLORE/ale/liblocal/SDL-1.2.15'
+ac_pwd='/home/cdonahue/research/atariggp/ale/liblocal/SDL-1.2.15'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 # If no file are specified by the user, then we need to provide default
@@ -446,17 +446,17 @@ enable_static='yes'
 pic_mode='default'
 enable_fast_install='yes'
 host_alias=''
-host='x86_64-unknown-linux-gnu'
+host='i686-pc-linux-gnu'
 host_os='linux-gnu'
 build_alias=''
-build='x86_64-unknown-linux-gnu'
+build='i686-pc-linux-gnu'
 build_os='linux-gnu'
 SED='/bin/sed'
 Xsed='/bin/sed -e 1s/^X//'
 GREP='/bin/grep'
 EGREP='/bin/grep -E'
 FGREP='/bin/grep -F'
-LD='/usr/bin/ld -m elf_x86_64'
+LD='/usr/bin/ld'
 NM='/usr/bin/nm -B'
 LN_S='ln -s'
 max_cmd_len='1572864'
@@ -551,8 +551,8 @@ postuninstall_cmds=''
 finish_cmds='PATH="\$PATH:/sbin" ldconfig -n $libdir'
 finish_eval=''
 hardcode_into_libs='yes'
-sys_lib_search_path_spec='/usr/lib/gcc/x86_64-linux-gnu/4.4.3 /usr/lib /lib'
-sys_lib_dlsearch_path_spec='/lib /usr/lib /usr/lib/mesa /usr/lib32/mesa /usr/lib/atlas /usr/lib32/alsa-lib /usr/lib/alsa-lib /usr/local/lib /usr/lib/simspark /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu '
+sys_lib_search_path_spec='/usr/lib/gcc/i686-linux-gnu/4.6 /usr/lib/i386-linux-gnu /usr/lib /lib/i386-linux-gnu /lib'
+sys_lib_dlsearch_path_spec='/lib /usr/lib /usr/lib/atlas /usr/lib/i386-linux-gnu/mesa /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib '
 hardcode_action='immediate'
 enable_dlopen='unknown'
 enable_dlopen_self='unknown'
@@ -565,7 +565,7 @@ postdep_objects=''
 predeps=''
 postdeps=''
 compiler_lib_search_path=''
-LD_CXX='/usr/bin/ld -m elf_x86_64'
+LD_CXX='/usr/bin/ld'
 old_archive_cmds_CXX='$AR $AR_FLAGS $oldlib$oldobjs~$RANLIB $oldlib'
 compiler_CXX='g++'
 GCC_CXX='yes'
@@ -606,12 +606,12 @@ include_expsyms_CXX=''
 prelink_cmds_CXX=''
 file_list_spec_CXX=''
 hardcode_action_CXX='immediate'
-compiler_lib_search_dirs_CXX='/usr/lib/gcc/x86_64-linux-gnu/4.4.3 /usr/lib/gcc/x86_64-linux-gnu/4.4.3 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib /lib/../lib /usr/lib/../lib /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../..'
-predep_objects_CXX='/usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o'
-postdep_objects_CXX='/usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o'
+compiler_lib_search_dirs_CXX='/usr/lib/gcc/i686-linux-gnu/4.6 /usr/lib/gcc/i686-linux-gnu/4.6/../../../i386-linux-gnu /usr/lib/gcc/i686-linux-gnu/4.6/../../../../lib /lib/i386-linux-gnu /lib/../lib /usr/lib/i386-linux-gnu /usr/lib/../lib /usr/lib/gcc/i686-linux-gnu/4.6/../../..'
+predep_objects_CXX='/usr/lib/gcc/i686-linux-gnu/4.6/../../../i386-linux-gnu/crti.o /usr/lib/gcc/i686-linux-gnu/4.6/crtbeginS.o'
+postdep_objects_CXX='/usr/lib/gcc/i686-linux-gnu/4.6/crtendS.o /usr/lib/gcc/i686-linux-gnu/4.6/../../../i386-linux-gnu/crtn.o'
 predeps_CXX=''
 postdeps_CXX='-lstdc++ -lm -lgcc_s -lc -lgcc_s'
-compiler_lib_search_path_CXX='-L/usr/lib/gcc/x86_64-linux-gnu/4.4.3 -L/usr/lib/gcc/x86_64-linux-gnu/4.4.3 -L/usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../..'
+compiler_lib_search_path_CXX='-L/usr/lib/gcc/i686-linux-gnu/4.6 -L/usr/lib/gcc/i686-linux-gnu/4.6/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/4.6/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/4.6/../../..'
 
 LTCC='gcc'
 LTCFLAGS='-g -O2'
@@ -786,13 +786,13 @@ s,@AS@,|#_!!_#|as,g
 s,@DLLTOOL@,|#_!!_#|dlltool,g
 s,@OBJDUMP@,|#_!!_#|objdump,g
 s,@LIBTOOL@,|#_!!_#|$(SHELL) $(top_builddir)/libtool,g
-s,@build@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@build_cpu@,|#_!!_#|x86_64,g
-s,@build_vendor@,|#_!!_#|unknown,g
+s,@build@,|#_!!_#|i686-pc-linux-gnu,g
+s,@build_cpu@,|#_!!_#|i686,g
+s,@build_vendor@,|#_!!_#|pc,g
 s,@build_os@,|#_!!_#|linux-gnu,g
-s,@host@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@host_cpu@,|#_!!_#|x86_64,g
-s,@host_vendor@,|#_!!_#|unknown,g
+s,@host@,|#_!!_#|i686-pc-linux-gnu,g
+s,@host_cpu@,|#_!!_#|i686,g
+s,@host_vendor@,|#_!!_#|pc,g
 s,@host_os@,|#_!!_#|linux-gnu,g
 s,@CC@,|#_!!_#|gcc,g
 s,@CFLAGS@,|#_!!_#|-g -O2 -I./include -D_GNU_SOURCE=1  -DXTHREADS,g
@@ -805,7 +805,7 @@ s,@SED@,|#_!!_#|/bin/sed,g
 s,@GREP@,|#_!!_#|/bin/grep,g
 s,@EGREP@,|#_!!_#|/bin/grep -E,g
 s,@FGREP@,|#_!!_#|/bin/grep -F,g
-s,@LD@,|#_!!_#|/usr/bin/ld -m elf_x86_64,g
+s,@LD@,|#_!!_#|/usr/bin/ld,g
 s,@DUMPBIN@,|#_!!_#|,g
 s,@ac_ct_DUMPBIN@,|#_!!_#|,g
 s,@NM@,|#_!!_#|/usr/bin/nm -B,g
@@ -847,7 +847,7 @@ s,@ESD_LIBS@,|#_!!_#|-lesd  ,g
 s,@PKG_CONFIG@,|#_!!_#|/usr/bin/pkg-config,g
 s,@ARTSCONFIG@,|#_!!_#|,g
 s,@NASM@,|#_!!_#|,g
-s,@NASMFLAGS@,|#_!!_#|,g
+s,@NASMFLAGS@,|#_!!_#|-f elf32,g
 s,@XMKMF@,|#_!!_#|,g
 s,@X_CFLAGS@,|#_!!_#| -DXTHREADS,g
 s,@X_PRE_LIBS@,|#_!!_#| -lSM -lICE,g
@@ -1220,6 +1220,7 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_DUMMY\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_AUDIO_DRIVER_DISK\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_AUDIO_DRIVER_DUMMY\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_LOADSO_DLOPEN\)[	 (].*,\1define\2 1 ,
+s,^\([	 #]*\)[^	 ]*\([	 ]*SIZEOF_VOID_P\)[	 (].*,\1define\2 4 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_AUDIO_DRIVER_OSS\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_LIBASOUND\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_AUDIO_DRIVER_ALSA\)[	 (].*,\1define\2 1 ,
@@ -1234,7 +1235,6 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11_DYNAMIC\)[	 (].*,\1define\2 "libX11.so.6" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11_DYNAMIC_XEXT\)[	 (].*,\1define\2 "libXext.so.6" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_DGA\)[	 (].*,\1define\2 1 ,
-s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11_DGAMOUSE\)[	 (].*,\1define\2 1 ,
 CEOF
     sed -f "$tmp/defines.sed" "$tmp/out1" >"$tmp/out2"
     # First, check the format of the line:
@@ -1243,6 +1243,7 @@ CEOF
 /^[	 ]*#[	 ]*define[	 ][	 ]*[_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ][_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]*[(	 ]/b def
 b
 :def
+s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11_DGAMOUSE\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11_VIDMODE\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11_XV\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*SDL_VIDEO_DRIVER_X11_XINERAMA\)[	 (].*,\1define\2 1 ,

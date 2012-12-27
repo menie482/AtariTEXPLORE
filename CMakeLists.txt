@@ -43,17 +43,17 @@ add_executable(experiment
 )
 
 target_link_libraries(experiment
-	commonlib
-	agentlib
-	envlib
-	ale
-        directfb
-        m
-        z
-        SDL
-        SDL_image
-        SDL_gfx
-	boost_system
-	boost_thread
-	boost_filesystem
+    commonlib
+    agentlib
+    envlib
+    ale
+    SDL
+    SDL_image
+    SDL_gfx
+    directfb
+    m
+    z
+    boost_system
+    boost_thread
+    boost_filesystem
 )

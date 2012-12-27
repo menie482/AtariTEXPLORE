@@ -24,7 +24,7 @@ char* Arcade::getEnvironmentDescription() {
 }
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(false), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
+	totalScore(0), display_active(true), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
