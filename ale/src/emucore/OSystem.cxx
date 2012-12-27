@@ -401,7 +401,7 @@ bool OSystem::createConsole(const string& romfile)
       //ALE  if(showmessage)
         //ALE  myFrameBuffer->showMessage("New console created");
       if(mySettings->getBool("showinfo") || 1)
-        cerr << "Game console created:" << endl
+        cout << "Game console created:" << endl
              << "  ROM file:  " << myRomFile << endl
              << myConsole->about() << endl;
 
