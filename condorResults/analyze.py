@@ -47,7 +47,7 @@ for total in totals:
 print averages
 
 # draw graph
-t = np.array(range(1, maxEpisodeReached))
+t = np.array(range(maxEpisodeReached))
 avgs = np.array(averages)
 
 plt.plot(t, avgs)
@@ -55,3 +55,4 @@ plt.ylabel('Average Reward')
 plt.xlabel('Episode #')
 plt.axes([0, maxEpisodeReached, 0, 1000])
 plt.show()
+plt.savefig('experimentgraph.png')
