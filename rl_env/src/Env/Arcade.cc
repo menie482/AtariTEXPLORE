@@ -24,7 +24,7 @@ char* Arcade::getEnvironmentDescription() {
 }
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
+	totalScore(0), display_active(false), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -37,13 +37,13 @@ Arcade::Arcade(char* rom_path) :
       exit(-1);
   }
 
-  modelSpecs[0].modelType = M5MULTI;
+  modelSpecs[0].modelType = C45TREE;
   modelSpecs[1].modelType = C45TREE;
-  modelSpecs[2].modelType = M5MULTI;
+  modelSpecs[2].modelType = C45TREE;
   modelSpecs[3].modelType = C45TREE;
-  modelSpecs[4].modelType = M5MULTI;
+  modelSpecs[4].modelType = C45TREE;
   modelSpecs[5].modelType = C45TREE;
-  modelSpecs[6].modelType = M5MULTI;
+  modelSpecs[6].modelType = C45TREE;
   modelSpecs[7].modelType = C45TREE;
   modelSpecs[9].modelType = C45TREE; // reward
   modelSpecs[10].modelType = C45TREE; // terminal model
