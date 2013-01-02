@@ -8,6 +8,10 @@
 #include <rl_env/Arcade.hh>
 #include <cmath>
 
+char* Arcade::getEnvironmentDescription() {
+    return "";
+}
+
 Arcade::Arcade(char* rom_path) :
 	totalScore(0), display_active(true), game_over(false), stateSpaceLength(6), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
@@ -196,6 +200,18 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
   maxFeat->at(5) = 1;
 }
 
+void Arcade::getDiscretization(std::vector<int> *statesPerDim) {
+    statesPerDim->resize(stateSpaceLength,0);
+    statesPerDim->at(0) = 20;
+    statesPerDim->at(1) = 9;
+    statesPerDim->at(2) = 20;
+    statesPerDim->at(3) = 3;
+    statesPerDim->at(4) = 20;
+    statesPerDim->at(5) = 3;
+    statesPerDim->at(6) = 20;
+    statesPerDim->at(7) = 3;
+}
+
 void Arcade::getMinMaxReward(float *minR,
                                float *maxR){
   string romStr (romPath);
@@ -223,7 +239,7 @@ bool Arcade::isEpisodic() {
     return true;
 }
 
-bool Arcade::lostLocation() {
+bool Arcade::invalidStateChange(int lastAction) {
     return ale.getSelfLocation().x == -1;
 }
 
