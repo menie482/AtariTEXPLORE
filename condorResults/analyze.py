@@ -35,15 +35,17 @@ maxEpisodeReached = max(episodesByTrial)
 totals = []
 for i in range(maxEpisodeReached):
   total = 0
+  episodeCount = 0
   for j in range(len(trials)):
     trial = trials[j]
     if episodesByTrial[j] > i:
       total = total + int(trial[i])
-  totals.append(total)
+      episodeCount = episodeCount + 1
+  totals.append((total, episodeCount))
 
 averages = []
-for total in totals:
-  averages.append(total/len(trials))
+for (total, epCount) in totals:
+  averages.append(total/epCount)
 print averages
 
 # draw graph
