@@ -92,7 +92,7 @@ public:
       environment state. */
   typedef const std::vector<float> *state_t;
 
-
+  int requiredRollouts;
 
 protected:
 

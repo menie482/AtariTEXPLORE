@@ -14,12 +14,10 @@ char* Arcade::getEnvironmentDescription() {
         "uses 8 features:\n"
         "0: self x position\n"
         "1: self row #\n"
-        "2: relative x distance to object in row above self\n"
-        "3: ID of object in row above self\n"
-        "4: relative x distance to object in row below self\n"
-        "5: ID of object in row below self\n"
-        "6: relative x distance to object in current row of self\n"
-        "7: ID of object in current row of self\n"
+        "2: ID of object in row above self\n"
+        "3: ID of object in row below self\n"
+        "4: relative x distance to object in current row of self\n"
+        "5: ID of object in current row of self\n"
         ;
 }
 
@@ -45,8 +43,6 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[5].modelType = C45TREE;
   modelSpecs[6].modelType = C45TREE;
   modelSpecs[7].modelType = C45TREE;
-  modelSpecs[9].modelType = C45TREE; // reward
-  modelSpecs[10].modelType = C45TREE; // terminal model
 
   reset();
 }
@@ -91,14 +87,10 @@ void Arcade::updateState() {
     for (int i = 0; i < state.size(); i++) {
         state[i] = -1;
     }
-    state[2] = 0;
-    state[4] = 0;
-    state[6] = 0;
-    state[7] = 0;
 
     // do self state
     point selfLoc = ale.getSelfLocation();
-	state[0] = selfLoc.x;
+    state[0] = selfLoc.x;
     state[1] = (int) ((selfLoc.y - 31) / 16);
 
     // do radar state
@@ -117,16 +109,14 @@ void Arcade::updateState() {
         int ydist = selfLoc.y - objLoc.y;
         float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
         if (abs(ydist) < 5) {
-		state[6] = xdist;
-            state[7] = objID;
+		state[4] = xdist;
+            state[5] = objID;
         }
         else if (ydist > 0 && ydist < 20) {
-            state[2] = xdist;
-            state[3] = objID;
+            state[2] = objID;
         }
         else if (ydist < 0 && ydist > -20) {
-            state[4] = xdist;
-            state[5] = objID;
+            state[3] = objID;
         }
  
 /*        
@@ -285,25 +275,20 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
     // 9 = reward
     // 10 = terminal
 
-
   minFeat->resize(stateSpaceLength, 0);
   minFeat->at(0) = -1;
   minFeat->at(1) = -2;
-  minFeat->at(2) = -162;
+  minFeat->at(2) = -1;
   minFeat->at(3) = -1;
   minFeat->at(4) = -162;
   minFeat->at(5) = -1;
-  minFeat->at(6) = -162;
-  minFeat->at(7) = -1;
   maxFeat->resize(stateSpaceLength, 0);
   maxFeat->at(0) = 162;
   maxFeat->at(1) = 7;
-  maxFeat->at(2) = 162;
+  maxFeat->at(2) = 2;
   maxFeat->at(3) = 2;
   maxFeat->at(4) = 162;
   maxFeat->at(5) = 2;
-  maxFeat->at(6) = 162;
-  maxFeat->at(7) = 2;
 
 
 }
@@ -312,12 +297,10 @@ void Arcade::getDiscretization(std::vector<int> *statesPerDim) {
     statesPerDim->resize(stateSpaceLength,0);
     statesPerDim->at(0) = 20;
     statesPerDim->at(1) = 9;
-    statesPerDim->at(2) = 20;
+    statesPerDim->at(2) = 3;
     statesPerDim->at(3) = 3;
     statesPerDim->at(4) = 20;
     statesPerDim->at(5) = 3;
-    statesPerDim->at(6) = 20;
-    statesPerDim->at(7) = 3;
 }
 
 void Arcade::getMinMaxReward(float *minR,

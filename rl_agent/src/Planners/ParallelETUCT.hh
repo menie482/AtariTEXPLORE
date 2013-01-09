@@ -181,6 +181,8 @@ public:
   /** Subtract two vectors. */
   std::vector<float> subVec(const std::vector<float> &a, const std::vector<float> &b);
 
+  int requiredRollouts;
+
 protected:
 
 

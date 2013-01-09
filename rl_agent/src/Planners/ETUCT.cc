@@ -11,7 +11,6 @@
 
 #include <sys/time.h>
 
-
 ETUCT::ETUCT(int numactions, float gamma, float rrange, float lambda,
              int MAX_ITER, float MAX_TIME, int MAX_DEPTH, int modelType,
              const std::vector<float> &fmax, const std::vector<float> &fmin,
@@ -23,6 +22,9 @@ ETUCT::ETUCT(int numactions, float gamma, float rrange, float lambda,
   trackActual(trackActual), HISTORY_SIZE(historySize),
   HISTORY_FL_SIZE(historySize*numactions)//fmax.size())
 {
+  // (cdonahue) require this many rollouts
+  requiredRollouts = 300;
+
   rng = r;
 
   nstates = 0;
@@ -330,15 +332,18 @@ int ETUCT::getBestAction(const std::vector<float> &state){
   state_t s = canonicalize(state);
 
   int i = 0;
-  for (i = 0; i < MAX_ITER; i++){
+  // (cdonahue) changed from MAX_ITER
+  for (i = 0; i < requiredRollouts; i++){
 
     std::deque<float> searchHistory = saHistory;
     uctSearch(state, s, 0, searchHistory);
 
     // break after some max time
+    /*
     if ((getSeconds() - planTime) > MAX_TIME){ // && i > 500){
       break;
     }
+    */
 
   }
   double currTime = getSeconds();
