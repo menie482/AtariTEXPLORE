@@ -22,7 +22,7 @@ char* Arcade::getEnvironmentDescription() {
 }
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(false), game_over(false), stateSpaceLength(8), state(stateSpaceLength),
+	totalScore(0), display_active(false), game_over(false), stateSpaceLength(6), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -41,8 +41,8 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[3].modelType = C45TREE;
   modelSpecs[4].modelType = C45TREE;
   modelSpecs[5].modelType = C45TREE;
-  modelSpecs[6].modelType = C45TREE;
   modelSpecs[7].modelType = C45TREE;
+  modelSpecs[8].modelType = C45TREE;
 
   reset();
 }
