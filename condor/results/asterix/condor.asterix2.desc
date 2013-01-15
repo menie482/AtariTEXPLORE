@@ -1,0 +1,11 @@
++Group = "UNDER"
++Project = "AI_ROBOTICS"
++ProjectDescription = "Atari platform learning with TEXPLORE"
+executable = experiment2
+Requirements = Memory >= 4000 && Lucid
+Log = condorResults/1.9.13.paralleletuct.require300rollouts/condor.log
+Notification = Complete
+Arguments = --agent texplore --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin --model c45tree
+Output = condorResults/1.9.13.paralleletuct.require300rollouts/condor.out.$(Process)
+Error = condorResults/1.9.13.paralleletuct.require300rollouts/condor.err.$(Process)
+Queue 30

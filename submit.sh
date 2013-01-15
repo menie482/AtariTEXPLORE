@@ -6,6 +6,6 @@
 set -e
 
 export PATH=/lusr/opt/condor/bin:$PATH
-condor_submit condor.asterix4.desc
+condor_submit condor/condor.desc
 
 set +e

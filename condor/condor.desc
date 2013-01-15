@@ -1,0 +1,11 @@
++Group = "UNDER"
++Project = "AI_ROBOTICS"
++ProjectDescription = "Atari platform learning with TEXPLORE"
+executable = experiment2
+Requirements = Memory >= 4000 && Lucid
+Log = condorResults/boxing/1.14.13.rollouts300.MAXSTEPS200.relxy/condor.log
+Notification = Complete
+Arguments = --agent texplore --explore variancenovelty --n 5 --v 2 --rom ./games/boxing.bin --model c45tree --planner uct
+Output = condorResults/boxing/1.14.13.rollouts300.MAXSTEPS200.relxy/condor.out.$(Process)
+Error = condorResults/boxing/1.14.13.rollouts300.MAXSTEPS200.relxy/condor.err.$(Process)
+Queue 30

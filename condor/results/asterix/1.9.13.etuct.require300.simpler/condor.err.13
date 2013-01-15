@@ -1,0 +1,81 @@
+01.09.2013
+12.34.08
+condor_exec.exe --agent texplore --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin --model c45tree --planner uct 
+
+Specialized environment for Asterix, uses 8 features:
+0: self x position
+1: self row #
+2: ID of object in row above self
+3: ID of object in row below self
+4: relative x distance to object in current row of self
+5: ID of object in current row of self
+0: C4.5 Tree
+1: C4.5 Tree
+2: C4.5 Tree
+3: C4.5 Tree
+4: C4.5 Tree
+5: C4.5 Tree
+REWARD: C4.5 Tree
+TERMINAL: C4.5 Tree
+
+rhavan-54
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+CPU(s):                8
+Thread(s) per core:    1
+Core(s) per socket:    4
+CPU socket(s):         2
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 15
+Stepping:              11
+CPU MHz:               2660.405
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              4096K
+MemTotal:       33013004 kB
+MemFree:        31106024 kB
+
+
+score	#steps	#invld
+100	90	0
+150	214	0
+50	105	0
+50	84	0
+50	95	0
+150	112	0
+100	44	0
+100	58	0
+150	60	0
+100	47	0
+100	44	0
+100	47	0
+100	117	0
+100	87	0
+150	48	0
+150	217	0
+150	64	0
+100	64	0
+100	108	0
+0	60	0
+50	58	0
+100	112	0
+50	50	0
+50	58	0
+50	42	0
+100	44	0
+150	58	0
+150	111	0
+100	58	0
+50	48	0
+100	44	0
+50	60	0
+350	226	0
+150	40	0
+100	40	0
+350	268	0
+50	78	0
+200	122	0
+150	49	0

@@ -1,0 +1,170 @@
+12.28.2012
+16.12.09
+condor_exec.exe --agent texplore --actrate 3 --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin --history 1 --model c45tree 
+
+Specialized environment for Asterix, uses 8 features:
+0: self x position
+1: self row #
+2: relative x distance to object in row above self
+3: ID of object in row above self
+4: relative x distance to object in row below self
+5: ID of object in row below self
+6: relative x distance to object in current row of self
+7: ID of object in current row of self
+0: C4.5 Tree
+1: C4.5 Tree
+2: C4.5 Tree
+3: C4.5 Tree
+4: C4.5 Tree
+5: C4.5 Tree
+6: C4.5 Tree
+7: C4.5 Tree
+REWARD: C4.5 Tree
+TERMINAL: C4.5 Tree
+
+sudheendra
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+CPU(s):                24
+Thread(s) per core:    2
+Core(s) per socket:    6
+CPU socket(s):         2
+NUMA node(s):          2
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 44
+Stepping:              2
+CPU MHz:               3458.101
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              12288K
+MemTotal:       198480364 kB
+MemFree:        111879660 kB
+
+
+score	#steps	#invld
+50	45	0
+100	81	0
+100	51	0
+150	114	0
+100	50	0
+50	49	0
+150	91	0
+50	42	0
+100	42	0
+150	179	0
+50	52	0
+50	102	0
+100	49	0
+50	47	0
+50	48	0
+50	47	0
+100	119	0
+50	45	0
+100	151	0
+50	45	0
+100	144	0
+50	44	0
+50	47	0
+50	116	0
+50	43	0
+50	43	0
+50	45	0
+50	47	0
+50	47	0
+50	43	0
+50	43	0
+50	45	0
+50	43	0
+50	43	0
+50	45	0
+50	47	0
+50	45	0
+50	45	0
+50	49	0
+50	45	0
+50	45	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+50	43	0
+50	45	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+50	49	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+50	47	0
+150	149	0
+150	150	0
+150	151	0
+150	149	0
+150	150	0
+50	50	0
+250	248	0
+250	300	0
+250	243	0
+200	218	0
+250	243	0
+250	312	14
+250	281	0
+50	47	0
+400	328	0
+400	326	0
+200	119	0
+200	119	0
+200	119	0
+200	119	0
+200	119	0
+200	120	0
+200	120	0
+200	120	0
+200	120	0
+200	119	0
+200	119	0
+200	119	0
+200	119	0
+200	120	0
+200	120	0
+200	119	0
+200	119	0
+200	119	0
+200	119	0
+200	119	0
+700	778	0
+250	253	0
+50	47	0
+250	216	0
+250	253	0
+250	300	0
+250	253	0
+250	218	0
+250	218	0
+250	220	0
+250	218	0
+250	254	0
+250	216	0
+250	251	0
+150	154	0
+150	188	0
+250	251	0
+250	216	0
+150	183	0
+50	47	0
+50	47	0
+150	208	0
+150	210	0
+150	154	0
+150	154	0
+250	286	0

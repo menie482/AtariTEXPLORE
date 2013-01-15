@@ -1,0 +1,132 @@
+12.28.2012
+16.12.09
+condor_exec.exe --agent texplore --actrate 3 --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin --history 1 --model c45tree 
+
+Specialized environment for Asterix, uses 8 features:
+0: self x position
+1: self row #
+2: relative x distance to object in row above self
+3: ID of object in row above self
+4: relative x distance to object in row below self
+5: ID of object in row below self
+6: relative x distance to object in current row of self
+7: ID of object in current row of self
+0: C4.5 Tree
+1: C4.5 Tree
+2: C4.5 Tree
+3: C4.5 Tree
+4: C4.5 Tree
+5: C4.5 Tree
+6: C4.5 Tree
+7: C4.5 Tree
+REWARD: C4.5 Tree
+TERMINAL: C4.5 Tree
+
+sudheendra
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+CPU(s):                24
+Thread(s) per core:    2
+Core(s) per socket:    6
+CPU socket(s):         2
+NUMA node(s):          2
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 44
+Stepping:              2
+CPU MHz:               3458.101
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              12288K
+MemTotal:       198480364 kB
+MemFree:        110968228 kB
+
+
+score	#steps	#invld
+100	109	0
+150	132	0
+100	63	0
+100	46	0
+50	42	0
+200	133	0
+150	43	0
+100	40	0
+100	92	0
+100	41	0
+50	46	0
+100	45	0
+100	60	0
+50	56	0
+100	45	0
+150	57	0
+200	131	0
+150	127	0
+150	132	0
+50	40	0
+100	124	0
+550	1000	0
+100	208	0
+200	407	0
+100	209	0
+100	51	0
+300	251	0
+100	53	0
+100	121	0
+150	189	0
+100	54	0
+100	53	0
+100	53	0
+500	577	0
+50	54	0
+100	55	0
+50	40	0
+100	61	0
+50	56	0
+100	57	0
+100	53	0
+100	57	0
+100	57	0
+100	61	0
+100	62	0
+100	53	0
+50	62	0
+50	62	0
+50	55	0
+50	55	0
+50	57	0
+50	56	0
+50	56	0
+100	55	0
+100	57	0
+50	58	0
+50	60	0
+50	54	0
+50	56	0
+50	62	0
+50	53	0
+100	61	0
+50	62	0
+50	89	0
+50	55	0
+50	55	0
+50	55	0
+50	53	0
+50	62	0
+50	64	0
+50	57	0
+50	56	0
+50	53	0
+50	57	0
+50	57	0
+50	57	0
+100	57	0
+50	53	0
+100	61	0
+100	59	0
+100	57	0
+100	57	0
+100	57	0
+100	57	0
+100	57	0

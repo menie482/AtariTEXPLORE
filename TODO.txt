@@ -29,10 +29,8 @@ STATE SPACE TODO:
     Check if objects are always delivered in the same order for radar consistency when two objects are same distance
 
 VISUAL PROCESSING TODO:
-    Don't remove object after 50 idle frames if it matches the self object
     Switch back to automatic recognition... maybe...
 
 TESTING TODO:
-    Submit no GUI version to condor
     Many training episodes and then a few evaluation episods
     More gaemz!

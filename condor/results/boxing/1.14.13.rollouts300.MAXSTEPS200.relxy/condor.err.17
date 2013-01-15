@@ -1,0 +1,39 @@
+01.15.2013
+10.49.31
+condor_exec.exe --agent texplore --explore variancenovelty --n 5 --v 2 --rom ./games/boxing.bin --model c45tree --planner uct 
+
+Specialized environment for Boxing, uses 1 features:
+0: relative y position to opponent
+1: relative x position to opponent
+0: C4.5 Tree
+1: C4.5 Tree
+REWARD: C4.5 Tree
+TERMINAL: C4.5 Tree
+
+gundabad-2
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+CPU(s):                24
+Thread(s) per core:    2
+Core(s) per socket:    6
+CPU socket(s):         2
+NUMA node(s):          2
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 44
+Stepping:              2
+CPU MHz:               3458.529
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              12288K
+MemTotal:       99193400 kB
+MemFree:        87611352 kB
+
+
+score	#steps	#invld
+-1	200	12
+0	200	19
+0	200	20
+-2	200	11
