@@ -16,7 +16,7 @@ for path in files:
 
   trial = 0
   for line in f:
-    match = re.search('(\d+)\t(\d+)\t(\d+)', line)
+    match = re.search('(\-?\d+)\t(\d+)\t(\d+)', line)
     if match:
       score = match.group(1)
       steps = match.group(2)
@@ -25,27 +25,32 @@ for path in files:
       trial = trial + 1
   f.close()
 
-episodesByTrial = []
+numEpisodesPerTrial = []
 for i in range(len(trials)):
-  episodesByTrial.append(len(trials[i]))
-print episodesByTrial
+  numEpisodesPerTrial.append(len(trials[i]))
+print 'NUMBER OF EPISODES PER TRIAL:'
+print numEpisodesPerTrial
 
 # analyze data
-maxEpisodeReached = max(episodesByTrial)
+maxEpisodeReached = max(numEpisodesPerTrial)
 totals = []
 for i in range(maxEpisodeReached):
   total = 0
-  episodeCount = 0
+  numEpisodesThatReachedThisTrial = 0
   for j in range(len(trials)):
     trial = trials[j]
-    if episodesByTrial[j] > i:
+    if numEpisodesPerTrial[j] > i:
       total = total + int(trial[i])
-      episodeCount = episodeCount + 1
-  totals.append((total, episodeCount))
+      numEpisodesThatReachedThisTrial = numEpisodesThatReachedThisTrial + 1
+  totals.append((total, numEpisodesThatReachedThisTrial))
+
+print 'PER EPISODE: (TOTAL REWARD, NUM TRIALS THAT REACHED THIS EPISODE)'
+print totals
 
 averages = []
 for (total, epCount) in totals:
-  averages.append(total/epCount)
+  averages.append(float(total)/epCount)
+print 'AVERAGE EPISODE REWARD ACROSS ALL TRIALS:'
 print averages
 
 # draw graph
@@ -56,5 +61,5 @@ plt.plot(t, avgs)
 plt.ylabel('Average Reward')
 plt.xlabel('Episode #')
 plt.axes([0, maxEpisodeReached, 0, 1000])
-#plt.show()
+plt.show()
 plt.savefig('experimentgraph.png')
