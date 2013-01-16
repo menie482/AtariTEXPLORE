@@ -9,7 +9,6 @@
 
 FactoredModel::FactoredModel(int id, int numactions, int M, int modelType,
                  int predType, int nModels, float treeThreshold,
-                 std::vector<ModelSpecification> &modelSpecs,
                  const std::vector<float> &featRange, float rRange,
                  bool needConf, bool dep, bool relTrans, float featPct, 
 		 bool stoch, bool episodic, Random rng):
@@ -17,7 +16,7 @@ FactoredModel::FactoredModel(int id, int numactions, int M, int modelType,
   id(id), nact(numactions), M(M), modelType(modelType),
   predType(predType), nModels(nModels),
   treeBuildType(BUILD_ON_ERROR), // build tree after prediction error
-  treeThresh(treeThreshold), modelSpecs(modelSpecs), featRange(featRange), rRange(rRange),
+  treeThresh(treeThreshold), featRange(featRange), rRange(rRange),
   needConf(needConf), dep(dep), relTrans(relTrans), FEAT_PCT(featPct), 
   stoch(stoch), episodic(episodic), rng(rng)
 {
@@ -42,7 +41,7 @@ FactoredModel::FactoredModel(const FactoredModel & m):
   id(m.id), nact(m.nact), M(m.M), modelType(m.modelType),
   predType(m.predType), nModels(m.nModels),
   treeBuildType(m.treeBuildType),
-  treeThresh(m.treeThresh), modelSpecs(m.modelSpecs), featRange(m.featRange), rRange(m.rRange),
+  treeThresh(m.treeThresh), featRange(m.featRange), rRange(m.rRange),
   needConf(m.needConf), dep(m.dep), relTrans(m.relTrans), FEAT_PCT(m.FEAT_PCT),
   stoch(m.stoch), episodic(m.episodic), rng(m.rng)
 {
@@ -99,7 +98,6 @@ bool FactoredModel::initMDPModel(int nfactors){
 
   // institute a model for each state factor, depending on model type
   for (int i = 0; i < nfactors; i++){
-    modelType = modelSpecs[i].modelType;
     if (modelType == C45TREE && nModels == 1){
       outputModels[i] = new C45Tree((id * (nfactors+1)) + i, treeBuildType, 5, M, 0, rng);
       if (i == 0){
@@ -165,14 +163,12 @@ bool FactoredModel::initMDPModel(int nfactors){
                                                EXP_PCT,
                                                treeThresh *featRange[i], stoch, rng);
       if (i == 0){
-        modelType = modelSpecs[modelSpecs.size() - 2].modelType;
         rewardModel = new MultipleClassifiers((id * (nfactors+1)) + nfactors,
                                              modelType, predType,
                                              nModels, treeBuildType, 5,
                                              FEAT_PCT, // remove this pct of feats
                                              EXP_PCT, treeThresh *rRange, stoch, rng);
 	if (episodic){
-        modelType = modelSpecs[modelSpecs.size() - 1].modelType;
 	  terminalModel = new MultipleClassifiers((id * (nfactors+1)) +1+ nfactors,
 						 modelType, predType,
 						 nModels, treeBuildType, 5,

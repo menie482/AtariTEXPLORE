@@ -441,9 +441,6 @@ void MultipleClassifiers::initModels(){
       //cout << "ALL types init tree " << i << " with simple: " << simple << " and allFeats: " << allFeats << endl;
       models[i] = new M5Tree(id + i*(1+nModels), mode, freq, 0, featPct, simple, allFeats, treeThresh, rng);
     }
-    else if (modelType == CONSTANT){
-      models[i] = new ConstantClassifier(id + 1*(1+nModels));
-    }
     else {
       cout << "Invalid model type for this committee" << endl;
       exit(-1);
