@@ -23,7 +23,7 @@ ETUCT::ETUCT(int numactions, float gamma, float rrange, float lambda,
   HISTORY_FL_SIZE(historySize*numactions)//fmax.size())
 {
   // (cdonahue) require this many rollouts
-  requiredRollouts = 300;
+  requiredRollouts = 100;
 
   rng = r;
 

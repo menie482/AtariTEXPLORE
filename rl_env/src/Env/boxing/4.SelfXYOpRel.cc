@@ -37,6 +37,14 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[2].modelType = C45TREE;
   modelSpecs[3].modelType = C45TREE;
 
+  totalScore = 0;
+  game_over = false;
+  // Initialize Atari Stuff
+  if (!ale.loadROM(romPath, display_active, true)) {
+      cerr << "Ale had problem loading rom..." << endl;
+      exit(-1);
+  }
+
   reset();
 }
 
@@ -142,10 +150,7 @@ void Arcade::reset() {
   totalScore = 0;
   game_over = false;
   // Initialize Atari Stuff
-  if (!ale.loadROM(romPath, display_active, true)) {
-      cerr << "Ale had problem loading rom..." << endl;
-      exit(-1);
-  }
+  ale.reset_game();
 
   point selfLoc = ale.getSelfLocation();
   while (selfLoc.x == -1) {

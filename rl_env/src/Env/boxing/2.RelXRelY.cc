@@ -11,9 +11,9 @@
 char* Arcade::getEnvironmentDescription() {
     return 
         "Specialized environment for Boxing, "
-        "uses 1 features:\n"
-        "0: relative y position to opponent\n"
-        "1: relative x position to opponent\n"
+        "uses 2 features:\n"
+        "1: opponent rel x position\n"
+        "2: opponent rel y position\n"
         ;
 }
 
@@ -35,6 +35,14 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[1].modelType = C45TREE;
   modelSpecs[3].modelType = C45TREE;
   modelSpecs[4].modelType = C45TREE;
+  
+  totalScore = 0;
+  game_over = false;
+  // Initialize Atari Stuff
+  if (!ale.loadROM(romPath, display_active, true)) {
+      cerr << "Ale had problem loading rom..." << endl;
+      exit(-1);
+  }
 
   reset();
 }
@@ -85,8 +93,6 @@ void Arcade::updateState() {
 
     // do radar state
 	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
-	//for (int i = 0; i < objs.size(); i++) {
-	//	CompositeObject obj = objs[i];
     float distToNearest = -1;
     long radius = 20;
     long alignmentRadius = 10;
@@ -98,62 +104,8 @@ void Arcade::updateState() {
         int xdist = selfLoc.x - objLoc.x;
         int ydist = selfLoc.y - objLoc.y;
         float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
-        state[0] = ydist;
-        state[1] = xdist;
-        /*
-        if (abs(ydist) < 5) {
-		state[4] = xdist;
-            state[5] = objID;
-        }
-        else if (ydist > 0 && ydist < 20) {
-            state[2] = objID;
-        }
-        else if (ydist < 0 && ydist > -20) {
-            state[3] = objID;
-        }
-        */
- 
-/*        
-        if (abs(ydist) < 5 && abs(xdist) < 10) {
-            if (xdist < 0) {
-                state[7] = 1;
-            }
-            else if (xdist > 0) {
-                state[6] = 1;
-            }
-            state[8] = objID;
-        }
-        else if (ydist > 0 && ydist < 20 && abs(xdist) < 10) {
-            state[2] = 1;
-            state[3] = objID;
-        }
-        else if (ydist < 0 && ydist > -20 && abs(xdist) < 10) {
-            state[4] = 1;
-            state[5] = objID;
-        }
-  */      
-	/*
-        if (abs(ydist) < 5) {
-            if (xdist < 0) {
-                state[7] = 1;
-            }
-            else if (xdist > 0) {
-                state[6] = 1;
-            }
-            state[8] = objID;
-        }
-        else if (abs(xdist) < 13) {
-            if (ydist < 0) {
-                state[4] = 1;
-                state[5] = objID;
-            }
-            else if (ydist > 0) {
-                state[2] = 1;
-                state[3] = objID;
-            }
-       }
-	*/
- 
+         state[0] = xdist;
+        state[1] = ydist;
     }
     printf("STATE: ");
     for (int i = 0; i < state.size() - 1; i++) {
@@ -194,11 +146,7 @@ void Arcade::reset() {
   printf("---------------RESET WAS CALLED!!!!----------------\n");
   totalScore = 0;
   game_over = false;
-  // Initialize Atari Stuff
-  if (!ale.loadROM(romPath, display_active, true)) {
-      cerr << "Ale had problem loading rom..." << endl;
-      exit(-1);
-  }
+  ale.reset_game();
 
   point selfLoc = ale.getSelfLocation();
   while (selfLoc.x == -1) {
@@ -223,23 +171,17 @@ std::vector<experience> Arcade::getSeedings() {
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
   minFeat->resize(stateSpaceLength, 0);
-  minFeat->at(0) = -192;
-  minFeat->at(1) = -160;
+  minFeat->at(0) = -90;
+  minFeat->at(1) = -110;
   maxFeat->resize(stateSpaceLength, 0);
-  maxFeat->at(0) = 192;
-  maxFeat->at(1) = 160;
+  maxFeat->at(0) = 90;
+  maxFeat->at(1) = 110;
 }
 
 void Arcade::getDiscretization(std::vector<int> *statesPerDim) {
-    /*
     statesPerDim->resize(stateSpaceLength,0);
-    statesPerDim->at(0) = 20;
-    statesPerDim->at(1) = 9;
-    statesPerDim->at(2) = 3;
-    statesPerDim->at(3) = 3;
-    statesPerDim->at(4) = 20;
-    statesPerDim->at(5) = 3;
-    */
+    statesPerDim->at(0) = 15;
+    statesPerDim->at(1) = 30;
 }
 
 void Arcade::getMinMaxReward(float *minR,
@@ -270,7 +212,7 @@ bool Arcade::isEpisodic() {
 }
 
 bool Arcade::invalidStateChange(int lastAction) {
-    return ale.getSelfLocation().x == -1;
+    return ale.getSelfLocation().x == -1 || ale.getNonSelfObjs().size() == 0;
 }
 
 std::vector<ModelSpecification>& Arcade::getModelSpecs() {

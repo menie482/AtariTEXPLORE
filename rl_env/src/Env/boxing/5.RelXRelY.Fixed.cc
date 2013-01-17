@@ -11,14 +11,16 @@
 char* Arcade::getEnvironmentDescription() {
     return 
         "Specialized environment for Boxing, "
-        "uses 2 features:\n"
-        "1: opponent rel x position\n"
-        "2: opponent rel y position\n"
+        "uses 4 features:\n"
+        "0: self x position\n"
+        "1: self y position\n"
+        "2: opponent rel x position\n"
+        "3: opponent rel y position\n"
         ;
 }
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(false), game_over(false), stateSpaceLength(2), state(stateSpaceLength),
+	totalScore(0), display_active(false), game_over(false), stateSpaceLength(4), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -33,8 +35,10 @@ Arcade::Arcade(char* rom_path) :
 
   modelSpecs[0].modelType = C45TREE;
   modelSpecs[1].modelType = C45TREE;
+  modelSpecs[2].modelType = C45TREE;
   modelSpecs[3].modelType = C45TREE;
-  modelSpecs[4].modelType = C45TREE;
+  modelSpecs[5].modelType = C45TREE;
+  modelSpecs[6].modelType = C45TREE;
   
   totalScore = 0;
   game_over = false;
@@ -90,6 +94,8 @@ void Arcade::updateState() {
 
     // do self state
     point selfLoc = ale.getSelfLocation();
+    state[0] = selfLoc.x;
+    state[1] = selfLoc.y;
 
     // do radar state
 	vector<pair<CompositeObject,long> > objs = ale.getNonSelfObjs();
@@ -104,8 +110,8 @@ void Arcade::updateState() {
         int xdist = selfLoc.x - objLoc.x;
         int ydist = selfLoc.y - objLoc.y;
         float objDist = sqrt(pow(xdist, 2) + pow(ydist, 2));
-         state[0] = xdist;
-        state[1] = ydist;
+         state[2] = xdist;
+        state[3] = ydist;
     }
     printf("STATE: ");
     for (int i = 0; i < state.size() - 1; i++) {
@@ -171,17 +177,23 @@ std::vector<experience> Arcade::getSeedings() {
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
   minFeat->resize(stateSpaceLength, 0);
-  minFeat->at(0) = -90;
-  minFeat->at(1) = -110;
+  minFeat->at(0) = 40;
+  minFeat->at(1) = 60;
+  minFeat->at(2) = -90;
+  minFeat->at(3) = -110;
   maxFeat->resize(stateSpaceLength, 0);
-  maxFeat->at(0) = 90;
-  maxFeat->at(1) = 110;
+  maxFeat->at(0) = 120;
+  maxFeat->at(1) = 150;
+  maxFeat->at(2) = 90;
+  maxFeat->at(3) = 110;
 }
 
 void Arcade::getDiscretization(std::vector<int> *statesPerDim) {
     statesPerDim->resize(stateSpaceLength,0);
-    statesPerDim->at(0) = 15;
-    statesPerDim->at(1) = 30;
+    statesPerDim->at(0) = 10;
+    statesPerDim->at(1) = 20;
+    statesPerDim->at(2) = 15;
+    statesPerDim->at(3) = 30;
 }
 
 void Arcade::getMinMaxReward(float *minR,
