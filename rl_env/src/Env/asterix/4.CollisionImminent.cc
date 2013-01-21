@@ -26,7 +26,7 @@ char* Arcade::getEnvironmentDescription() {
 }
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(10), state(stateSpaceLength),
+	totalScore(0), display_active(false), game_over(false), stateSpaceLength(10), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -103,10 +103,10 @@ void Arcade::updateState() {
     for (int i = 0; i < state.size(); i++) {
         state[i] = -1;
     }
-    state[2] = 0;
-    state[3] = 0;
-    state[4] = 0;
-    state[5] = 0;
+    state[6] = 0;
+    state[7] = 0;
+    state[8] = 0;
+    state[9] = 0;
 
     // do self state
     point selfLoc = ale.getSelfLocation();
@@ -193,21 +193,6 @@ std::vector<experience> Arcade::getSeedings() {
 
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
-
-          "Specialized environment for Asterix, "
-        "uses 10 features:\n"
-        "0: self x position\n"
-        "1: self row number\n"
-        "2: imminent left ID\n"
-        "3: imminent right ID\n"
-        "4: imminent up ID\n"
-        "5: imminent down ID\n"
-        "6: collision imminent left\n"
-        "7: collision imminent right\n"
-        "8: collision imminent up\n"
-        "9: collision imminent down\n"
- 
-  
   minFeat->resize(stateSpaceLength, -1);
   minFeat->at(6) = 0;
   minFeat->at(7) = 0;
