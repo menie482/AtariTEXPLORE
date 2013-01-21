@@ -11,7 +11,8 @@ set -e
 #./experiment --agent texplore --actrate 3 --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin --history 1 --model c45tree
 #./experiment --agent sarsa --rom ./games/asterix.bin
 
-./experiment --agent texplore --planner uct --explore variancenovelty --n 5 --v 2 --rom ./games/boxing.bin --history 1 --model c45tree --nmodels 1 --combo best
+#./experiment --agent texplore --planner uct --explore variancenovelty --n 5 --v 2 --rom ./games/boxing.bin --history 1 --model c45tree --nmodels 1 --combo best
 
+./experiment --agent texplore --explore epsilongreedy --rom ./games/asterix.bin --model c45tree --nmodels 1 --combo best --actrate 30
 
 set +e

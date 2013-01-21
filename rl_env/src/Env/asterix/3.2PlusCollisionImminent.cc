@@ -29,7 +29,7 @@ char* Arcade::getEnvironmentDescription() {
 }
 
 Arcade::Arcade(char* rom_path) :
-	totalScore(0), display_active(true), game_over(false), stateSpaceLength(13), state(stateSpaceLength),
+	totalScore(0), display_active(false), game_over(false), stateSpaceLength(13), state(stateSpaceLength),
     modelSpecs(stateSpaceLength + 3)
 {
   // save the path
@@ -156,7 +156,7 @@ void Arcade::updateState() {
         // if xdist is in collision radius
         if (abs(xdist) < collisionRadius) {
             // if obj is in same row
-            if (abs(ydist) < 10) {
+            if (abs(ydist) < 5) {
                 // collision imminent left
                 if (xdist > 0) {
                     state[9] = 1;
@@ -167,7 +167,7 @@ void Arcade::updateState() {
                 }
             }
             // if obj is in row above or below
-            else if (abs(ydist) < 25) {
+            else if (abs(ydist) < 20) {
                 // collision imminent up
                 if (ydist > 0) {
                     state[11] = 1;

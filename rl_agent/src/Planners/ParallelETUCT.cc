@@ -26,7 +26,7 @@ ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float la
   CLEAR_SIZE(25)
 {
   // (cdonahue) set required rolllouts
-  requiredRollouts = 200;
+  requiredRollouts = 100;
 
   rng = r;
 

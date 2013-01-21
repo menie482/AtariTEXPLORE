@@ -230,28 +230,6 @@ std::vector<experience> Arcade::getSeedings() {
 
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
-        "Specialized environment for Asterix, "
-        "uses 18 features:\n"
-        "00: self x position\n"
-        "01: self row number\n"
-        "02: row 0 obj position\n"
-        "03: row 0 obj ID\n"
-        "04: row 1 obj position\n"
-        "05: row 1 obj ID\n"
-        "06: row 2 obj position\n"
-        "07: row 2 obj ID\n"
-        "08: row 3 obj position\n"
-        "09: row 3 obj ID\n"
-        "10: row 4 obj position\n"
-        "11: row 4 obj ID\n"
-        "12: row 5 obj position\n"
-        "13: row 5 obj ID\n"
-        "14: row 6 obj position\n"
-        "15: row 6 obj ID\n"
-        "16: row 7 obj position\n"
-        "17: row 7 obj ID\n"
-        ;
-
   minFeat->resize(stateSpaceLength, -1);
   minFeat->at(2) = -2;
   maxFeat->resize(stateSpaceLength, 0);
