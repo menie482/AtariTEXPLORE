@@ -43,14 +43,14 @@ Arcade::Arcade(char* rom_path) :
   }
 
   modelSpecs[0].modelType = C45TREE;
-  modelSpecs[1].modelType = C45TREE;
-  modelSpecs[2].modelType = C45TREE;
-  modelSpecs[3].modelType = C45TREE;
-  modelSpecs[4].modelType = C45TREE;
-  modelSpecs[5].modelType = C45TREE;
-  modelSpecs[6].modelType = C45TREE;
-  modelSpecs[7].modelType = C45TREE;
-  modelSpecs[8].modelType = C45TREE;
+  modelSpecs[1].modelType = CONSTANT;
+  modelSpecs[2].modelType = CONSTANT;
+  modelSpecs[3].modelType = CONSTANT;
+  modelSpecs[4].modelType = CONSTANT;
+  modelSpecs[5].modelType = CONSTANT;
+  modelSpecs[6].modelType = CONSTANT;
+  modelSpecs[7].modelType = CONSTANT;
+  modelSpecs[8].modelType = CONSTANT;
   modelSpecs[9].modelType = C45TREE;
   modelSpecs[10].modelType = C45TREE;
   modelSpecs[11].modelType = C45TREE;
@@ -219,7 +219,7 @@ std::vector<experience> Arcade::getSeedings() {
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
   minFeat->resize(stateSpaceLength, -1);
-  minFeat->at(0) = -2;
+  minFeat->at(0) = 0;
   minFeat->at(9) = 0;
   minFeat->at(10) = 0;
   minFeat->at(11) = 0;
@@ -233,7 +233,7 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
   maxFeat->at(5) = 2;
   maxFeat->at(6) = 2;
   maxFeat->at(7) = 2;
-  maxFeat->at(8) = 9;
+  maxFeat->at(8) = 2;
   maxFeat->at(9) = 1;
   maxFeat->at(10) = 1;
   maxFeat->at(11) = 1;
@@ -242,15 +242,15 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
 
 void Arcade::getDiscretization(std::vector<int> *statesPerDim) {
     statesPerDim->resize(stateSpaceLength,0);
-    statesPerDim->at(0) = 10;
-    statesPerDim->at(1) = 3;
-    statesPerDim->at(2) = 3;
-    statesPerDim->at(3) = 3;
-    statesPerDim->at(4) = 3;
-    statesPerDim->at(5) = 3;
-    statesPerDim->at(6) = 3;
-    statesPerDim->at(7) = 3;
-    statesPerDim->at(8) = 3;
+    statesPerDim->at(0) = 9;
+    statesPerDim->at(1) = 4;
+    statesPerDim->at(2) = 4;
+    statesPerDim->at(3) = 4;
+    statesPerDim->at(4) = 4;
+    statesPerDim->at(5) = 4;
+    statesPerDim->at(6) = 4;
+    statesPerDim->at(7) = 4;
+    statesPerDim->at(8) = 4;
     statesPerDim->at(9) = 2;
     statesPerDim->at(10) = 2;
     statesPerDim->at(11) = 2;
