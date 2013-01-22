@@ -147,13 +147,13 @@ bool FactoredModel::initMDPModel(int nfactors) {
                 }
             }
         }
-    }
-    else {
-        cout << "Invalid model type for MDP TREE" << endl;
-        exit(-1);
+        else {
+            cout << "Invalid model type for MDP TREE" << endl;
+            exit(-1);
+        }
     }
 
-    if (nmodels == 1) {
+    if (nModels == 1) {
         // assign reward model
         modelType = modelSpecs[modelSpecs.size() - 2].modelType;
         if (modelType == C45TREE && nModels == 1) {
