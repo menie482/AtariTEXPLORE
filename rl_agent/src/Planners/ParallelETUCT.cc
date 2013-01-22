@@ -26,7 +26,7 @@ ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float la
   CLEAR_SIZE(25)
 {
   // (cdonahue) require x rollouts
-  requiredRollouts = 300;
+  requiredRollouts = 100;
 
   rng = r;
 
@@ -476,7 +476,7 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   std::vector<float> &Q = info->Q;
 
   /*
-   * (cdonahue) code to toggle rollout info printing
+   * //(cdonahue) code to toggle rollout info printing
   if (ATHREADDEBUG || true) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;

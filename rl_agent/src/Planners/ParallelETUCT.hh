@@ -181,6 +181,9 @@ public:
   /** Subtract two vectors. */
   std::vector<float> subVec(const std::vector<float> &a, const std::vector<float> &b);
 
+  // (cdonahue) made MAX_TIME and MAX_DEPTH public for editing from rl.cc, added requiredRollouts (MIN_ITER) 
+  float MAX_TIME;
+  int MAX_DEPTH;
   int requiredRollouts;
 
 protected:
@@ -315,8 +318,6 @@ private:
   const float lambda;
 
   const int MAX_ITER;
-  const float MAX_TIME;
-  const int MAX_DEPTH;
   const int modelType;
   const std::vector<int> &statesPerDim;
   const bool trackActual;
