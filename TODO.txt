@@ -3,6 +3,7 @@ STATE OF THINGS:
 TODO SOON:
     GO THROUGH FACTOREDMODEL LOGIC FOR MODEL TYPE/NMODELS=1 AND MAKE SURE ITS ACTUALY WORKING
     try extreme lambda values between 0 and 1
+    try terminal tree update withe lastAction
 
 DEBUG TODO:
     Test other TEXPLORE given examples and compare with Todd's results from the paper
