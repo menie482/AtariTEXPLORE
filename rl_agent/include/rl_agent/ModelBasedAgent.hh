@@ -48,6 +48,7 @@ public:
                   float epsilon, float lambda, float MAX_TIME,
                   float m, const std::vector<float> &featmin, 
                   const std::vector<float> &featmax,
+                  std::vector<ModelSpecification> &modelSpecs,
                   int statesPerDim, int history, float v, float n,
                   bool depTrans, bool relTrans, float featPct,
                   bool stoch, bool episodic, Random rng = Random());
@@ -83,6 +84,7 @@ public:
                   float epsilon, float lambda, float MAX_TIME,
                   float m, const std::vector<float> &featmin, 
                   const std::vector<float> &featmax,
+                  std::vector<ModelSpecification> &modelSpecs,
                   std::vector<int> statesPerDim, int history, float v, float n,
                   bool depTrans, bool relTrans, float featPct,
                   bool stoch, bool episodic, Random rng = Random());
@@ -126,6 +128,8 @@ public:
 
   std::vector<float> featmin;
   std::vector<float> featmax;
+
+  std::vector<ModelSpecification> modelSpecs;
 
 protected:
 

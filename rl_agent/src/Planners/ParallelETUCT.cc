@@ -25,8 +25,8 @@ ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float la
   HISTORY_FL_SIZE(historySize*numactions),
   CLEAR_SIZE(25)
 {
-  // (cdonahue) set required rolllouts
-  requiredRollouts = 100;
+  // (cdonahue) require x rollouts
+  requiredRollouts = 300;
 
   rng = r;
 
@@ -461,10 +461,10 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
     pthread_yield();
   }
 
-  // (cdonahue) wait for x rollouts
+  // INSTEAD WAIT FOR X ROLLOUTS
   while (info->uctVisits < requiredRollouts){
-    pthread_yield();
-  }
+    pthread_yield();                                                                                                                                                                                                 
+  }  
 
   if (TIMINGDEBUG) cout << "time up: " << (getSeconds()-initTime) << endl;
 
@@ -475,16 +475,21 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   // Get Q values
   std::vector<float> &Q = info->Q;
 
-
-  if (ATHREADDEBUG) {
+  /*
+   * (cdonahue) code to toggle rollout info printing
+  if (ATHREADDEBUG || true) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;
     cout << "Getting best action from state ";
     for (unsigned i = 0; i < s->size(); i++){
       cout << (*s)[i] << ", ";
     }
-    cout << " sampled " << info->uctVisits << " times.";// << endl << flush;
+    cout << " sampled " << info->uctVisits << " times." << endl;
+    for (int i = 0; i < numactions; i++) {
+        cout << "Action " << i << " value: " << Q[i] << endl;
+    }
   }
+  */
 
   // Choose an action
   const std::vector<float>::iterator a =

@@ -9,7 +9,7 @@
 #include "../Models/C45Tree.hh"
 #include "../Models/M5Tree.hh"
 #include "../Models/LinearSplitsTree.hh"
-
+#include "../Models/ConstantClassifier.hh"
 #include "../Models/Stump.hh"
 
 #include <rl_common/Random.h>

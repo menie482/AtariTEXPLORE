@@ -32,6 +32,7 @@
 #define ALLM5TYPES  12
 #define GPREGRESS   13
 #define GPTREE      14
+#define CONSTANT    15
 
 const std::string modelNames[] = {
   "Tabular",
@@ -48,7 +49,8 @@ const std::string modelNames[] = {
   "LS Tree",
   "M5 Combo",
   "GP Regression",
-  "GP Tree"
+  "GP Tree",
+  "Constant"
 };
 
 // types of model combos
