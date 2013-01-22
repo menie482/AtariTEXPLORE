@@ -1,10 +1,8 @@
 STATE OF THINGS:
-    Modeltypes ARE being passed from modelSpecs
-    Rollouts at some absurdly limited depth for simple state space
-    individual discretization values
 
 TODO SOON:
-	try extreme lambda values between 0 and 1
+    GO THROUGH FACTOREDMODEL LOGIC FOR MODEL TYPE/NMODELS=1 AND MAKE SURE ITS ACTUALY WORKING
+    try extreme lambda values between 0 and 1
 
 DEBUG TODO:
     Test other TEXPLORE given examples and compare with Todd's results from the paper
@@ -14,7 +12,6 @@ TEXPLORE TODO:
     Detect whether or not to pass certain training experiences to certain features
     Print decision trees to see what's going on
     Improve fault tolerance and sensor delay, reject certain samples that aren't of some threshold of consistency?
-    Don't recreate trees on missed prediction
     Suggest certain splits for decision tree (on variable values)
 
 STATE SPACE TODO:
