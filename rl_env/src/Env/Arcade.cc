@@ -194,6 +194,8 @@ std::vector<experience> Arcade::getSeedings() {
 void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
                                     std::vector<float> *maxFeat){
   minFeat->resize(stateSpaceLength, -1);
+  minFeat->at(0) = 0;
+  minFeat->at(1) = 0;
   minFeat->at(6) = 0;
   minFeat->at(7) = 0;
   minFeat->at(8) = 0;
@@ -201,10 +203,10 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
   maxFeat->resize(stateSpaceLength, 0);
   maxFeat->at(0) = 160;
   maxFeat->at(1) = 7;
-  maxFeat->at(2) = 2;
-  maxFeat->at(3) = 2;
-  maxFeat->at(4) = 2;
-  maxFeat->at(5) = 2;
+  maxFeat->at(2) = 1;
+  maxFeat->at(3) = 1;
+  maxFeat->at(4) = 1;
+  maxFeat->at(5) = 1;
   maxFeat->at(6) = 1;
   maxFeat->at(7) = 1;
   maxFeat->at(8) = 1;
