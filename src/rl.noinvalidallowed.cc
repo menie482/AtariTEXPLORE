@@ -1054,12 +1054,7 @@ int main(int argc, char **argv) {
  
         // terminal/last state
         if (e->terminal()){
-          if (e->invalidStateChange(a)) {
-            agent->last_action(lastValid);
-          }
-          else {
             agent->last_action(r);
-          }
         }else{
           if (e->invalidStateChange(a)) {
             agent->next_action(lastValid);
