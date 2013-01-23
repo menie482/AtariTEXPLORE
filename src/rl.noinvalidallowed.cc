@@ -1054,9 +1054,19 @@ int main(int argc, char **argv) {
  
         // terminal/last state
         if (e->terminal()){
-          agent->last_action(r);
+          if (e->invalidStateChange(a)) {
+            agent->last_action(lastValid);
+          }
+          else {
+            agent->last_action(r);
+          }
         }else{
-          agent->next_action(r, e->sensation());
+          if (e->invalidStateChange(a)) {
+            agent->next_action(lastValid);
+          }
+          else {
+            agent->next_action(r, e->sensation());
+          }
         }
 
         cerr << e->totalScore << "\t" << steps << "\t" << invalidStates << endl;
