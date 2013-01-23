@@ -123,6 +123,9 @@ bool FactoredModel::initMDPModel(int nfactors) {
                                                  EXP_PCT,
                                                  treeThresh *featRange[i], stoch, rng);
         }
+        else if (modelType == CONSTANT && nModels == 1) {
+            outputModels[i] = new ConstantClassifier(id * (nfactors+1) + i);
+        }
         else if (nModels > 1 || modelType == ALLM5TYPES) {
             outputModels[i] = new MultipleClassifiers((id * (nfactors+1)) + i,
                     modelType, predType,

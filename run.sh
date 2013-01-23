@@ -15,6 +15,6 @@ set -e
 
 #./experiment --agent texplore --explore epsilongreedy --rom ./games/asterix.bin --model c45tree --nmodels 1 --combo best --actrate 30
 
-./experiment --agent texplore --explore epsilongreedy --nmodels 1 --combo best --rom ./games/asterix.bin --model c45tree --actrate 30
+./experiment --agent texplore --explore epsilongreedy --nmodels 1 --combo best --rom ./games/asterix.bin --actrate 30
 
 set +e

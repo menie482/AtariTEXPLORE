@@ -475,8 +475,8 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   // Get Q values
   std::vector<float> &Q = info->Q;
 
-  /*
-   * //(cdonahue) code to toggle rollout info printing
+  
+   //(cdonahue) code to toggle rollout info printing
   if (ATHREADDEBUG || true) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;
@@ -489,7 +489,6 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
         cout << "Action " << i << " value: " << Q[i] << endl;
     }
   }
-  */
 
   // Choose an action
   const std::vector<float>::iterator a =
