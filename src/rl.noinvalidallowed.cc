@@ -1057,7 +1057,7 @@ int main(int argc, char **argv) {
             agent->last_action(r);
         }else{
           if (e->invalidStateChange(a)) {
-            agent->next_action(lastValid);
+            agent->next_action(r, lastValid);
           }
           else {
             agent->next_action(r, e->sensation());

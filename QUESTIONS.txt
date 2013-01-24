@@ -1,0 +1,5 @@
+confirm CONSTANTCLASSIFIER is right
+fix paralleletuct to guarantee x rollouts
+ask about manipulating variables
+figure out what's happening at avg steps that is causing the trial to not be able to find a policy in the state space
+try more rollouts
