@@ -1,9 +1,10 @@
 STATE OF THINGS:
 
 TODO SOON:
-    GO THROUGH FACTOREDMODEL LOGIC FOR MODEL TYPE/NMODELS=1 AND MAKE SURE ITS ACTUALY WORKING
-    try extreme lambda values between 0 and 1
-    try terminal tree update withe lastAction
+    run more episodes
+    ID of current row and perhaps above and below
+    immediate collision could have better radar
+    try one trial with larger variance novelty
 
 DEBUG TODO:
     Test other TEXPLORE given examples and compare with Todd's results from the paper

@@ -26,7 +26,7 @@ ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float la
   CLEAR_SIZE(25)
 {
   // (cdonahue) require x rollouts
-  requiredRollouts = 100;
+  requiredRollouts = 200;
 
   rng = r;
 
@@ -463,7 +463,7 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
 
   // INSTEAD WAIT FOR X ROLLOUTS
   while (info->uctVisits < requiredRollouts){
-    pthread_yield();                                                                                                                                                                                                 
+    pthread_yield();
   }  
 
   if (TIMINGDEBUG) cout << "time up: " << (getSeconds()-initTime) << endl;
