@@ -10,7 +10,7 @@
 
 #include "ParallelETUCT.hh"
 #include <algorithm>
-
+#include <execinfo.h>
 #include <sys/time.h>
 
 
@@ -477,7 +477,7 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
 
   
    //(cdonahue) code to toggle rollout info printing
-  if (ATHREADDEBUG || true) {
+  if (ATHREADDEBUG) {// || true) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;
     cout << "Getting best action from state ";
@@ -1404,7 +1404,7 @@ std::vector<float> ParallelETUCT::discretizeState(const std::vector<float> &s){
     // want to center bins on 0, not edge on 0
     //cout << "feat " << i << " range: " << featmax[i] << " " << featmin[i] << " " << (featmax[i]-featmin[i]) << " n: " << (float)statesPerDim;
 
-    float factor = (featmax[i] - featmin[i]) / (float)statesPerDim[i];
+    float factor = (featmax[i] - featmin[i]) / (float)(statesPerDim[i]-1);
     int bin = 0;
     if (s[i] > 0){
       bin = (int)((s[i]+factor/2) / factor);
@@ -1434,8 +1434,14 @@ std::vector<float> ParallelETUCT::addVec(const std::vector<float> &a, const std:
 }
 
 std::vector<float> ParallelETUCT::subVec(const std::vector<float> &a, const std::vector<float> &b){
-  if (a.size() != b.size())
+  if (a.size() != b.size()) {
     cout << "ERROR: sub vector sizes wrong " << a.size() << ", " << b.size() << endl;
+    void *array[10];
+    size_t size;
+    size = backtrace(array, 10);
+    backtrace_symbols_fd(array, size, 2);
+    cerr << "Nstates: " << nstates << endl;
+  }
 
   std::vector<float> c(a.size(), 0.0);
   for (unsigned i = 0; i < a.size(); i++){

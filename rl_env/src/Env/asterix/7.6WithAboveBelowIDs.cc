@@ -58,9 +58,9 @@ Arcade::Arcade(char* rom_path) :
   modelSpecs[10].modelType = C45TREE;
   modelSpecs[11].modelType = C45TREE;
   modelSpecs[12].modelType = C45TREE;
-  modelSpecs[13].modelType = C45TREE;
-  modelSpecs[14].modelType = C45TREE;
-  modelSpecs[15].modelType = C45TREE;
+  modelSpecs[13].modelType = CONSTANT;
+  modelSpecs[14].modelType = CONSTANT;
+  modelSpecs[15].modelType = CONSTANT;
   modelSpecs[17].modelType = C45TREE;
   modelSpecs[18].modelType = C45TREE;
 

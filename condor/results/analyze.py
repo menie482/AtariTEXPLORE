@@ -65,6 +65,8 @@ for i in range(maxEpisodeReached):
   for j in range(len(trials)):
     trial = trials[j]
     if numEpisodesPerTrial[j] > i:
+      if (int(trial[0][i]) > maxreward):
+        maxreward = int(trial[0][i])
       totalreward = totalreward + int(trial[0][i])
       totalstep = totalstep + int(trial[1][i])
       totalerror = totalerror + int(trial[2][i])

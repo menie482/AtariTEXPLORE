@@ -1,11 +1,19 @@
 +Group = "UNDER"
 +Project = "AI_ROBOTICS"
 +ProjectDescription = "Atari platform learning with TEXPLORE"
+
 executable = experiment2
-Requirements = Memory >= 4000 && Lucid
-Log = condorResults/boxing/1.14.13.rollouts300.MAXSTEPS200.relxy/condor.log
+Arguments = --agent texplore --rom ./games/asterix.bin --seed $(Process) --n 5 --v 2 --actrate 2 --history 1
+
+RequestDisk = 15000
+RequestMemory = 10000
+RequestCpus = 1
+
+Requirements = Lucid && (Target.Disk >= RequestDisk) && (Target.Memory >= RequestMemory) && (Target.Cpus >= RequestCpus)
+
+Log = condor/results/asterix/1.29.13.1.condortest/condor.log
+Error = condor/results/asterix/1.29.13.1.condortest/condor.err.$(Process)
+Output = condor/results/asterix/1.29.13.1.condortest/condor.out.$(Process)
+
 Notification = Complete
-Arguments = --agent texplore --explore variancenovelty --n 5 --v 2 --rom ./games/boxing.bin --model c45tree --planner uct --seed $(Process)
-Output = condorResults/boxing/1.14.13.rollouts300.MAXSTEPS200.relxy/condor.out.$(Process)
-Error = condorResults/boxing/1.14.13.rollouts300.MAXSTEPS200.relxy/condor.err.$(Process)
 Queue 20
