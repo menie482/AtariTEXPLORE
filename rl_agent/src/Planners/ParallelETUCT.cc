@@ -21,6 +21,7 @@ ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float la
   numactions(numactions), gamma(gamma), rrange(rrange), lambda(lambda),
   MAX_ITER(MAX_ITER), MAX_TIME(MAX_TIME),
   MAX_DEPTH(MAX_DEPTH), modelType(modelType), statesPerDim(nstatesPerDim),
+ // trackActual(false), HISTORY_SIZE(historySize),
   trackActual(trackActual), HISTORY_SIZE(historySize),
   HISTORY_FL_SIZE(historySize*numactions),
   CLEAR_SIZE(25)
@@ -477,7 +478,7 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
 
   
    //(cdonahue) code to toggle rollout info printing
-  if (ATHREADDEBUG) {// || true) {
+  if (ATHREADDEBUG || true) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;
     cout << "Getting best action from state ";
@@ -812,6 +813,8 @@ double ParallelETUCT::getSeconds(){
     From "Bandit Based Monte Carlo Planning" by Kocsis and Csaba.
 */
 float ParallelETUCT::uctSearch(const std::vector<float> &actS, state_t discS, int depth, std::deque<float> &searchHistory){
+  // DEBUG: PRINT DEPTH to see if discState is 0 from initial or planned state
+  
   if (UCTDEBUG){
     cout << " uctSearch state ";
     for (unsigned i = 0; i < actS.size(); i++){
@@ -1047,6 +1050,17 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
   bool upToDate = modelInfo->frameUpdated >= lastUpdate;
   pthread_mutex_unlock(&update_mutex);
 
+  // (cdonahue DEBUG) get disc state size here
+  int discSize = discState->size();
+  std::vector<float> backupDisc = *discState;
+  if (discSize == 0) {
+    cerr << "discSize == 0 before updateStateActionHistoryFromModel. printing actual State" << endl;
+    for (int i = 0; i < actualState.size(); i++) {
+      cerr << actualState[i] << ", ";
+    }
+    cerr << endl;
+  }
+
   if (!upToDate){
     // must put in appropriate history
     if (HISTORY_SIZE > 0){
@@ -1059,6 +1073,16 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
       updateStateActionHistoryFromModel(*discState, action, modelInfo);
     }
   }
+
+  // (cdonahue DEBUG) seee if disc size changed
+  if (discSize != discState->size()) {
+    cerr << "discState size changed during update. printing backup before updateStateActionHistoryFromModel" << endl;
+    for (int i = 0; i < backupDisc.size(); i++) {
+      cerr << backupDisc[i] << ", ";
+    }
+    cerr << endl;
+  }
+
 
   *reward = modelInfo->reward;
   *term = (rng.uniform() < modelInfo->termProb);
