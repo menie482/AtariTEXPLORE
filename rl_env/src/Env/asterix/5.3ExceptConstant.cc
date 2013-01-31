@@ -244,7 +244,7 @@ void Arcade::getMinMaxFeatures(std::vector<float> *minFeat,
 void Arcade::getDiscretization(std::vector<int> *statesPerDim) {
   /*
     statesPerDim->resize(stateSpaceLength,0);
-    statesPerDim->at(0) = 9;
+    statesPerDim->at(0) = 8;
     statesPerDim->at(1) = 4;
     statesPerDim->at(2) = 4;
     statesPerDim->at(3) = 4;
