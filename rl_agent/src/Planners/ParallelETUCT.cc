@@ -21,8 +21,8 @@ ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float la
   numactions(numactions), gamma(gamma), rrange(rrange), lambda(lambda),
   MAX_ITER(MAX_ITER), MAX_TIME(MAX_TIME),
   MAX_DEPTH(MAX_DEPTH), modelType(modelType), statesPerDim(nstatesPerDim),
- // trackActual(false), HISTORY_SIZE(historySize),
-  trackActual(trackActual), HISTORY_SIZE(historySize),
+  trackActual(false), HISTORY_SIZE(historySize),
+  //trackActual(trackActual), HISTORY_SIZE(historySize),
   HISTORY_FL_SIZE(historySize*numactions),
   CLEAR_SIZE(25)
 {
@@ -814,7 +814,9 @@ double ParallelETUCT::getSeconds(){
 */
 float ParallelETUCT::uctSearch(const std::vector<float> &actS, state_t discS, int depth, std::deque<float> &searchHistory){
   // DEBUG: PRINT DEPTH to see if discState is 0 from initial or planned state
-  
+ 
+  // CHECK print actS size, discS and depth
+
   if (UCTDEBUG){
     cout << " uctSearch state ";
     for (unsigned i = 0; i < actS.size(); i++){
@@ -879,6 +881,8 @@ float ParallelETUCT::uctSearch(const std::vector<float> &actS, state_t discS, in
 
   std::vector<float> actualNext = simulateNextState(actS, discS, info, searchHistory, action, &reward, &term);
 
+  // CHECK print here, also print actualNext size, also actS, discS
+
   // simulate reward from this action
   if (term){
     // this one terminated
@@ -902,6 +906,8 @@ float ParallelETUCT::uctSearch(const std::vector<float> &actS, state_t discS, in
 
   // simulate next state from this action
   state_t discNext = canonicalize(actualNext);
+
+  // CHECK print here, discNext actualNext
 
   if (UCTDEBUG)
     cout << " Depth: " << depth << " Selected action " << action
@@ -1117,6 +1123,8 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
     }
   }
 
+  // CHECK print nextstate size
+
   pthread_mutex_unlock(&info->statemodel_mutex);
 
   if (trackActual){
@@ -1136,9 +1144,12 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
       factor = (featmax[j] - featmin[j]) / (float)statesPerDim[j];
     if (nextstate[j] < (featmin[j]-factor)
         || nextstate[j] > (featmax[j]+factor)){
+      // CHECK if we get here
       return actualState;
     }
   }
+
+  // CHECK print nextstate size maybe actualstate
 
   // return new actual state
   return nextstate;
