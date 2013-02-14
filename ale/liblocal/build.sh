@@ -5,6 +5,14 @@
 
 set -e
 
+cd archives
+cp *.tar* ../
+cd ..
+
+tar xvfz SDL-1.2.15.tar.gz 
+tar xvfz SDL_gfx-2.0.24.tar.gz 
+tar xvfz SDL_image-1.2.12.tar.gz
+
 cd SDL-1.2.15
 ./configure
 make
