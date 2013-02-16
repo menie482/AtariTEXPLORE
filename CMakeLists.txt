@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.4.6)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
+
 #IF (BUILD_CONDOR_EXE)
 #    SET (CONDOR_COMPILE "condor_compile  ")
 #    SET (CMAKE_CXX_COMPILER "${CONDOR_COMPILE}${CMAKE_CXX_COMPILER}")
@@ -22,12 +24,15 @@ add_library(SDL_gfx STATIC IMPORTED)
 set_target_properties(SDL_gfx PROPERTIES
   IMPORTED_LOCATION ale/liblocal/SDL_gfx-2.0.24/.libs/libSDL_gfx.a)
 
+find_package(DirectFB)
+
 include_directories(
 rl_common/include
 rl_env/include
 rl_agent/include
 ale/src
 ale/liblocal/include
+${DIRECTFB_INCLUDE_DIR}
 )
 
 link_directories(
@@ -50,7 +55,8 @@ target_link_libraries(experiment
     SDL
     SDL_image
     SDL_gfx
-    directfb
+    ${DIRECTFB_LIBRARY}
+    #directfb
     m
     z
     boost_system
