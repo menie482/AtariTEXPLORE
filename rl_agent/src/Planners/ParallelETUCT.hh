@@ -122,7 +122,6 @@ public:
 
   /** Canonical pointer to agent's current state that UCT rollouts should start from. */
   state_t startState;
-  bool doRandom;
 
   // lock over simple objects
   /** Mutex around the last frame that the model was updated. */

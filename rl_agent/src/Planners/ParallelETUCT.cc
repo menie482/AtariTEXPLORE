@@ -80,7 +80,6 @@ ParallelETUCT::ParallelETUCT(int numactions, float gamma, float rrange, float la
   // start parallel search thread
   actualPlanState = std::vector<float>(featmax.size());
   discPlanState = NULL;
-  doRandom = true;
   modelThreadStarted = false;
   planThreadStarted = false;
   expList.clear();
@@ -427,7 +426,6 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
   pthread_mutex_lock(&(plan_state_mutex));
   if (TIMINGDEBUG) cout << "got planStateMut, time: " << (getSeconds()-initTime) << endl;
 
-  doRandom = false;
   actualPlanState = state;
   discPlanState = s;
   setTime = getSeconds();
@@ -604,7 +602,6 @@ void ParallelETUCT::setBetweenEpisodes(){
   if (ATHREADDEBUG) cout << "*** Action thread wants planning state lock (bet eps)***" << endl;
   pthread_mutex_lock(&(plan_state_mutex));
 
-  doRandom = true;
   discPlanState = NULL;
 
   // call uct search on it
@@ -879,6 +876,7 @@ float ParallelETUCT::uctSearch(const std::vector<float> &actS, state_t discS, in
 
   pthread_mutex_unlock(&info->stateinfo_mutex);
 
+
   std::vector<float> actualNext = simulateNextState(actS, discS, info, searchHistory, action, &reward, &term);
 
   // CHECK print here, also print actualNext size, also actS, discS
@@ -946,6 +944,7 @@ float ParallelETUCT::uctSearch(const std::vector<float> &actS, state_t discS, in
       cout << endl;
     }
   }
+
 
   // new q value
   float newQ = reward + gamma * uctSearch(actualNext, discNext, depth+1, searchHistory);
@@ -1046,7 +1045,6 @@ int ParallelETUCT::selectUCTAction(state_info* info){
 std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &actualState, state_t discState, state_info* info, const std::deque<float> &history, int action, float* reward, bool* term){
   //if (UCTDEBUG) cout << "  simulateNextState" << endl;
 
-
   // check if its up to date
   pthread_mutex_lock(&info->statemodel_mutex);
   StateActionInfo* modelInfo = NULL;
@@ -1059,13 +1057,6 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
   // (cdonahue DEBUG) get disc state size here
   int discSize = discState->size();
   std::vector<float> backupDisc = *discState;
-  if (discSize == 0) {
-    cerr << "discSize == 0 before updateStateActionHistoryFromModel. printing actual State" << endl;
-    for (int i = 0; i < actualState.size(); i++) {
-      cerr << actualState[i] << ", ";
-    }
-    cerr << endl;
-  }
 
   if (!upToDate){
     // must put in appropriate history
@@ -1081,14 +1072,6 @@ std::vector<float> ParallelETUCT::simulateNextState(const std::vector<float> &ac
   }
 
   // (cdonahue DEBUG) seee if disc size changed
-  if (discSize != discState->size()) {
-    cerr << "discState size changed during update. printing backup before updateStateActionHistoryFromModel" << endl;
-    for (int i = 0; i < backupDisc.size(); i++) {
-      cerr << backupDisc[i] << ", ";
-    }
-    cerr << endl;
-  }
-
 
   *reward = modelInfo->reward;
   *term = (rng.uniform() < modelInfo->termProb);
@@ -1218,26 +1201,12 @@ void ParallelETUCT::parallelSearch(){
   pthread_mutex_lock(&(plan_state_mutex));
   if (HISTORY_SIZE > 0) pthread_mutex_lock(&history_mutex);
 
-  // too long on one state, lets do random
-  if(!doRandom && (getSeconds()-setTime) > 0.5){
-    //cout << (getSeconds()-setTime) << " seconds since plan time." << endl;
-    doRandom = true;
-  }
 
-  // possibly take random state (bet episodes)
-  if (doRandom){
-    actS = selectRandomState();
-    discS = canonicalize(actS);
-    searchHistory.resize(saHistory.size(), 0);
-    //    cout << "selected random state for search" << endl << flush;
-  }
-  // or take the state we're in (during episodes)
-  else {
-    actS = actualPlanState;
-    discS = discPlanState;
-    searchHistory = saHistory;
-  }
 
+  actS = actualPlanState;
+  discS = discPlanState;
+  searchHistory = saHistory;
+    
   // wait for non-null
   if (discS == NULL){
     pthread_mutex_unlock(&(plan_state_mutex));
@@ -1262,6 +1231,7 @@ void ParallelETUCT::parallelSearch(){
   if (HISTORY_SIZE > 0) pthread_mutex_unlock(&history_mutex);
 
   if (PTHREADDEBUG) cout << "*** Planning thread wants search lock ***" << endl;
+
   uctSearch(actS, discS, 0, searchHistory);
 
   pthread_yield();
