@@ -1,4 +1,4 @@
-# Install script for directory: /u/menie482/workspace/AtariTEXPLORE/rl_common
+# Install script for directory: /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_common
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

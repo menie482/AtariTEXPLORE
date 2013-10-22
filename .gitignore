@@ -20,3 +20,5 @@
 .*.swp
 *~
 *.sample
+ale/liblocal/SDL*
+CMakeFiles/*

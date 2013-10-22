@@ -335,7 +335,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12'
+ac_pwd='/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -538,7 +538,7 @@ finish_cmds='PATH="\$PATH:/sbin" ldconfig -n $libdir'
 finish_eval=''
 hardcode_into_libs='yes'
 sys_lib_search_path_spec='/usr/lib/gcc/x86_64-linux-gnu/4.6 /usr/lib/x86_64-linux-gnu /usr/lib /lib/x86_64-linux-gnu /lib'
-sys_lib_dlsearch_path_spec='/lib /usr/lib /usr/lib/i386-linux-gnu/mesa /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib /usr/lib/nvidia-settings-304 /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/mesa /lib32 /usr/lib32 '
+sys_lib_dlsearch_path_spec='/lib /usr/lib /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib /usr/lib/nvidia-settings-304 /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu /usr/lib/nvidia-319-updates /usr/lib32/nvidia-319-updates /lib32 /usr/lib32 '
 hardcode_action='immediate'
 enable_dlopen='unknown'
 enable_dlopen_self='unknown'
@@ -758,12 +758,12 @@ s,@INSTALL_DATA@,|#_!!_#|${INSTALL} -m 644,g
 s,@am__isrc@,|#_!!_#|,g
 s,@CYGPATH_W@,|#_!!_#|echo,g
 s,@PACKAGE@,|#_!!_#|SDL_image,g
-s,@ACLOCAL@,|#_!!_#|${SHELL} /u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run aclocal-1.10,g
-s,@AUTOCONF@,|#_!!_#|${SHELL} /u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run autoconf,g
-s,@AUTOMAKE@,|#_!!_#|${SHELL} /u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run automake-1.10,g
-s,@AUTOHEADER@,|#_!!_#|${SHELL} /u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run autoheader,g
-s,@MAKEINFO@,|#_!!_#|${SHELL} /u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run makeinfo,g
-s,@install_sh@,|#_!!_#|$(SHELL) /u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/install-sh,g
+s,@ACLOCAL@,|#_!!_#|${SHELL} /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run aclocal-1.10,g
+s,@AUTOCONF@,|#_!!_#|${SHELL} /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run autoconf,g
+s,@AUTOMAKE@,|#_!!_#|${SHELL} /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run automake-1.10,g
+s,@AUTOHEADER@,|#_!!_#|${SHELL} /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run autoheader,g
+s,@MAKEINFO@,|#_!!_#|${SHELL} /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run makeinfo,g
+s,@install_sh@,|#_!!_#|$(SHELL) /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/install-sh,g
 CEOF
 cat >"$tmp/subs-2.sed" <<\CEOF
 /@[a-zA-Z_][a-zA-Z_0-9]*@/!b end
@@ -772,7 +772,7 @@ s,@mkdir_p@,|#_!!_#|/bin/mkdir -p,g
 s,@AWK@,|#_!!_#|gawk,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@am__leading_dot@,|#_!!_#|.,g
-s,@AMTAR@,|#_!!_#|${SHELL} /u/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run tar,g
+s,@AMTAR@,|#_!!_#|${SHELL} /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/ale/liblocal/SDL_image-1.2.12/missing --run tar,g
 s,@am__tar@,|#_!!_#|${AMTAR} chof - "$$tardir",g
 s,@am__untar@,|#_!!_#|${AMTAR} xf -,g
 s,@DEPDIR@,|#_!!_#|.deps,g

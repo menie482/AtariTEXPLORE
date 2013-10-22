@@ -6,55 +6,55 @@
 
 #IncludeRegexTransform: 
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/Arcade.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/Arcade.cc
 rl_env/Arcade.hh
 -
 cmath
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/CartPole.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/CartPole.cc
 rl_env/CartPole.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/FuelRooms.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/FuelRooms.cc
 rl_env/FuelRooms.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/LightWorld.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/LightWorld.cc
 rl_env/LightWorld.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/MountainCar.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/MountainCar.cc
 rl_env/MountainCar.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/RobotCarVel.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/RobotCarVel.cc
 rl_env/RobotCarVel.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/energyrooms.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/energyrooms.cc
 rl_env/energyrooms.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/fourrooms.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/fourrooms.cc
 rl_env/fourrooms.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/gridworld.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/gridworld.cc
 rl_env/gridworld.hh
 -
 cmath
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/stocks.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/stocks.cc
 rl_env/stocks.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/taxi.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/taxi.cc
 rl_env/taxi.hh
 -
 
-/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/tworooms.cc
+/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/tworooms.cc
 rl_env/tworooms.hh
 -
 

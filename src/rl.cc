@@ -2,6 +2,8 @@
     \author Todd Hester
 */
 
+using namespace std;
+
 #include <rl_common/Random.h>
 #include <rl_common/core.hh>
 
@@ -689,7 +691,7 @@ int main(int argc, char **argv) {
   Random rng(1 + seed);
 
   // Construct environment here.
-  Arcade* e;
+  Environment* e;
   e = new Arcade(romPath);
 
 /*
@@ -766,13 +768,15 @@ int main(int argc, char **argv) {
     if (PRINTS) cout << "Environment: EnergyRooms\n";
     e = new EnergyRooms(rng, stochastic, true, false);
   }
+  */
 
   // gridworld with fuel (fuel stations on top and bottom with random costs)
-  else if (strcmp(envType, "fuelworld") == 0){
+  if (strcmp(envType, "fuelworld") == 0){
     if (PRINTS) cout << "Environment: FuelWorld\n";
     e = new FuelRooms(rng, highvar, stochastic);
   }
 
+  /*
   // stocks
   else if (strcmp(envType, "stocks") == 0){
     if (PRINTS) cout << "Enironment: Stocks with " << nsectors
