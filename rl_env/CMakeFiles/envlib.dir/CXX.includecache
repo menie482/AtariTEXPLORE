@@ -40,12 +40,6 @@ rl_env/energyrooms.hh
 rl_env/fourrooms.hh
 -
 
-/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/gridworld.cc
-rl_env/gridworld.hh
--
-cmath
--
-
 /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/stocks.cc
 rl_env/stocks.hh
 -

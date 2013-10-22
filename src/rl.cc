@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
 
   // default params for env and agent
   char* agentType = NULL;
-  char* envType = NULL;
+  char* envType = "";
   char* romPath = NULL;
   char* modelTypeString = NULL;
   float discountfactor = 0.99;
@@ -174,7 +174,6 @@ int main(int argc, char **argv) {
   }
 
   // parse env type
-  /*
   bool gotEnv = false;
   for (int i = 1; i < argc-1; i++){
     if (strcmp(argv[i], "--env") == 0){
@@ -183,10 +182,8 @@ int main(int argc, char **argv) {
     }
   }
   if (!gotEnv) {
-    cout << "--env type  option is required" << endl;
-    displayHelp();
+    cout << "--env type  not found. Assume Arcade." << endl;
   }
-  */
 
   // parse ROM path
   bool gotRom = false;
@@ -195,10 +192,6 @@ int main(int argc, char **argv) {
       gotRom = true;
       romPath = argv[i+1];
     }
-  }
-  if (!gotRom) {
-    cout << "--rom PATH required when env is arcade" << endl;
-    displayHelp();
   }
 
   // parse other arguments
@@ -692,7 +685,6 @@ int main(int argc, char **argv) {
 
   // Construct environment here.
   Environment* e;
-  e = new Arcade(romPath);
 
 /*
   if (strcmp(envType, "cartpole") == 0){
@@ -770,6 +762,9 @@ int main(int argc, char **argv) {
   }
   */
 
+  /* FIXME only enable fuelworld for current experiment.
+   * Other environments may have problems due to change of Environment structure.
+   */
   // gridworld with fuel (fuel stations on top and bottom with random costs)
   if (strcmp(envType, "fuelworld") == 0){
     if (PRINTS) cout << "Environment: FuelWorld\n";
@@ -789,6 +784,16 @@ int main(int argc, char **argv) {
     exit(-1);
   }
 */
+  // assume Arcade if not matched above
+  else {
+	if (!gotRom) {
+	  cout << "--rom PATH required when env is arcade" << endl;
+	  displayHelp();
+	}
+	e = new Arcade(romPath);
+  }
+
+
   const int numactions = e->getNumActions(); // Most agents will need this?
 
   std::vector<float> minValues;
@@ -1081,61 +1086,4 @@ int main(int argc, char **argv) {
 
   if (PRINTS) cout << "Avg Rsum: " << (rsum / (float)NUMTRIALS) << endl;
 
-} // end main
-				/*
-        while (!e->terminal() && steps < MAXSTEPS) {
-          printf("----------------------------------------------\n");
-
-          // perform an action
-          es = e->sensation();
-					
-          // (cdonahue) don't update learning while invalid
-          bool lostLoc = false;
-          while (e->lostLocation() && !e->terminal())
-          {
-              lostLoc = true;
-              r = e->apply(0);
-              //r = e->apply(1);
-              es = e->sensation();
-          }
-          if (lostLoc) {
-              a = agent->first_action(es);
-              if (e->terminal())
-                  break;
-              continue;
-          }
-
-          a = agent->next_action(r, es);
-          r = e->apply(a);
-
-          // update performance info
-          sum += r;
-          ++steps;
-        }
-        */
-        /*
-        bool changedRow = false;
-        while (!e->terminal() && steps < MAXSTEPS) {
-
-          // perform an action
-          es = e->sensation();
-          if (changedRow) {
-              a = agent->first_action(es);
-              changedRow = false;
-          }
-          else {
-              a = agent->next_action(r, es);
-          }
-          r = e->apply(a);
-          if (a == 1 || a == 4) {
-              printf("CHANGED ROW");
-              changedRow = true;
-          }
-
-          // update performance info
-          sum += r;
-          ++steps;
-
-        }
-        */
-
+}

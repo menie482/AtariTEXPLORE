@@ -36,8 +36,6 @@ public:
 
   virtual std::vector<experience> getSeedings();
 
-  long totalScore;
-
 protected:
   ALEInterface ale;
 	IntMatrix screen_matrix;

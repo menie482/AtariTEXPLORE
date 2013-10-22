@@ -236,6 +236,18 @@ public:
 
   virtual ~Environment() {};
 
+  /** Methods from Arcade, declared here. */
+  virtual void getDiscretization(std::vector<int> *statesPerDim) {};
+  virtual std::vector<ModelSpecification>& getModelSpecs() {};
+  virtual char* getEnvironmentDescription() {return NULL;};
+  virtual bool invalidStateChange(int lastAction) {return false;};
+
+  long totalScore;
+
+  /**
+   * Initialize totalScore for possible child class here.
+   */
+  Environment(): totalScore(0) {}
 };
 
 /** Interface for an agent.  Implementations of the Agent interface
