@@ -257,7 +257,7 @@ CMAKE_EXPORT_COMPILE_COMMANDS-ADVANCED:INTERNAL=1
 CMAKE_GENERATOR:INTERNAL=Unix Makefiles
 //Start directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/u/menie482/workspace/AtariTEXPLORE
+CMAKE_HOME_DIRECTORY:INTERNAL=/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE
 //Install .so files without execute permission.
 CMAKE_INSTALL_SO_NO_EXE:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER
