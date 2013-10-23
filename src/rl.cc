@@ -235,7 +235,8 @@ int main(int argc, char **argv) {
     {"nolag", 0, 0, 8},
     {"highvar", 0, 0, 11},
     {"nepisodes", 1, 0, 12},
-    {"rom", 1, 0, 13}
+    {"rom", 1, 0, 13},
+    {NULL, 0, 0, 0}
   };
 
   bool epsilonChanged = false;
