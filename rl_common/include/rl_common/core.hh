@@ -34,6 +34,7 @@
 #define GPTREE      14
 #define CONSTANT    15
 
+
 const std::string modelNames[] = {
   "Tabular",
   "SLF",
@@ -238,7 +239,7 @@ public:
 
   /** Methods from Arcade, declared here. */
   virtual void getDiscretization(std::vector<int> *statesPerDim) {};
-  virtual std::vector<ModelSpecification>& getModelSpecs() {};
+  virtual std::vector<ModelSpecification>& getModelSpecs() {return modelSpecs;};
   virtual char* getEnvironmentDescription() {return NULL;};
   virtual bool invalidStateChange(int lastAction) {return false;};
 
@@ -247,7 +248,16 @@ public:
   /**
    * Initialize totalScore for possible child class here.
    */
-  Environment(): totalScore(0) {}
+  Environment(int stateSpaceLen): totalScore(0), stateSpaceLength(stateSpaceLen), state(stateSpaceLength),
+		  modelSpecs(stateSpaceLength + 3) {}
+
+  Environment():totalScore(0), stateSpaceLength(1), state(stateSpaceLength),
+		  modelSpecs(stateSpaceLength + 3) {}
+
+protected:
+  int stateSpaceLength;
+  std::vector<ModelSpecification> modelSpecs;
+  std::vector<float> state;
 };
 
 /** Interface for an agent.  Implementations of the Agent interface

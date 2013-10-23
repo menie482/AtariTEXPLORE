@@ -9,6 +9,7 @@
 #include <cmath>
 
 char* Arcade::getEnvironmentDescription() {
+	// FIXME not correct information
     return 
         "Specialized environment for Asterix, "
         "uses 16 features:\n"
@@ -32,8 +33,8 @@ char* Arcade::getEnvironmentDescription() {
 }
 
 Arcade::Arcade(char* rom_path) :
-	display_active(false), game_over(false), stateSpaceLength(16), state(stateSpaceLength),
-    modelSpecs(stateSpaceLength + 3)
+	Environment(16),
+	display_active(false), game_over(false)
 {
   // save the path
   romPath = rom_path;

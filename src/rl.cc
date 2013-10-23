@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
 
   // default params for env and agent
   char* agentType = NULL;
-  char* envType = "";
+  char* envType = NULL;
   char* romPath = NULL;
   char* modelTypeString = NULL;
   float discountfactor = 0.99;

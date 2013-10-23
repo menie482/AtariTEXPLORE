@@ -9,6 +9,7 @@
 
 
 FuelRooms::FuelRooms(Random &rand, bool extraVariation, bool stoch):
+  Environment(16),
   height(20), width(30),
   goal(coord_t(11.0,24.0)), 
   extraVar(extraVariation),
@@ -19,6 +20,26 @@ FuelRooms::FuelRooms(Random &rand, bool extraVariation, bool stoch):
   ew(s[1]),
   energy(s[2])
 {
+
+  // set model types FIXME for texplore only
+  modelSpecs[0].modelType = C45TREE;
+  modelSpecs[1].modelType = CONSTANT;
+  modelSpecs[2].modelType = CONSTANT;
+  modelSpecs[3].modelType = CONSTANT;
+  modelSpecs[4].modelType = CONSTANT;
+  modelSpecs[5].modelType = CONSTANT;
+  modelSpecs[6].modelType = CONSTANT;
+  modelSpecs[7].modelType = CONSTANT;
+  modelSpecs[8].modelType = CONSTANT;
+  modelSpecs[9].modelType = C45TREE;
+  modelSpecs[10].modelType = C45TREE;
+  modelSpecs[11].modelType = C45TREE;
+  modelSpecs[12].modelType = C45TREE;
+  modelSpecs[13].modelType = CONSTANT;
+  modelSpecs[14].modelType = CONSTANT;
+  modelSpecs[15].modelType = CONSTANT;
+  modelSpecs[17].modelType = C45TREE;
+  modelSpecs[18].modelType = C45TREE;
 
   fuelVisited = 0;
   totalVisited = 0;

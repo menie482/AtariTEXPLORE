@@ -44,11 +44,8 @@ protected:
     char* romPath;
 	bool display_active;
 	bool game_over;
-  const int stateSpaceLength;
 	
 private:
   float minReward;
   float maxReward;
-  std::vector<float> state;
-  std::vector<ModelSpecification> modelSpecs;
 };
