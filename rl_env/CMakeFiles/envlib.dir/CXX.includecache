@@ -6,55 +6,55 @@
 
 #IncludeRegexTransform: 
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/Arcade.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/Arcade.cc
 rl_env/Arcade.hh
 -
 cmath
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/CartPole.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/CartPole.cc
 rl_env/CartPole.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/FuelRooms.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/FuelRooms.cc
 rl_env/FuelRooms.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/LightWorld.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/LightWorld.cc
 rl_env/LightWorld.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/MountainCar.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/MountainCar.cc
 rl_env/MountainCar.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/RobotCarVel.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/RobotCarVel.cc
 rl_env/RobotCarVel.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/energyrooms.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/energyrooms.cc
 rl_env/energyrooms.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/fourrooms.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/fourrooms.cc
 rl_env/fourrooms.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/gridworld.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/gridworld.cc
 rl_env/gridworld.hh
 -
 cmath
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/stocks.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/stocks.cc
 rl_env/stocks.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/taxi.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/taxi.cc
 rl_env/taxi.hh
 -
 
-/home/menie/workspace/AtariTEXPLORE/rl_env/src/Env/tworooms.cc
+/u/menie482/workspace/AtariTEXPLORE/rl_env/src/Env/tworooms.cc
 rl_env/tworooms.hh
 -
 

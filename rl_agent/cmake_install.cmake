@@ -1,4 +1,4 @@
-# Install script for directory: /home/menie/workspace/AtariTEXPLORE/rl_agent
+# Install script for directory: /u/menie482/workspace/AtariTEXPLORE/rl_agent
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
