@@ -19,8 +19,8 @@ set -e
 
 #./experiment --agent texplore --rom ./games/asterix.bin --actrate 2 --n 5 --v 2 --history 1
 
-#./experiment --agent texplore --env fuelworld
+./experiment --agent texplore --env fuelworld
 
-./experiment --agent qlearner --env tworooms
+#./experiment --agent qlearner --env fuelworld
 
 set +e
