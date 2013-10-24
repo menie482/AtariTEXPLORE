@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE
+CMAKE_SOURCE_DIR = /home/menie/workspace/AtariTEXPLORE
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE
+CMAKE_BINARY_DIR = /home/menie/workspace/AtariTEXPLORE
 
 # Include any dependencies generated for this target.
 include CMakeFiles/experiment.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/experiment.dir/flags.make
 
 CMakeFiles/experiment.dir/src/rl.o: CMakeFiles/experiment.dir/flags.make
 CMakeFiles/experiment.dir/src/rl.o: src/rl.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/menie/workspace/AtariTEXPLORE/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/experiment.dir/src/rl.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/experiment.dir/src/rl.o -c /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/src/rl.cc
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/experiment.dir/src/rl.o -c /home/menie/workspace/AtariTEXPLORE/src/rl.cc
 
 CMakeFiles/experiment.dir/src/rl.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/experiment.dir/src/rl.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/src/rl.cc > CMakeFiles/experiment.dir/src/rl.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/menie/workspace/AtariTEXPLORE/src/rl.cc > CMakeFiles/experiment.dir/src/rl.i
 
 CMakeFiles/experiment.dir/src/rl.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/experiment.dir/src/rl.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/src/rl.cc -o CMakeFiles/experiment.dir/src/rl.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/menie/workspace/AtariTEXPLORE/src/rl.cc -o CMakeFiles/experiment.dir/src/rl.s
 
 CMakeFiles/experiment.dir/src/rl.o.requires:
 .PHONY : CMakeFiles/experiment.dir/src/rl.o.requires
@@ -86,7 +86,7 @@ experiment: lib/libenvlib.a
 experiment: ale/liblocal/SDL-1.2.15/build/.libs/libSDL.a
 experiment: ale/liblocal/SDL_image-1.2.12/.libs/libSDL_image.a
 experiment: ale/liblocal/SDL_gfx-2.0.24/.libs/libSDL_gfx.a
-experiment: /usr/lib/libdirectfb.so
+experiment: /usr/local/lib/libdirectfb.so
 experiment: CMakeFiles/experiment.dir/build.make
 experiment: CMakeFiles/experiment.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable experiment"
@@ -104,6 +104,6 @@ CMakeFiles/experiment.dir/clean:
 .PHONY : CMakeFiles/experiment.dir/clean
 
 CMakeFiles/experiment.dir/depend:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/CMakeFiles/experiment.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/menie/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/menie/workspace/AtariTEXPLORE /home/menie/workspace/AtariTEXPLORE /home/menie/workspace/AtariTEXPLORE /home/menie/workspace/AtariTEXPLORE /home/menie/workspace/AtariTEXPLORE/CMakeFiles/experiment.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/experiment.dir/depend
 

@@ -1,0 +1,43 @@
+--agent type  option is required
+
+ Call experiment --agent type --env type [options]
+Agent types: qlearner sarsa modelbased rmax texplore dyna savedpolicy
+Env types: taxi tworooms fourrooms energy fuelworld mcar cartpole car2to7 car7to2 carrandom stocks lightworld
+
+ Agent Options:
+--gamma value (discount factor between 0 and 1)
+--epsilon value (epsilon for epsilon-greedy exploration)
+--alpha value (learning rate alpha)
+--initialvalue value (initial q values)
+--actrate value (action selection rate (Hz))
+--lamba value (lamba for eligibility traces)
+--m value (parameter for R-Max)
+--k value (For Dyna: # of model based updates to do between each real world update)
+--history value (# steps of history to use for planning with delay)
+--filename file (file to load saved policy from for savedpolicy agent)
+--model type (tabular,tree,m5tree)
+--planner type (vi,pi,sweeping,uct,parallel-uct,delayed-uct,delayed-parallel-uct)
+--explore type (unknown,greedy,epsilongreedy,variancenovelty)
+--combo type (average,best,separate)
+--nmodels value (# of models)
+--nstates value (optionally discretize domain into value # of states on each feature)
+--reltrans (learn relative transitions)
+--abstrans (learn absolute transitions)
+--v value (For TEXPLORE: b/v coefficient for rewarding state-actions where models disagree)
+--n value (For TEXPLORE: n coefficient for rewarding state-actions which are novel)
+
+ Env Options:
+--deterministic (deterministic version of domain)
+--stochastic (stochastic version of domain)
+--delay value (# steps of action delay (for mcar and tworooms)
+--lag (turn on brake lag for car driving domain)
+--highvar (have variation fuel costs in Fuel World)
+--nsectors value (# sectors for stocks domain)
+--nstocks value (# stocks for stocks domain)
+--rom path (path to ROM for Arcade env)
+
+--prints (turn on debug printing of actions/rewards)
+--nepisodes value (# of episodes to run (1000 default)
+--seed value (integer seed for random number generator)
+
+ For more info, see: http://www.ros.org/wiki/rl_experiment

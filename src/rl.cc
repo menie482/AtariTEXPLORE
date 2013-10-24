@@ -49,7 +49,7 @@ using namespace std;
 unsigned NUMEPISODES = 300; //10; //200; //500; //200;
 const unsigned NUMTRIALS = 1; //30; //30; //5; //30; //30; //50
 unsigned MAXSTEPS = 2000; // per episode
-bool PRINTS = false;
+bool PRINTS = true; // will print helpful information
 
 
 void displayHelp(){
@@ -686,8 +686,8 @@ int main(int argc, char **argv) {
 
   // Construct environment here.
   Environment* e;
+  std::vector<int> statesPerDim;
 
-/*
   if (strcmp(envType, "cartpole") == 0){
     if (PRINTS) cout << "Environment: Cart Pole\n";
     e = new CartPole(rng, stochastic);
@@ -761,13 +761,12 @@ int main(int argc, char **argv) {
     if (PRINTS) cout << "Environment: EnergyRooms\n";
     e = new EnergyRooms(rng, stochastic, true, false);
   }
-  */
 
   /* FIXME only enable fuelworld for current experiment.
    * Other environments may have problems due to change of Environment structure.
    */
   // gridworld with fuel (fuel stations on top and bottom with random costs)
-  if (strcmp(envType, "fuelworld") == 0){
+  else if (strcmp(envType, "fuelworld") == 0){
     if (PRINTS) cout << "Environment: FuelWorld\n";
     e = new FuelRooms(rng, highvar, stochastic);
   }
@@ -802,7 +801,6 @@ int main(int argc, char **argv) {
   e->getMinMaxFeatures(&minValues, &maxValues);
   bool episodic = e->isEpisodic();
   std::vector<ModelSpecification> modelSpecs = e->getModelSpecs();
-  std::vector<int> statesPerDim;
   e->getDiscretization(&statesPerDim);
 
   cout << "Environment is ";

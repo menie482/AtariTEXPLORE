@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE
+CMAKE_SOURCE_DIR = /home/menie/workspace/AtariTEXPLORE
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE
+CMAKE_BINARY_DIR = /home/menie/workspace/AtariTEXPLORE
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -E cmake_progress_start /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/CMakeFiles /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/CMakeFiles/progress.marks
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/CMakeFiles 0
+	cd /home/menie/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -E cmake_progress_start /home/menie/workspace/AtariTEXPLORE/CMakeFiles /home/menie/workspace/AtariTEXPLORE/rl_env/CMakeFiles/progress.marks
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/menie/workspace/AtariTEXPLORE/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/clean
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/preinstall
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/preinstall
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/menie/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 rl_env/CMakeFiles/envlib.dir/rule:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/CMakeFiles/envlib.dir/rule
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f CMakeFiles/Makefile2 rl_env/CMakeFiles/envlib.dir/rule
 .PHONY : rl_env/CMakeFiles/envlib.dir/rule
 
 # Convenience name for target.
@@ -109,187 +109,187 @@ envlib: rl_env/CMakeFiles/envlib.dir/rule
 
 # fast build rule for target.
 envlib/fast:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/build
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/build
 .PHONY : envlib/fast
 
 # target to build an object file
 src/Env/Arcade.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/Arcade.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/Arcade.o
 .PHONY : src/Env/Arcade.o
 
 # target to preprocess a source file
 src/Env/Arcade.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/Arcade.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/Arcade.i
 .PHONY : src/Env/Arcade.i
 
 # target to generate assembly for a file
 src/Env/Arcade.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/Arcade.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/Arcade.s
 .PHONY : src/Env/Arcade.s
 
 # target to build an object file
 src/Env/CartPole.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/CartPole.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/CartPole.o
 .PHONY : src/Env/CartPole.o
 
 # target to preprocess a source file
 src/Env/CartPole.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/CartPole.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/CartPole.i
 .PHONY : src/Env/CartPole.i
 
 # target to generate assembly for a file
 src/Env/CartPole.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/CartPole.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/CartPole.s
 .PHONY : src/Env/CartPole.s
 
 # target to build an object file
 src/Env/FuelRooms.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/FuelRooms.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/FuelRooms.o
 .PHONY : src/Env/FuelRooms.o
 
 # target to preprocess a source file
 src/Env/FuelRooms.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/FuelRooms.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/FuelRooms.i
 .PHONY : src/Env/FuelRooms.i
 
 # target to generate assembly for a file
 src/Env/FuelRooms.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/FuelRooms.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/FuelRooms.s
 .PHONY : src/Env/FuelRooms.s
 
 # target to build an object file
 src/Env/LightWorld.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/LightWorld.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/LightWorld.o
 .PHONY : src/Env/LightWorld.o
 
 # target to preprocess a source file
 src/Env/LightWorld.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/LightWorld.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/LightWorld.i
 .PHONY : src/Env/LightWorld.i
 
 # target to generate assembly for a file
 src/Env/LightWorld.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/LightWorld.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/LightWorld.s
 .PHONY : src/Env/LightWorld.s
 
 # target to build an object file
 src/Env/MountainCar.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/MountainCar.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/MountainCar.o
 .PHONY : src/Env/MountainCar.o
 
 # target to preprocess a source file
 src/Env/MountainCar.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/MountainCar.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/MountainCar.i
 .PHONY : src/Env/MountainCar.i
 
 # target to generate assembly for a file
 src/Env/MountainCar.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/MountainCar.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/MountainCar.s
 .PHONY : src/Env/MountainCar.s
 
 # target to build an object file
 src/Env/RobotCarVel.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/RobotCarVel.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/RobotCarVel.o
 .PHONY : src/Env/RobotCarVel.o
 
 # target to preprocess a source file
 src/Env/RobotCarVel.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/RobotCarVel.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/RobotCarVel.i
 .PHONY : src/Env/RobotCarVel.i
 
 # target to generate assembly for a file
 src/Env/RobotCarVel.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/RobotCarVel.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/RobotCarVel.s
 .PHONY : src/Env/RobotCarVel.s
 
 # target to build an object file
 src/Env/energyrooms.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/energyrooms.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/energyrooms.o
 .PHONY : src/Env/energyrooms.o
 
 # target to preprocess a source file
 src/Env/energyrooms.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/energyrooms.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/energyrooms.i
 .PHONY : src/Env/energyrooms.i
 
 # target to generate assembly for a file
 src/Env/energyrooms.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/energyrooms.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/energyrooms.s
 .PHONY : src/Env/energyrooms.s
 
 # target to build an object file
 src/Env/fourrooms.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/fourrooms.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/fourrooms.o
 .PHONY : src/Env/fourrooms.o
 
 # target to preprocess a source file
 src/Env/fourrooms.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/fourrooms.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/fourrooms.i
 .PHONY : src/Env/fourrooms.i
 
 # target to generate assembly for a file
 src/Env/fourrooms.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/fourrooms.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/fourrooms.s
 .PHONY : src/Env/fourrooms.s
 
 # target to build an object file
 src/Env/gridworld.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/gridworld.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/gridworld.o
 .PHONY : src/Env/gridworld.o
 
 # target to preprocess a source file
 src/Env/gridworld.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/gridworld.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/gridworld.i
 .PHONY : src/Env/gridworld.i
 
 # target to generate assembly for a file
 src/Env/gridworld.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/gridworld.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/gridworld.s
 .PHONY : src/Env/gridworld.s
 
 # target to build an object file
 src/Env/stocks.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/stocks.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/stocks.o
 .PHONY : src/Env/stocks.o
 
 # target to preprocess a source file
 src/Env/stocks.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/stocks.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/stocks.i
 .PHONY : src/Env/stocks.i
 
 # target to generate assembly for a file
 src/Env/stocks.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/stocks.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/stocks.s
 .PHONY : src/Env/stocks.s
 
 # target to build an object file
 src/Env/taxi.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/taxi.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/taxi.o
 .PHONY : src/Env/taxi.o
 
 # target to preprocess a source file
 src/Env/taxi.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/taxi.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/taxi.i
 .PHONY : src/Env/taxi.i
 
 # target to generate assembly for a file
 src/Env/taxi.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/taxi.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/taxi.s
 .PHONY : src/Env/taxi.s
 
 # target to build an object file
 src/Env/tworooms.o:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/tworooms.o
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/tworooms.o
 .PHONY : src/Env/tworooms.o
 
 # target to preprocess a source file
 src/Env/tworooms.i:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/tworooms.i
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/tworooms.i
 .PHONY : src/Env/tworooms.i
 
 # target to generate assembly for a file
 src/Env/tworooms.s:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/tworooms.s
+	cd /home/menie/workspace/AtariTEXPLORE && $(MAKE) -f rl_env/CMakeFiles/envlib.dir/build.make rl_env/CMakeFiles/envlib.dir/src/Env/tworooms.s
 .PHONY : src/Env/tworooms.s
 
 # Help Target
@@ -348,6 +348,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/menie/workspace/AtariTEXPLORE && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
