@@ -22,6 +22,11 @@
 *.sample
 ale/liblocal/SDL*
 rl_env/CMakeFiles/*
+rl_env/*.camke
 rl_common/CMakeFiles/*
+rl_common/*.cmake
 rl_agent/CMakeFiles/*
+rl_agent/*.cmake
 CMakeFiles/*
+CMakeCache.txt
+experiment
