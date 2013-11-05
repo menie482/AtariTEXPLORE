@@ -9,6 +9,6 @@ set -e
 
 #gdb --args experiment --agent texplore --env fuelworld
 
-#gdb --args experiment --agent sarsa --env fuelworld
+gdb --args experiment --agent sarsa --env fuelworld
 
 set +e

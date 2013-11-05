@@ -38,8 +38,9 @@ FuelRooms::FuelRooms(Random &rand, bool extraVariation, bool stoch):
   modelSpecs[13].modelType = CONSTANT;
   modelSpecs[14].modelType = CONSTANT;
   modelSpecs[15].modelType = CONSTANT;
-  modelSpecs[17].modelType = C45TREE;
-  modelSpecs[18].modelType = C45TREE;
+
+  modelSpecs[17].modelType = C45TREE; // reward
+  modelSpecs[18].modelType = C45TREE; // terminal
 
   fuelVisited = 0;
   totalVisited = 0;

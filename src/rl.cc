@@ -838,9 +838,14 @@ int main(int argc, char **argv) {
     statesPerDim.resize(minValues.size(), nstates);
   }
 
+  /**
+   * Go through each trial
+   */
   for (unsigned j = 0; j < NUMTRIALS; ++j) {
 
-    // Construct agent here.
+    /**
+     *  Construct agent here.
+     */
     Agent* agent;
 
     if (strcmp(agentType, "qlearner") == 0){
@@ -875,6 +880,7 @@ int main(int argc, char **argv) {
                         rng);
     }
 
+    // rmax and texplore are also model based agents
     else if (strcmp(agentType, "modelbased") == 0 || strcmp(agentType, "rmax") || strcmp(agentType, "texplore")){
       if (PRINTS) cout << "Agent: Model Based" << endl;
       agent = new ModelBasedAgent(numactions,
@@ -975,7 +981,9 @@ int main(int argc, char **argv) {
 
     }
 
-    // EPISODIC DOMAINS
+    /**
+     * Episodic (like FuelRooms)
+     */
     else {
       ofstream scoreFile;
 
@@ -1022,9 +1030,9 @@ int main(int argc, char **argv) {
       cerr << endl << endl;
       cerr << "score\t#steps\t#invld" << endl;
 
-      //////////////////////////////////
-      // episodic
-      //////////////////////////////////
+      /**
+       * iterate over episodes
+       */
       for (unsigned i = 0; i < NUMEPISODES; ++i) {
 
         // performance tracking
