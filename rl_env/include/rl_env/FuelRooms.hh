@@ -37,7 +37,6 @@ public:
   virtual void getMinMaxFeatures(std::vector<float> *minFeat, std::vector<float> *maxFeat);
   virtual void getMinMaxReward(float* minR, float* maxR);
 
-  // DUMMY?
   virtual std::vector<experience> getSeedings();
 
   /** Get an example experience for this state-action. */

@@ -147,23 +147,6 @@ float FuelRooms::reward(int effect) {
     return 0.0;
   }
 
-  // NOT DESCRIBED IN THE PAPER?
-  /*
-  if (ns == 0 || ns == height){
-    float base = -10.0;
-    if (ns == 0)
-      base = -13.0;
-  
-    // extra variation
-    float var = 1.0;
-    if (extraVar)
-      var = 5.0;
-    else
-      base -= 8.0;
-
-    return base - (((int)ew % 5) * var);
-  }*/
- 
   // cost for straight moving
   if (effect == NORTH || effect == SOUTH || effect == EAST || effect == WEST)
     return -1.0;
