@@ -934,7 +934,9 @@ int main(int argc, char **argv) {
     // before we start, seed the agent with some experiences
     agent->seedExp(e->getSeedings());
 
-    // STEP BY STEP DOMAIN
+    /**
+     * Non-episodic domain
+     */
     if (!episodic){
 
       // performance tracking
@@ -1006,6 +1008,9 @@ int main(int argc, char **argv) {
       cerr << "REWARD: " << modelNames[modelSpecs[modelSpecs.size() - 2].modelType] << endl;
       cerr << "TERMINAL: " << modelNames[modelSpecs[modelSpecs.size() - 1].modelType] << endl << endl;
 
+      /**
+       * Pipe open other process and printing some stuff
+       */
       FILE *hostname = popen("hostname", "r");
       char hostbuffer[200];
       while (fgets(hostbuffer, sizeof(hostbuffer) - 1, hostname) != NULL) {

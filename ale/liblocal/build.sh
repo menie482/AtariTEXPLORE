@@ -5,9 +5,9 @@
 
 set -e
 
-cd archives
-cp *.tar* ../
-cd ..
+#cd archives
+#cp *.tar* ../
+#cd ..
 
 tar xvfz SDL-1.2.15.tar.gz 
 tar xvfz SDL_gfx-2.0.24.tar.gz 

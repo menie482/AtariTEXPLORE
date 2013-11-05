@@ -6,7 +6,7 @@
 */
 
 #include <rl_env/FuelRooms.hh>
-
+#define DEBUG_FUEL
 
 FuelRooms::FuelRooms(Random &rand, bool extraVariation, bool stoch):
   Environment(16),
@@ -21,7 +21,8 @@ FuelRooms::FuelRooms(Random &rand, bool extraVariation, bool stoch):
   energy(s[2])
 {
 
-  // set model types FIXME for texplore only
+  // set model types
+  // FIXME for texplore only
   modelSpecs[0].modelType = C45TREE;
   modelSpecs[1].modelType = CONSTANT;
   modelSpecs[2].modelType = CONSTANT;
@@ -74,18 +75,25 @@ float FuelRooms::apply(int action) {
   if (terminal())
     return 0.0;
 
-  //cout << "Taking action " << static_cast<room_action_t>(action) << endl;
+#ifdef DEBUG_FEUL
+  cout << "Taking action " << static_cast<room_action_t>(action) << endl;
 
-  //cout << "state: " << s[0] << ", " << s[1] << ", " << s[2] 
-  //    << " act: " << action << endl;
+  cout << "state: " << s[0] << ", " << s[1] << ", " << s[2]
+      << " act: " << action << endl;
+#endif
 
+  // ALTERNATIVE PLAN:
   // 20% lose none
   // 20% lose two
   // 80% of the time, lose one energy
   //  if (!noisy || rng.bernoulli(0.8))
+
+  // using static energy consumption
   energy--;
 
   // many fuel squares, with varying amounts reward
+
+  // fuel squares are at the north and south boundary.
   if ((int)ns == 0 || (int)ns == height){
     energy += 20.0;
   }
@@ -119,6 +127,7 @@ float FuelRooms::apply(int action) {
   
   return r;
   
+  // WHAT'S THIS?
   std::cerr << "Unreachable point reached in FuelRooms::apply!!!\n";
   return 0; // unreachable, I hope
 }
@@ -132,17 +141,14 @@ float FuelRooms::reward(int effect) {
   }
 
   if (terminal()){
-    //cout << "Found goal!!!!" << endl;
+#ifdef DEBUG_FUEL
+    cout << "Found goal!!!!" << endl;
+#endif
     return 0.0;
   }
 
-  // extra cost at fuel stations
+  // NOT DESCRIBED IN THE PAPER?
   /*
-  if (ns == 0 || ns == height){
-    return -5.0;
-  }
-  */
-
   if (ns == 0 || ns == height){
     float base = -10.0;
     if (ns == 0)
@@ -156,11 +162,12 @@ float FuelRooms::reward(int effect) {
       base -= 8.0;
 
     return base - (((int)ew % 5) * var);
-      
-  }
+  }*/
  
+  // cost for straight moving
   if (effect == NORTH || effect == SOUTH || effect == EAST || effect == WEST)
     return -1.0;
+  // cost for diagonal moving
   else
     return -1.4;
   
