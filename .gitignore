@@ -21,4 +21,7 @@
 *~
 *.sample
 ale/liblocal/SDL*
+rl_env/CMakeFiles/*
+rl_common/CMakeFiles/*
+rl_agent/CMakeFiles/*
 CMakeFiles/*
