@@ -33,3 +33,5 @@ rl_agent/Makefile
 CMakeFiles/*
 CMakeCache.txt
 experiment
+cmake_install.cmake
+Makefile
