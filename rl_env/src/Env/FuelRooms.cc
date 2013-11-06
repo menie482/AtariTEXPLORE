@@ -184,6 +184,7 @@ bool FuelRooms::terminal() const {
 void FuelRooms::reset() {
   // giving statistics
   this->printVisits();
+  this->printVisitMap("map");
 
   // start randomly in left region
   ns = rng.uniformDiscrete(7, 12);
@@ -229,7 +230,10 @@ void FuelRooms::printVisitMap(string filename){
  ofstream fout(filename.c_str());
   for (int i = 0; i < 21; i++){
     for (int j = 0; j < 31; j++){
-      fout << stateVisits[i][j] << "\t";
+      int visits = stateVisits[i][j];
+
+      if (visits < 10) fout << visits;
+      else fout << "x"; // padding problem
     }
     fout << endl;
   }
