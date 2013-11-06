@@ -248,10 +248,7 @@ public:
   /**
    * Initialize totalScore for possible child class here.
    */
-  Environment(int stateSpaceLen): totalScore(0), stateSpaceLength(stateSpaceLen), state(stateSpaceLength),
-		  modelSpecs(stateSpaceLength + 3) {}
-
-  Environment():totalScore(0), stateSpaceLength(1), state(stateSpaceLength),
+  Environment(int stateSpaceLen = 1): totalScore(0), stateSpaceLength(stateSpaceLen), state(stateSpaceLength),
 		  modelSpecs(stateSpaceLength + 3) {}
 
 protected:
