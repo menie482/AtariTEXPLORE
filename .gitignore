@@ -20,7 +20,6 @@
 .*.swp
 *~
 *.sample
-ale/liblocal/SDL*
 rl_env/CMakeFiles/*
 rl_env/*.cmake
 rl_env/Makefile
@@ -34,4 +33,3 @@ CMakeFiles/*
 CMakeCache.txt
 experiment
 cmake_install.cmake
-Makefile
