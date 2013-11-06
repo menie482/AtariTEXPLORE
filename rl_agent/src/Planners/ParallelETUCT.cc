@@ -476,7 +476,7 @@ int ParallelETUCT::getBestAction(const std::vector<float> &state){
 
   
    //(cdonahue) code to toggle rollout info printing
-  if (ATHREADDEBUG || true) {
+  if (ATHREADDEBUG) {
     if (previnfo != NULL)
       cout << " ... now " << previnfo->uctVisits << " times." << endl;
     cout << "Getting best action from state ";

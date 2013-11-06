@@ -208,6 +208,11 @@ void ModelBasedAgent::last_action(float r) {
   // this is where we possibly plan again if model changes
   updateWithNewExperience(prevstate, prevstate, prevact, r, true);
 
+  // TODO check this - added back
+  // let planner know we're in between episodes if doing parallel
+  if (plannerType == PARALLEL_ET_UCT){
+    ((ParallelETUCT*)planner)->setBetweenEpisodes();
+  }
 }
 
 
@@ -287,7 +292,8 @@ void ModelBasedAgent::initModel(int nfactors){
 void ModelBasedAgent::initPlanner(){
   if (AGENTDEBUG) cout << "InitPlanner type: " << plannerType << endl;
 
-  int max_path = 25; //25; //500;
+  // TODO check this, changed back
+  int max_path = 200;
 
   // init planner based on type
   if (plannerType == VALUE_ITERATION){

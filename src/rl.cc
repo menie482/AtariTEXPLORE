@@ -46,7 +46,7 @@ using namespace std;
 #include <getopt.h>
 #include <stdlib.h>
 
-unsigned NUMEPISODES = 30; //300; //200; //500; //200;
+unsigned NUMEPISODES = 100; //300; //200; //500; //200;
 const unsigned NUMTRIALS = 1; //30; //30; //5; //30; //30; //50
 unsigned MAXSTEPS = 2000; // per episode
 bool PRINTS = true; // will print helpful information
@@ -1094,6 +1094,8 @@ int main(int argc, char **argv) {
         e->reset();
         //std::cerr << sum << endl;
         rsum += sum;
+
+        cout << "This reward sum " << sum << endl;
       } 
     }
 

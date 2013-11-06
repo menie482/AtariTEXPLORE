@@ -182,6 +182,9 @@ bool FuelRooms::terminal() const {
 
 
 void FuelRooms::reset() {
+  // giving statistics
+  this->printVisits();
+
   // start randomly in left region
   ns = rng.uniformDiscrete(7, 12);
   ew = rng.uniformDiscrete(0, 4);
@@ -217,7 +220,9 @@ void FuelRooms::printVisits(){
   float totalStates = 31.0 * 21.0;
   float fuelStates = 31.0 * 2.0;
   float otherStates = totalStates - fuelStates;
-  cout << (fuelVisited/fuelStates) << endl << ((totalVisited-fuelVisited)/otherStates) << endl << (totalVisited/totalStates) << endl;
+  cout << "feul visits: " << (fuelVisited/fuelStates) << endl
+		  << "space visits: " << ((totalVisited-fuelVisited)/otherStates) << endl
+		  << "total coverage" << (totalVisited/totalStates) << endl;
 }
 
 void FuelRooms::printVisitMap(string filename){

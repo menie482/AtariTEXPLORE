@@ -7,10 +7,10 @@ set -e
 
 echo "Building ALE"
 cd ale
-make
+make -j4
 cd ..
 
 echo -ne '\n' | cmake -i -Wno-dev
-make
+make -j4
 
 set +e
