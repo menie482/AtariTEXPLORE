@@ -1,4 +1,4 @@
-# Install script for directory: /v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE
+# Install script for directory: /u/menie482/workspace/AtariTEXPLORE
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,9 +34,9 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_common/cmake_install.cmake")
-  INCLUDE("/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_agent/cmake_install.cmake")
-  INCLUDE("/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/rl_env/cmake_install.cmake")
+  INCLUDE("/u/menie482/workspace/AtariTEXPLORE/rl_common/cmake_install.cmake")
+  INCLUDE("/u/menie482/workspace/AtariTEXPLORE/rl_agent/cmake_install.cmake")
+  INCLUDE("/u/menie482/workspace/AtariTEXPLORE/rl_env/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -46,7 +46,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/u/menie482/workspace/AtariTEXPLORE/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/v/filer4b/v38q001/menie482/workspace/AtariTEXPLORE/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/u/menie482/workspace/AtariTEXPLORE/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

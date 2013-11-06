@@ -104,10 +104,10 @@ void ModelBasedAgent::initParams(){
   
   BATCH_FREQ = 1; //50;
 
-  TIMEDEBUG = false; //true;
+  TIMEDEBUG = false;
   AGENTDEBUG = false;
-  ACTDEBUG = false;//true;
-  SIMPLEDEBUG = false; //true; //false; //true;
+  ACTDEBUG = false;
+  SIMPLEDEBUG = false;
 
   // check
   if (qmax <= 0.1 && (exploreType == TWO_MODE_PLUS_R || 
