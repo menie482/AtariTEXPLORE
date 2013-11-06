@@ -5,10 +5,10 @@
 
 set -e
 
-#gdb --args experiment --agent texplore --actrate 1 --nstates 20 --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin
+gdb --args experiment --agent texplore --actrate 1 --nstates 20 --explore variancenovelty --n 5 --v 2 --rom ./games/asterix.bin
 
 #gdb --args experiment --agent texplore --env fuelworld
 
-gdb --args experiment --agent sarsa --env fuelworld
+#gdb --args experiment --agent sarsa --env fuelworld
 
 set +e
